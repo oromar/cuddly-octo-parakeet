@@ -36,7 +36,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(473, 149);
             label1.Name = "label1";
-            label1.Size = new Size(59, 15);
+            label1.Size = new Size(57, 15);
             label1.TabIndex = 0;
             label1.Text = "SETTINGS";
             // 
@@ -44,6 +44,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
             ClientSize = new Size(800, 450);
             Controls.Add(label1);
             Name = "Settings";

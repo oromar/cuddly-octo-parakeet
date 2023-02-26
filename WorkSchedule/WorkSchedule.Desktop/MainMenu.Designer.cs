@@ -43,7 +43,7 @@
             // 
             // panelMenuButtons
             // 
-            panelMenuButtons.BackColor = SystemColors.Desktop;
+            panelMenuButtons.BackColor = SystemColors.Control;
             panelMenuButtons.Controls.Add(btnClose);
             panelMenuButtons.Controls.Add(btnSettings);
             panelMenuButtons.Controls.Add(btnRoles);
@@ -53,6 +53,7 @@
             panelMenuButtons.Controls.Add(btnEmployees);
             panelMenuButtons.Controls.Add(btnHome);
             panelMenuButtons.Dock = DockStyle.Left;
+            panelMenuButtons.ForeColor = SystemColors.ControlText;
             panelMenuButtons.Location = new Point(0, 0);
             panelMenuButtons.Name = "panelMenuButtons";
             panelMenuButtons.Size = new Size(200, 619);
@@ -60,14 +61,15 @@
             // 
             // btnClose
             // 
-            btnClose.BackColor = SystemColors.ActiveCaptionText;
+            btnClose.BackColor = SystemColors.Control;
             btnClose.Cursor = Cursors.Hand;
             btnClose.Dock = DockStyle.Bottom;
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClose.ForeColor = SystemColors.ButtonHighlight;
+            btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClose.ForeColor = SystemColors.ControlText;
             btnClose.Location = new Point(0, 569);
+            btnClose.Margin = new Padding(5);
             btnClose.Name = "btnClose";
             btnClose.Padding = new Padding(8);
             btnClose.Size = new Size(200, 50);
@@ -79,14 +81,15 @@
             // 
             // btnSettings
             // 
-            btnSettings.BackColor = SystemColors.ActiveCaptionText;
+            btnSettings.BackColor = SystemColors.Control;
             btnSettings.Cursor = Cursors.Hand;
             btnSettings.Dock = DockStyle.Top;
             btnSettings.FlatAppearance.BorderSize = 0;
             btnSettings.FlatStyle = FlatStyle.Flat;
-            btnSettings.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSettings.ForeColor = SystemColors.ButtonHighlight;
+            btnSettings.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSettings.ForeColor = SystemColors.ControlText;
             btnSettings.Location = new Point(0, 300);
+            btnSettings.Margin = new Padding(5);
             btnSettings.Name = "btnSettings";
             btnSettings.Padding = new Padding(8);
             btnSettings.Size = new Size(200, 50);
@@ -98,14 +101,15 @@
             // 
             // btnRoles
             // 
-            btnRoles.BackColor = SystemColors.ActiveCaptionText;
+            btnRoles.BackColor = SystemColors.Control;
             btnRoles.Cursor = Cursors.Hand;
             btnRoles.Dock = DockStyle.Top;
             btnRoles.FlatAppearance.BorderSize = 0;
             btnRoles.FlatStyle = FlatStyle.Flat;
-            btnRoles.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnRoles.ForeColor = SystemColors.ButtonHighlight;
+            btnRoles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnRoles.ForeColor = SystemColors.ControlText;
             btnRoles.Location = new Point(0, 250);
+            btnRoles.Margin = new Padding(5);
             btnRoles.Name = "btnRoles";
             btnRoles.Padding = new Padding(8);
             btnRoles.Size = new Size(200, 50);
@@ -117,14 +121,15 @@
             // 
             // btnUsers
             // 
-            btnUsers.BackColor = SystemColors.ActiveCaptionText;
+            btnUsers.BackColor = SystemColors.Control;
             btnUsers.Cursor = Cursors.Hand;
             btnUsers.Dock = DockStyle.Top;
             btnUsers.FlatAppearance.BorderSize = 0;
             btnUsers.FlatStyle = FlatStyle.Flat;
-            btnUsers.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUsers.ForeColor = SystemColors.ButtonHighlight;
+            btnUsers.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUsers.ForeColor = SystemColors.ControlText;
             btnUsers.Location = new Point(0, 200);
+            btnUsers.Margin = new Padding(5);
             btnUsers.Name = "btnUsers";
             btnUsers.Padding = new Padding(8);
             btnUsers.Size = new Size(200, 50);
@@ -136,14 +141,15 @@
             // 
             // btnSchedules
             // 
-            btnSchedules.BackColor = SystemColors.ActiveCaptionText;
+            btnSchedules.BackColor = SystemColors.Control;
             btnSchedules.Cursor = Cursors.Hand;
             btnSchedules.Dock = DockStyle.Top;
             btnSchedules.FlatAppearance.BorderSize = 0;
             btnSchedules.FlatStyle = FlatStyle.Flat;
-            btnSchedules.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSchedules.ForeColor = SystemColors.ButtonHighlight;
+            btnSchedules.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSchedules.ForeColor = SystemColors.ControlText;
             btnSchedules.Location = new Point(0, 150);
+            btnSchedules.Margin = new Padding(5);
             btnSchedules.Name = "btnSchedules";
             btnSchedules.Padding = new Padding(8);
             btnSchedules.Size = new Size(200, 50);
@@ -155,14 +161,15 @@
             // 
             // btnRemoteness
             // 
-            btnRemoteness.BackColor = SystemColors.ActiveCaptionText;
+            btnRemoteness.BackColor = SystemColors.Control;
             btnRemoteness.Cursor = Cursors.Hand;
             btnRemoteness.Dock = DockStyle.Top;
             btnRemoteness.FlatAppearance.BorderSize = 0;
             btnRemoteness.FlatStyle = FlatStyle.Flat;
-            btnRemoteness.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnRemoteness.ForeColor = SystemColors.ButtonHighlight;
+            btnRemoteness.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnRemoteness.ForeColor = SystemColors.ControlText;
             btnRemoteness.Location = new Point(0, 100);
+            btnRemoteness.Margin = new Padding(5);
             btnRemoteness.Name = "btnRemoteness";
             btnRemoteness.Padding = new Padding(8);
             btnRemoteness.Size = new Size(200, 50);
@@ -174,14 +181,15 @@
             // 
             // btnEmployees
             // 
-            btnEmployees.BackColor = SystemColors.ActiveCaptionText;
+            btnEmployees.BackColor = SystemColors.Control;
             btnEmployees.Cursor = Cursors.Hand;
             btnEmployees.Dock = DockStyle.Top;
             btnEmployees.FlatAppearance.BorderSize = 0;
             btnEmployees.FlatStyle = FlatStyle.Flat;
-            btnEmployees.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnEmployees.ForeColor = SystemColors.ButtonHighlight;
+            btnEmployees.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEmployees.ForeColor = SystemColors.ControlText;
             btnEmployees.Location = new Point(0, 50);
+            btnEmployees.Margin = new Padding(5);
             btnEmployees.Name = "btnEmployees";
             btnEmployees.Padding = new Padding(8);
             btnEmployees.Size = new Size(200, 50);
@@ -193,25 +201,27 @@
             // 
             // btnHome
             // 
-            btnHome.BackColor = SystemColors.ActiveCaptionText;
+            btnHome.BackColor = SystemColors.Control;
             btnHome.Cursor = Cursors.Hand;
             btnHome.Dock = DockStyle.Top;
             btnHome.FlatAppearance.BorderSize = 0;
             btnHome.FlatStyle = FlatStyle.Flat;
-            btnHome.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnHome.ForeColor = SystemColors.ButtonHighlight;
+            btnHome.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnHome.ForeColor = SystemColors.ControlText;
             btnHome.Location = new Point(0, 0);
+            btnHome.Margin = new Padding(5);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(8);
             btnHome.Size = new Size(200, 50);
             btnHome.TabIndex = 0;
-            btnHome.Text = "Dashboard";
+            btnHome.Text = "Home";
             btnHome.TextAlign = ContentAlignment.MiddleLeft;
             btnHome.UseVisualStyleBackColor = false;
             btnHome.Click += btnHome_Click;
             // 
             // panelForm
             // 
+            panelForm.BackColor = Color.White;
             panelForm.Dock = DockStyle.Fill;
             panelForm.Location = new Point(200, 0);
             panelForm.Name = "panelForm";
@@ -222,10 +232,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1016, 619);
             Controls.Add(panelForm);
             Controls.Add(panelMenuButtons);
             Name = "MainMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "WorkSchedule";
             WindowState = FormWindowState.Maximized;
             panelMenuButtons.ResumeLayout(false);

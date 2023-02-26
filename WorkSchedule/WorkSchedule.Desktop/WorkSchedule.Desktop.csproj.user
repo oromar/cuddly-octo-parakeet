@@ -7,7 +7,7 @@
     <Compile Update="Forms\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Remoteness.cs">
+    <Compile Update="Forms\Absence.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\Roles.cs">

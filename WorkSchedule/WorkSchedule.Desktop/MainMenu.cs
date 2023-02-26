@@ -37,9 +37,8 @@ namespace WorkSchedule.Desktop
                 {
                     DisableButtons();
                     activeButton = btnSender;
-                    activeButton.BackColor = Color.White;
-                    activeButton.ForeColor = Color.Black;
-                    activeButton.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold);
+                    activeButton.FlatAppearance.BorderSize = 1;
+                    activeButton.FlatAppearance.BorderColor = Color.SteelBlue;
                 }
             }
         }
@@ -50,9 +49,7 @@ namespace WorkSchedule.Desktop
             {
                 if (item.GetType() == typeof(Button))
                 {
-                    item.BackColor = Color.Black;
-                    item.ForeColor= Color.White;
-                    item.Font = new Font("Microsoft Sans Serif", 9.75F);
+                    ((Button)item).FlatAppearance.BorderSize = 0;
                 }
             }
         }
@@ -85,7 +82,7 @@ namespace WorkSchedule.Desktop
 
         private void btnRemoteness_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Remoteness(), sender);
+            OpenChildForm(new Absence(), sender);
         }
 
         private void btnSchedules_Click(object sender, EventArgs e)

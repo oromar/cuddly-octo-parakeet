@@ -15,8 +15,6 @@ namespace WorkSchedule.Desktop.Forms
         public Roles()
         {
             InitializeComponent();
-            panelTitle.BackColor = Color.Blue;
-            labelTitle.ForeColor = Color.White;
         }
 
         private void label1_Click(object sender, EventArgs e)

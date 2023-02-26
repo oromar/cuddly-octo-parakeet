@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WorkSchedule.Desktop.Forms
 {
-    public partial class Remoteness : Form
+    public partial class Absence : Form
     {
-        public Remoteness()
+        public Absence()
         {
             InitializeComponent();
         }

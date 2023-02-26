@@ -9,21 +9,21 @@ using WorkSchedule.Domain.Services.Validators;
 namespace WorkSchedule.Domain.Models
 {
 
-    public class Remoteness: BaseEntity
+    public class Absence: BaseEntity
     {
-        private static RemotenessValidator validator = new();
+        private static AbsenceValidator validator = new();
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
         public RemotenessCause Cause { get; private set; }
         public Employee Employee { get; private set; }
         public string Description { get; private set; }
 
-        public Remoteness()
+        public Absence()
         {
             
         }
 
-        public Remoteness(DateTime start, DateTime end, RemotenessCause cause, Employee employee)
+        public Absence(DateTime start, DateTime end, RemotenessCause cause, Employee employee)
         {
             Start = start;
             End = end;
