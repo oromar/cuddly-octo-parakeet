@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Services.Interfaces;
 
-namespace WorkSchedule.Domain.Services
+namespace WorkSchedule.Domain.Services.Validators
 {
     public class PeriodValidator : IValidator<DateTime, DateTime>
     {

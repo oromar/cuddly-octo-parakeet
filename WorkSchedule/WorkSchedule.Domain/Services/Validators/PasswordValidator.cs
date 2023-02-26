@@ -8,14 +8,14 @@ using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Services.Interfaces;
 
-namespace WorkSchedule.Domain.Services
+namespace WorkSchedule.Domain.Services.Validators
 {
     public class PasswordValidator : IValidator<string>
     {
         public const int MIN_PASSWORD_LENGTH = 6;
         public void Validate(string value)
         {
-            var allowedSpecialChars = new List<char> { '%', '/','#', '$', '&', '@', '_', '-' };
+            var allowedSpecialChars = new List<char> { '%', '/', '#', '$', '&', '@', '_', '-' };
             if (string.IsNullOrWhiteSpace(value))
                 throw new DomainException(Strings.RequiredPassword);
             if (value.Length < MIN_PASSWORD_LENGTH)

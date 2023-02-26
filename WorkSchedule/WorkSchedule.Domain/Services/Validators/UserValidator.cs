@@ -7,7 +7,7 @@ using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Services.Interfaces;
 
-namespace WorkSchedule.Domain.Services
+namespace WorkSchedule.Domain.Services.Validators
 {
     public class UserValidator : IValidator<User>
     {

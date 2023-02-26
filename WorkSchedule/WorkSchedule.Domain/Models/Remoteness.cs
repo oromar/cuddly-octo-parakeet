@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkSchedule.Domain.Enums;
-using WorkSchedule.Domain.Services;
+using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Domain.Models
 {

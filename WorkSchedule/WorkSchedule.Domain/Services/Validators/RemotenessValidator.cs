@@ -8,9 +8,9 @@ using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Services.Interfaces;
 
-namespace WorkSchedule.Domain.Services
+namespace WorkSchedule.Domain.Services.Validators
 {
-    public class RemotenessValidator: IValidator<Remoteness>
+    public class RemotenessValidator : IValidator<Remoteness>
     {
         private static readonly EmployeeValidator employeeValidator = new();
         private static readonly PeriodValidator periodValidator = new();

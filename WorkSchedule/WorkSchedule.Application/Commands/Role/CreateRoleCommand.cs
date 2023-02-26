@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WorkSchedule.Domain.Services;
+using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Application.Commands.Role
 {

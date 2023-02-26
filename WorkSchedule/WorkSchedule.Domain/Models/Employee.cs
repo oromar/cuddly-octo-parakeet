@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WorkSchedule.Domain.Common;
-using WorkSchedule.Domain.Services;
+using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Domain.Models
 {

@@ -1,7 +1,7 @@
 ﻿using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Services.Interfaces;
 
-namespace WorkSchedule.Domain.Services
+namespace WorkSchedule.Domain.Services.Validators
 {
     public class EmployeeCodeValidator : IValidator<string>
     {

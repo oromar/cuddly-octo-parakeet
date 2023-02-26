@@ -7,3 +7,9 @@
 /WorkSchedule/WorkSchedule.Domain/obj
 /WorkSchedule/WorkSchedule.Infra/obj
 /WorkSchedule/WorkSchedule.Tests/obj
+/WorkSchedule/WorkSchedule.Application/bin/Debug/net6.0
+/WorkSchedule/WorkSchedule.Application/obj
+/WorkSchedule/WorkSchedule.Desktop/bin/Debug/net6.0-windows
+/WorkSchedule/WorkSchedule.Infra/bin/Debug/net6.0
+/WorkSchedule/WorkSchedule.Domain/bin/Debug/net6.0
+/WorkSchedule/WorkSchedule.Desktop/obj
