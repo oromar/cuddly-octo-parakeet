@@ -10,14 +10,14 @@ using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Services
 {
-    public class RoleValidationService : IValidationService<Role>
+    public class RoleValidator : IValidator<Role>
     {
-        private readonly RoleNameValidationService RoleNameValidationService = new RoleNameValidationService();
+        private readonly RoleNameValidator roleNameValidator = new RoleNameValidator();
         public void Validate(Role entity)
         {
             if (entity == null)
-                throw new DomainException("Invalid Role");
-            RoleNameValidationService.Validate(entity.Name);
+                throw new DomainException(Strings.RequiredRole);
+            roleNameValidator.Validate(entity.Name);
         }
     }
 }

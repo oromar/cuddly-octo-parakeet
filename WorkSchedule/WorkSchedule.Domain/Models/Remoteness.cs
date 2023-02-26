@@ -11,7 +11,7 @@ namespace WorkSchedule.Domain.Models
 
     public class Remoteness: BaseEntity
     {
-        private static RemotenessValidationService ValidationService = new RemotenessValidationService();
+        private static RemotenessValidator validator = new();
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
         public RemotenessCause Cause { get; private set; }
@@ -29,7 +29,7 @@ namespace WorkSchedule.Domain.Models
             End = end;
             Cause = cause;
             Employee = employee;
-            ValidationService.Validate(this);
+            validator.Validate(this);
         }
 
         public void SetDescription(string description)
@@ -43,7 +43,7 @@ namespace WorkSchedule.Domain.Models
             End = end;
             Cause = cause;
             Employee = employee;
-            ValidationService.Validate(this);
+            validator.Validate(this);
         }
     }
 }

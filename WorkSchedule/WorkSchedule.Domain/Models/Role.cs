@@ -11,7 +11,7 @@ namespace WorkSchedule.Domain.Models
 {
     public class Role: BaseEntity
     {
-        private static readonly RoleValidationService ValidationService = new RoleValidationService();
+        private static readonly RoleValidator validator = new();
         public string Name { get; private set; }
 
         public Role()
@@ -22,13 +22,13 @@ namespace WorkSchedule.Domain.Models
         public Role(string name)
         {
             Name = name;
-            ValidationService.Validate(this);
+            validator.Validate(this);
         }
 
         public void SetName(string newName)
         {
             Name = newName;
-            ValidationService.Validate(this);
+            validator.Validate(this);
         }
     }
 }

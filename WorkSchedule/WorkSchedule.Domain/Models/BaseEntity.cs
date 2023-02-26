@@ -16,5 +16,17 @@ namespace WorkSchedule.Domain.Models
             Id = Guid.NewGuid();
             CreationTime = DateTime.Now;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is BaseEntity entity)
+                return Id == entity.Id;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode() * 37;
+        }
     }
 }

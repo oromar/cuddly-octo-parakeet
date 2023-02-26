@@ -9,16 +9,16 @@ using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Services
 {
-    public class UserValidationService : IValidationService<User>
+    public class UserValidator : IValidator<User>
     {
+        private static readonly PasswordValidator passwordValidator = new();
         public void Validate(User entity)
         {
             if (string.IsNullOrWhiteSpace(entity.Name))
-                throw new DomainException("Invalid Name");
+                throw new DomainException(Strings.RequiredNameUser);
             if (string.IsNullOrWhiteSpace(entity.Username))
-                throw new DomainException("Invalid Username");
-            if (string.IsNullOrWhiteSpace(entity.Password))
-                throw new DomainException("Invalid Password");
+                throw new DomainException(Strings.RequiredUsername);
+            passwordValidator.Validate(entity.Password);
         }
     }
 }

@@ -9,8 +9,8 @@ namespace WorkSchedule.Domain.Models
 {
     public class User: BaseEntity
     {
-        private static readonly UserValidationService UserValidationService = new UserValidationService();
-        private static readonly PasswordValidationService PasswordValidationService = new PasswordValidationService();
+        private static readonly UserValidator validator = new();
+        private static readonly PasswordValidator passwordValidator = new();
         public string Name { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
@@ -25,13 +25,13 @@ namespace WorkSchedule.Domain.Models
             Name = name;
             Username = username;
             Password = password;
-            UserValidationService.Validate(this);
-            PasswordValidationService.Validate(password);
+            validator.Validate(this);
+            passwordValidator.Validate(password);
         }
 
         public void ChangePassword(string password)
         {
-            PasswordValidationService.Validate(password);
+            passwordValidator.Validate(password);
             Password = password;
         }
     }

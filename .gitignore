@@ -1,0 +1,9 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/WorkSchedule/WorkSchedule.Application/obj/Debug/net6.0
+/WorkSchedule/WorkSchedule.Desktop/obj/Debug/net6.0-windows
+/WorkSchedule/WorkSchedule.Domain/obj
+/WorkSchedule/WorkSchedule.Infra/obj
+/WorkSchedule/WorkSchedule.Tests/obj
