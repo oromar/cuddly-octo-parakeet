@@ -1,0 +1,12 @@
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\bin\Debug\net6.0\WorkSchedule.Domain.deps.json
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\bin\Debug\net6.0\WorkSchedule.Domain.dll
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\bin\Debug\net6.0\WorkSchedule.Domain.pdb
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.AssemblyInfo.cs
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.dll
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\refint\WorkSchedule.Domain.dll
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\WorkSchedule.Domain.pdb
+C:\Users\User\source\repos\WorkSchedule\WorkSchedule.Domain\obj\Debug\net6.0\ref\WorkSchedule.Domain.dll
