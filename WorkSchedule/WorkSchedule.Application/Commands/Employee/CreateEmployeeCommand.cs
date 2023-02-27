@@ -12,20 +12,18 @@ namespace WorkSchedule.Application.Commands.Employee
     {
         private static readonly EmployeeNameValidator employeeNameValidator = new();
         private static readonly EmployeeCodeValidator employeeCodeValidator = new();
-        private static readonly GuidValidator guidValidator = new();
 
         public string Name { get; private set; }
         public string Code { get; private set; }
-        public Guid RoleId { get; private set; }
+        public bool NotFirstSchedule { get; private set; }
 
-        public CreateEmployeeCommand(string name, string code, Guid roleId)
+        public CreateEmployeeCommand(string name, string code, bool notFirstSchedule)
         {
             employeeNameValidator.Validate(name);
             employeeCodeValidator.Validate(code);
-            guidValidator.Validate(roleId);
             Name = name;
             Code = code;
-            RoleId = roleId;
+            NotFirstSchedule = notFirstSchedule;
         }
     }
 }

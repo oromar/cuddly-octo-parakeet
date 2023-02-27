@@ -8,13 +8,13 @@ namespace WorkSchedule.Domain.Models
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; }
-        public DateTime CreationTime { get; set; }
+        public string Id { get; set; }
+        public string CreationTime { get; set; }
 
         public BaseEntity()
         {
-            Id = Guid.NewGuid();
-            CreationTime = DateTime.Now;
+            Id = Guid.NewGuid().ToString();
+            CreationTime = DateTime.Now.ToString("s");
         }
 
         public override bool Equals(object? obj)

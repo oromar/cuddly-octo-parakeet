@@ -8,13 +8,13 @@ using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Services.Validators
 {
-    public class GuidValidator : IValidator<Guid>
+    public class GuidValidator : IValidator<string>
     {
-        public void Validate(Guid value)
+        public void Validate(string value)
         {
-            if (value == default)
+            if (string.IsNullOrEmpty(value))
                 throw new DomainException(Strings.RequiredGuid);
-            if (value == Guid.Empty)
+            if (!Guid.TryParse(value, out Guid id) || id == Guid.Empty) 
                 throw new DomainException(Strings.InvalidGuid);
         }
     }

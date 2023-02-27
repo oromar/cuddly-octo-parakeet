@@ -15,7 +15,6 @@ namespace WorkSchedule.Domain.Services.Validators
     {
         private readonly EmployeeNameValidator employeeNameValidator = new();
         private readonly EmployeeCodeValidator employeeCodeValidator = new();
-        private readonly GuidValidator guidValidator = new();
 
         public void Validate(Employee entity)
         {
@@ -23,7 +22,6 @@ namespace WorkSchedule.Domain.Services.Validators
                 throw new DomainException(Strings.RequiredEmployee);
             employeeNameValidator.Validate(entity.Name);
             employeeCodeValidator.Validate(entity.EmployeeCode);
-            guidValidator.Validate(entity.RoleId);
         }
     }
 

@@ -15,12 +15,12 @@ namespace WorkSchedule.Application.Commands.Absence
         private static readonly PeriodValidator periodValidator = new PeriodValidator();
         private static readonly AbsenceCauseValidator absenceCauseValidator = new AbsenceCauseValidator();
 
-        public Guid EmployeeId { get; private set; }
-        public DateTime Start { get; private set; }
-        public DateTime End { get; private set; }
+        public string EmployeeId { get; private set; }
+        public string Start { get; private set; }
+        public string End { get; private set; }
         public AbsenceCause Cause { get; private set; }
 
-        public CreateAbsenceCommand(Guid employeeId, DateTime start, DateTime end, AbsenceCause cause)
+        public CreateAbsenceCommand(string employeeId, string start, string end, AbsenceCause cause)
         {
             guidValidator.Validate(employeeId);
             periodValidator.Validate(start, end);

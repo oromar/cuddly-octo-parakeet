@@ -8,15 +8,16 @@ using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Services.Validators
 {
-    public class PeriodValidator : IValidator<DateTime, DateTime>
+    public class PeriodValidator : IValidator<string, string>
     {
-        public void Validate(DateTime start, DateTime end)
+        public void Validate(string start, string end)
         {
-            if (start == default)
+
+            if (!DateTime.TryParse(start, out DateTime startDate))
                 throw new DomainException(Strings.RequiredStartDate);
-            if (end == default)
+            if (!DateTime.TryParse(start, out DateTime endDate))
                 throw new DomainException(Strings.RequiredEndDate);
-            if (start < end)
+            if (startDate < endDate)
                 throw new DomainException(Strings.StartDateCannotBeAfterEndDate);
         }
     }

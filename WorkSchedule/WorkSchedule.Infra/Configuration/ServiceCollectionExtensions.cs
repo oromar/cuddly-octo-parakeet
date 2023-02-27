@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkSchedule.Application.Commands.Absence;
+using WorkSchedule.Domain.Models;
+using WorkSchedule.Domain.Repositories;
 using WorkSchedule.Infra.Context;
+using WorkSchedule.Infra.Repositories;
 
 namespace WorkSchedule.Infra.Configuration
 {
@@ -20,6 +23,7 @@ namespace WorkSchedule.Infra.Configuration
             });
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAbsenceCommand).Assembly));
+            services.AddScoped<IRepository<Employee>, EmployeeRepository>();
            
         }
     }

@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using WorkSchedule.Desktop.Forms;
+using WorkSchedule.Desktop.ViewModels;
 
 namespace WorkSchedule.Desktop
 {
@@ -9,9 +10,12 @@ namespace WorkSchedule.Desktop
         private Color defaultButtonColor;
         private Form activeForm;
 
-        public MainMenu()
+        private EmployeeViewModel employeeViewModel;
+
+        public MainMenu(EmployeeViewModel employeeViewModel)
         {
             InitializeComponent();
+            this.employeeViewModel = employeeViewModel;
             foreach (Control item in panelMenuButtons.Controls)
             {
                 if (item.GetType() == typeof(Button))
@@ -65,7 +69,7 @@ namespace WorkSchedule.Desktop
 
         private void btnEmployees_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Employees(), sender);
+            OpenChildForm(new Employees(employeeViewModel), sender);
 
         }
 

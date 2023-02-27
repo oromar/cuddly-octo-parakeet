@@ -30,7 +30,7 @@ namespace WorkSchedule.Infra.Repositories
             return context.Set<T>().AsQueryable();
         }
 
-        public Task Delete(Guid id)
+        public Task Delete(string id)
         {
             var entity = Get(id);
             if (entity != null)
@@ -38,7 +38,7 @@ namespace WorkSchedule.Infra.Repositories
             return Task.CompletedTask;
         }
 
-        public async Task<T> Get(Guid id)
+        public async Task<T> Get(string id)
         {
             return context.Set<T>().FirstOrDefault(a => a.Id == id);
         }

@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
 using WorkSchedule.Application.Commands.Absence;
+using WorkSchedule.Desktop.ViewModels;
 using WorkSchedule.Infra.Configuration;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -36,6 +37,7 @@ namespace WorkSchedule.Desktop
         {
             services.AddServices();
             services.AddScoped<MainMenu>();
+            services.AddScoped<EmployeeViewModel>();
         }
     }
 }

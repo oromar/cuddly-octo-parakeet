@@ -22,7 +22,7 @@ namespace WorkSchedule.Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace WorkSchedule.Domain {
         ///   Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WorkSchedule.Domain.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace WorkSchedule.Domain {
         ///   pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,63 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data/Hora de Cadastro.
+        /// </summary>
+        public static string CreationTimeColumnTitle {
+            get {
+                return ResourceManager.GetString("CreationTimeColumnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Já existe um funcionário com esta mesma matrícula..
+        /// </summary>
+        public static string EmployeeAlreadyExists {
+            get {
+                return ResourceManager.GetString("EmployeeAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Matrícula.
+        /// </summary>
+        public static string EmployeeCodeColumnTitle {
+            get {
+                return ResourceManager.GetString("EmployeeCodeColumnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro.
+        /// </summary>
+        public static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Entra no primeiro sobreaviso?.
+        /// </summary>
+        public static string FirsScheduleColumnTitle {
+            get {
+                return ResourceManager.GetString("FirsScheduleColumnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a #.
+        /// </summary>
+        public static string IndexSign {
+            get {
+                return ResourceManager.GetString("IndexSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O id é inválido..
         /// </summary>
-        internal static string InvalidGuid {
+        public static string InvalidGuid {
             get {
                 return ResourceManager.GetString("InvalidGuid", resourceCulture);
             }
@@ -72,7 +126,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula deve conter {0} números..
         /// </summary>
-        internal static string LengthEmployeeCode {
+        public static string LengthEmployeeCode {
             get {
                 return ResourceManager.GetString("LengthEmployeeCode", resourceCulture);
             }
@@ -81,7 +135,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do funcionário deve conter {0} ou mais letras..
         /// </summary>
-        internal static string MinLengthEmployeeName {
+        public static string MinLengthEmployeeName {
             get {
                 return ResourceManager.GetString("MinLengthEmployeeName", resourceCulture);
             }
@@ -90,16 +144,34 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter {0} ou mais caracteres..
         /// </summary>
-        internal static string MinLengthPassword {
+        public static string MinLengthPassword {
             get {
                 return ResourceManager.GetString("MinLengthPassword", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nome.
+        /// </summary>
+        public static string NameColumnTitle {
+            get {
+                return ResourceManager.GetString("NameColumnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula do funcionário só pode conter números..
         /// </summary>
-        internal static string OnlyNumbersEmployeeCode {
+        public static string OnlyNumbersEmployeeCode {
             get {
                 return ResourceManager.GetString("OnlyNumbersEmployeeCode", resourceCulture);
             }
@@ -108,7 +180,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A causa é obrigatória..
         /// </summary>
-        internal static string RequiredCause {
+        public static string RequiredCause {
             get {
                 return ResourceManager.GetString("RequiredCause", resourceCulture);
             }
@@ -117,7 +189,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O funcionário é obrigatório..
         /// </summary>
-        internal static string RequiredEmployee {
+        public static string RequiredEmployee {
             get {
                 return ResourceManager.GetString("RequiredEmployee", resourceCulture);
             }
@@ -126,7 +198,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula do funcionário é obrigatória..
         /// </summary>
-        internal static string RequiredEmployeeCode {
+        public static string RequiredEmployeeCode {
             get {
                 return ResourceManager.GetString("RequiredEmployeeCode", resourceCulture);
             }
@@ -135,7 +207,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do funcionário é obrigatório..
         /// </summary>
-        internal static string RequiredEmployeeName {
+        public static string RequiredEmployeeName {
             get {
                 return ResourceManager.GetString("RequiredEmployeeName", resourceCulture);
             }
@@ -144,7 +216,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Data de final de período obrigatória..
         /// </summary>
-        internal static string RequiredEndDate {
+        public static string RequiredEndDate {
             get {
                 return ResourceManager.GetString("RequiredEndDate", resourceCulture);
             }
@@ -153,7 +225,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O id é obrigatório..
         /// </summary>
-        internal static string RequiredGuid {
+        public static string RequiredGuid {
             get {
                 return ResourceManager.GetString("RequiredGuid", resourceCulture);
             }
@@ -162,7 +234,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter uma ou mais letras..
         /// </summary>
-        internal static string RequiredLetterInPassword {
+        public static string RequiredLetterInPassword {
             get {
                 return ResourceManager.GetString("RequiredLetterInPassword", resourceCulture);
             }
@@ -171,7 +243,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter uma ou mais letras em minúsculo..
         /// </summary>
-        internal static string RequiredLowerCaseInPassword {
+        public static string RequiredLowerCaseInPassword {
             get {
                 return ResourceManager.GetString("RequiredLowerCaseInPassword", resourceCulture);
             }
@@ -180,7 +252,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do usuário é obrigatório..
         /// </summary>
-        internal static string RequiredNameUser {
+        public static string RequiredNameUser {
             get {
                 return ResourceManager.GetString("RequiredNameUser", resourceCulture);
             }
@@ -189,7 +261,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter um ou mais números..
         /// </summary>
-        internal static string RequiredNumberInPassword {
+        public static string RequiredNumberInPassword {
             get {
                 return ResourceManager.GetString("RequiredNumberInPassword", resourceCulture);
             }
@@ -198,7 +270,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha é obrigatória..
         /// </summary>
-        internal static string RequiredPassword {
+        public static string RequiredPassword {
             get {
                 return ResourceManager.GetString("RequiredPassword", resourceCulture);
             }
@@ -207,7 +279,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A função é obrigatória..
         /// </summary>
-        internal static string RequiredRole {
+        public static string RequiredRole {
             get {
                 return ResourceManager.GetString("RequiredRole", resourceCulture);
             }
@@ -216,7 +288,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O nome da função é obrigatório..
         /// </summary>
-        internal static string RequiredRoleName {
+        public static string RequiredRoleName {
             get {
                 return ResourceManager.GetString("RequiredRoleName", resourceCulture);
             }
@@ -225,7 +297,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter um ou mais dos seguintes caracteres: [{0}].
         /// </summary>
-        internal static string RequiredSpecialCharInPassword {
+        public static string RequiredSpecialCharInPassword {
             get {
                 return ResourceManager.GetString("RequiredSpecialCharInPassword", resourceCulture);
             }
@@ -234,7 +306,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Data de início de período obrigatória..
         /// </summary>
-        internal static string RequiredStartDate {
+        public static string RequiredStartDate {
             get {
                 return ResourceManager.GetString("RequiredStartDate", resourceCulture);
             }
@@ -243,7 +315,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter uma ou mais letras em maiúsculo..
         /// </summary>
-        internal static string RequiredUpperCaseInPassword {
+        public static string RequiredUpperCaseInPassword {
             get {
                 return ResourceManager.GetString("RequiredUpperCaseInPassword", resourceCulture);
             }
@@ -252,7 +324,7 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O nome de usuário é obrigatório..
         /// </summary>
-        internal static string RequiredUsername {
+        public static string RequiredUsername {
             get {
                 return ResourceManager.GetString("RequiredUsername", resourceCulture);
             }
@@ -261,9 +333,36 @@ namespace WorkSchedule.Domain {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A data de início não pode ser posterior à data de final de período..
         /// </summary>
-        internal static string StartDateCannotBeAfterEndDate {
+        public static string StartDateCannotBeAfterEndDate {
             get {
                 return ResourceManager.GetString("StartDateCannotBeAfterEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Registro cadastrado com sucesso..
+        /// </summary>
+        public static string SuccessSaveMesssage {
+            get {
+                return ResourceManager.GetString("SuccessSaveMesssage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sucesso.
+        /// </summary>
+        public static string SuccessTitle {
+            get {
+                return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sim.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

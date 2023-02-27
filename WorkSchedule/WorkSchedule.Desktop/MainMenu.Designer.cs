@@ -52,7 +52,7 @@
             panelMenuButtons.ForeColor = SystemColors.ControlText;
             panelMenuButtons.Location = new Point(0, 0);
             panelMenuButtons.Name = "panelMenuButtons";
-            panelMenuButtons.Size = new Size(250, 619);
+            panelMenuButtons.Size = new Size(300, 619);
             panelMenuButtons.TabIndex = 0;
             // 
             // btnClose
@@ -64,7 +64,7 @@
             btnClose.Location = new Point(0, 559);
             btnClose.Name = "btnClose";
             btnClose.Padding = new Padding(10, 0, 0, 0);
-            btnClose.Size = new Size(250, 60);
+            btnClose.Size = new Size(300, 60);
             btnClose.TabIndex = 5;
             btnClose.Text = "Fechar";
             btnClose.TextAlign = ContentAlignment.MiddleLeft;
@@ -80,7 +80,7 @@
             btnSettings.Location = new Point(0, 240);
             btnSettings.Name = "btnSettings";
             btnSettings.Padding = new Padding(10, 0, 0, 0);
-            btnSettings.Size = new Size(250, 60);
+            btnSettings.Size = new Size(300, 60);
             btnSettings.TabIndex = 4;
             btnSettings.Text = "Configurações";
             btnSettings.TextAlign = ContentAlignment.MiddleLeft;
@@ -96,7 +96,7 @@
             btnSchedule.Location = new Point(0, 180);
             btnSchedule.Name = "btnSchedule";
             btnSchedule.Padding = new Padding(10, 0, 0, 0);
-            btnSchedule.Size = new Size(250, 60);
+            btnSchedule.Size = new Size(300, 60);
             btnSchedule.TabIndex = 3;
             btnSchedule.Text = "Escalas";
             btnSchedule.TextAlign = ContentAlignment.MiddleLeft;
@@ -112,7 +112,7 @@
             btnAbsents.Location = new Point(0, 120);
             btnAbsents.Name = "btnAbsents";
             btnAbsents.Padding = new Padding(10, 0, 0, 0);
-            btnAbsents.Size = new Size(250, 60);
+            btnAbsents.Size = new Size(300, 60);
             btnAbsents.TabIndex = 2;
             btnAbsents.Text = "Bloqueios";
             btnAbsents.TextAlign = ContentAlignment.MiddleLeft;
@@ -128,7 +128,7 @@
             btnEmployees.Location = new Point(0, 60);
             btnEmployees.Name = "btnEmployees";
             btnEmployees.Padding = new Padding(10, 0, 0, 0);
-            btnEmployees.Size = new Size(250, 60);
+            btnEmployees.Size = new Size(300, 60);
             btnEmployees.TabIndex = 1;
             btnEmployees.Text = "Servidores";
             btnEmployees.TextAlign = ContentAlignment.MiddleLeft;
@@ -140,16 +140,16 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(250, 60);
+            panel1.Size = new Size(300, 60);
             panel1.TabIndex = 0;
             // 
             // panelForm
             // 
             panelForm.BackColor = Color.White;
             panelForm.Dock = DockStyle.Fill;
-            panelForm.Location = new Point(250, 0);
+            panelForm.Location = new Point(300, 0);
             panelForm.Name = "panelForm";
-            panelForm.Size = new Size(766, 619);
+            panelForm.Size = new Size(716, 619);
             panelForm.TabIndex = 1;
             // 
             // MainMenu

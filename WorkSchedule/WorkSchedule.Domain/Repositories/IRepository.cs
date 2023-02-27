@@ -12,8 +12,8 @@ namespace WorkSchedule.Domain.Repositories
     {
         Task<T> Add(T entity);
         Task<T> Update(T entity);
-        Task Delete(Guid id);
-        Task<T> Get(Guid id);
+        Task Delete(string id);
+        Task<T> Get(string id);
         IEnumerable<T> AsEnumerable(Expression<Func<T, bool>> predicate);
         IQueryable<T> AsQueryable();
         Task SaveChanges();
