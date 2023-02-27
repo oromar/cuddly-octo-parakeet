@@ -14,11 +14,11 @@ namespace WorkSchedule.Domain.Services.Validators
     {
         private static readonly EmployeeValidator employeeValidator = new();
         private static readonly PeriodValidator periodValidator = new();
-        private static readonly RemotenessCauseValidator remotenessCauseValidator = new();
+        private static readonly AbsenceCauseValidator absenceCauseValidator = new();
         public void Validate(Absence entity)
         {
             periodValidator.Validate(entity.Start, entity.End);
-            remotenessCauseValidator.Validate(entity.Cause);
+            absenceCauseValidator.Validate(entity.Cause);
             employeeValidator.Validate(entity.Employee);
         }
     }

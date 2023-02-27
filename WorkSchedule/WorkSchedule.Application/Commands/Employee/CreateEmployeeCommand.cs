@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Application.Commands.Employee
 {
-    public class CreateEmployeeCommand
+    public class CreateEmployeeCommand: IRequest
     {
         private static readonly EmployeeNameValidator employeeNameValidator = new();
         private static readonly EmployeeCodeValidator employeeCodeValidator = new();

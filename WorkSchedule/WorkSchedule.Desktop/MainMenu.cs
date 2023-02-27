@@ -6,26 +6,20 @@ namespace WorkSchedule.Desktop
     public partial class MainMenu : Form
     {
         private Button activeButton;
+        private Color defaultButtonColor;
         private Form activeForm;
 
         public MainMenu()
         {
             InitializeComponent();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            ActiveButton(sender);
-            var dialogResult = MessageBox.Show("Tem certeza que deseja sair?", "Sair",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-                Application.Exit();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            foreach (Control item in panelMenuButtons.Controls)
+            {
+                if (item.GetType() == typeof(Button))
+                {
+                    defaultButtonColor = item.BackColor;
+                    break;
+                }
+            }
         }
 
         private void ActiveButton(object sender)
@@ -37,8 +31,8 @@ namespace WorkSchedule.Desktop
                 {
                     DisableButtons();
                     activeButton = btnSender;
-                    activeButton.FlatAppearance.BorderSize = 1;
-                    activeButton.FlatAppearance.BorderColor = Color.SteelBlue;
+                    activeButton.BackColor = Color.LightSteelBlue;
+                    activeButton.ForeColor = Color.White;
                 }
             }
         }
@@ -49,7 +43,8 @@ namespace WorkSchedule.Desktop
             {
                 if (item.GetType() == typeof(Button))
                 {
-                    ((Button)item).FlatAppearance.BorderSize = 0;
+                    item.BackColor = defaultButtonColor;
+                    item.ForeColor = Color.Black;
                 }
             }
         }
@@ -68,41 +63,35 @@ namespace WorkSchedule.Desktop
             childForm.Show();
         }
 
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-
-            OpenChildForm(new Home(), sender);
-
-        }
-
         private void btnEmployees_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Employees(), sender);
+
         }
 
-        private void btnRemoteness_Click(object sender, EventArgs e)
+        private void btnAbsents_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Absence(), sender);
         }
 
-        private void btnSchedules_Click(object sender, EventArgs e)
+        private void btnSchedule_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Schedules(), sender);
-        }
-
-        private void btnUsers_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new Users(), sender);
-        }
-
-        private void btnRoles_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new Roles(), sender);
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Settings(), sender);
+        }
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            ActiveButton(sender);
+            var dialogResult = MessageBox.Show("Tem certeza que deseja sair?", "Sair",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+                System.Windows.Forms.Application.Exit();
         }
     }
 }

@@ -9,9 +9,9 @@ using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Services.Validators
 {
-    public class RemotenessCauseValidator : IValidator<RemotenessCause>
+    public class AbsenceCauseValidator : IValidator<AbsenceCause>
     {
-        public void Validate(RemotenessCause value)
+        public void Validate(AbsenceCause value)
         {
             if (value == default)
                 throw new DomainException(Strings.RequiredCause);

@@ -16,5 +16,11 @@ namespace WorkSchedule.Desktop.Forms
         {
             InitializeComponent();
         }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            textBoxEmployeeCode.Text = string.Empty;
+            textBoxEmployeeName.Text = string.Empty;
+        }
     }
 }

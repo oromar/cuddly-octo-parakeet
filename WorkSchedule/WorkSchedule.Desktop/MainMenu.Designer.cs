@@ -31,12 +31,10 @@
             panelMenuButtons = new Panel();
             btnClose = new Button();
             btnSettings = new Button();
-            btnRoles = new Button();
-            btnUsers = new Button();
-            btnSchedules = new Button();
-            btnRemoteness = new Button();
+            btnSchedule = new Button();
+            btnAbsents = new Button();
             btnEmployees = new Button();
-            btnHome = new Button();
+            panel1 = new Panel();
             panelForm = new Panel();
             panelMenuButtons.SuspendLayout();
             SuspendLayout();
@@ -46,186 +44,112 @@
             panelMenuButtons.BackColor = SystemColors.Control;
             panelMenuButtons.Controls.Add(btnClose);
             panelMenuButtons.Controls.Add(btnSettings);
-            panelMenuButtons.Controls.Add(btnRoles);
-            panelMenuButtons.Controls.Add(btnUsers);
-            panelMenuButtons.Controls.Add(btnSchedules);
-            panelMenuButtons.Controls.Add(btnRemoteness);
+            panelMenuButtons.Controls.Add(btnSchedule);
+            panelMenuButtons.Controls.Add(btnAbsents);
             panelMenuButtons.Controls.Add(btnEmployees);
-            panelMenuButtons.Controls.Add(btnHome);
+            panelMenuButtons.Controls.Add(panel1);
             panelMenuButtons.Dock = DockStyle.Left;
             panelMenuButtons.ForeColor = SystemColors.ControlText;
             panelMenuButtons.Location = new Point(0, 0);
             panelMenuButtons.Name = "panelMenuButtons";
-            panelMenuButtons.Size = new Size(200, 619);
+            panelMenuButtons.Size = new Size(250, 619);
             panelMenuButtons.TabIndex = 0;
             // 
             // btnClose
             // 
-            btnClose.BackColor = SystemColors.Control;
-            btnClose.Cursor = Cursors.Hand;
             btnClose.Dock = DockStyle.Bottom;
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClose.ForeColor = SystemColors.ControlText;
-            btnClose.Location = new Point(0, 569);
-            btnClose.Margin = new Padding(5);
+            btnClose.Location = new Point(0, 559);
             btnClose.Name = "btnClose";
-            btnClose.Padding = new Padding(8);
-            btnClose.Size = new Size(200, 50);
-            btnClose.TabIndex = 7;
-            btnClose.Text = "Sair";
+            btnClose.Padding = new Padding(10, 0, 0, 0);
+            btnClose.Size = new Size(250, 60);
+            btnClose.TabIndex = 5;
+            btnClose.Text = "Fechar";
             btnClose.TextAlign = ContentAlignment.MiddleLeft;
-            btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click;
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click_1;
             // 
             // btnSettings
             // 
-            btnSettings.BackColor = SystemColors.Control;
-            btnSettings.Cursor = Cursors.Hand;
             btnSettings.Dock = DockStyle.Top;
             btnSettings.FlatAppearance.BorderSize = 0;
             btnSettings.FlatStyle = FlatStyle.Flat;
             btnSettings.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSettings.ForeColor = SystemColors.ControlText;
-            btnSettings.Location = new Point(0, 300);
-            btnSettings.Margin = new Padding(5);
+            btnSettings.Location = new Point(0, 240);
             btnSettings.Name = "btnSettings";
-            btnSettings.Padding = new Padding(8);
-            btnSettings.Size = new Size(200, 50);
-            btnSettings.TabIndex = 6;
+            btnSettings.Padding = new Padding(10, 0, 0, 0);
+            btnSettings.Size = new Size(250, 60);
+            btnSettings.TabIndex = 4;
             btnSettings.Text = "Configurações";
             btnSettings.TextAlign = ContentAlignment.MiddleLeft;
-            btnSettings.UseVisualStyleBackColor = false;
+            btnSettings.UseVisualStyleBackColor = true;
             btnSettings.Click += btnSettings_Click;
             // 
-            // btnRoles
+            // btnSchedule
             // 
-            btnRoles.BackColor = SystemColors.Control;
-            btnRoles.Cursor = Cursors.Hand;
-            btnRoles.Dock = DockStyle.Top;
-            btnRoles.FlatAppearance.BorderSize = 0;
-            btnRoles.FlatStyle = FlatStyle.Flat;
-            btnRoles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnRoles.ForeColor = SystemColors.ControlText;
-            btnRoles.Location = new Point(0, 250);
-            btnRoles.Margin = new Padding(5);
-            btnRoles.Name = "btnRoles";
-            btnRoles.Padding = new Padding(8);
-            btnRoles.Size = new Size(200, 50);
-            btnRoles.TabIndex = 5;
-            btnRoles.Text = "Funções";
-            btnRoles.TextAlign = ContentAlignment.MiddleLeft;
-            btnRoles.UseVisualStyleBackColor = false;
-            btnRoles.Click += btnRoles_Click;
+            btnSchedule.Dock = DockStyle.Top;
+            btnSchedule.FlatAppearance.BorderSize = 0;
+            btnSchedule.FlatStyle = FlatStyle.Flat;
+            btnSchedule.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSchedule.Location = new Point(0, 180);
+            btnSchedule.Name = "btnSchedule";
+            btnSchedule.Padding = new Padding(10, 0, 0, 0);
+            btnSchedule.Size = new Size(250, 60);
+            btnSchedule.TabIndex = 3;
+            btnSchedule.Text = "Escalas";
+            btnSchedule.TextAlign = ContentAlignment.MiddleLeft;
+            btnSchedule.UseVisualStyleBackColor = true;
+            btnSchedule.Click += btnSchedule_Click;
             // 
-            // btnUsers
+            // btnAbsents
             // 
-            btnUsers.BackColor = SystemColors.Control;
-            btnUsers.Cursor = Cursors.Hand;
-            btnUsers.Dock = DockStyle.Top;
-            btnUsers.FlatAppearance.BorderSize = 0;
-            btnUsers.FlatStyle = FlatStyle.Flat;
-            btnUsers.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUsers.ForeColor = SystemColors.ControlText;
-            btnUsers.Location = new Point(0, 200);
-            btnUsers.Margin = new Padding(5);
-            btnUsers.Name = "btnUsers";
-            btnUsers.Padding = new Padding(8);
-            btnUsers.Size = new Size(200, 50);
-            btnUsers.TabIndex = 4;
-            btnUsers.Text = "Usuários";
-            btnUsers.TextAlign = ContentAlignment.MiddleLeft;
-            btnUsers.UseVisualStyleBackColor = false;
-            btnUsers.Click += btnUsers_Click;
-            // 
-            // btnSchedules
-            // 
-            btnSchedules.BackColor = SystemColors.Control;
-            btnSchedules.Cursor = Cursors.Hand;
-            btnSchedules.Dock = DockStyle.Top;
-            btnSchedules.FlatAppearance.BorderSize = 0;
-            btnSchedules.FlatStyle = FlatStyle.Flat;
-            btnSchedules.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSchedules.ForeColor = SystemColors.ControlText;
-            btnSchedules.Location = new Point(0, 150);
-            btnSchedules.Margin = new Padding(5);
-            btnSchedules.Name = "btnSchedules";
-            btnSchedules.Padding = new Padding(8);
-            btnSchedules.Size = new Size(200, 50);
-            btnSchedules.TabIndex = 3;
-            btnSchedules.Text = "Escalas";
-            btnSchedules.TextAlign = ContentAlignment.MiddleLeft;
-            btnSchedules.UseVisualStyleBackColor = false;
-            btnSchedules.Click += btnSchedules_Click;
-            // 
-            // btnRemoteness
-            // 
-            btnRemoteness.BackColor = SystemColors.Control;
-            btnRemoteness.Cursor = Cursors.Hand;
-            btnRemoteness.Dock = DockStyle.Top;
-            btnRemoteness.FlatAppearance.BorderSize = 0;
-            btnRemoteness.FlatStyle = FlatStyle.Flat;
-            btnRemoteness.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnRemoteness.ForeColor = SystemColors.ControlText;
-            btnRemoteness.Location = new Point(0, 100);
-            btnRemoteness.Margin = new Padding(5);
-            btnRemoteness.Name = "btnRemoteness";
-            btnRemoteness.Padding = new Padding(8);
-            btnRemoteness.Size = new Size(200, 50);
-            btnRemoteness.TabIndex = 2;
-            btnRemoteness.Text = "Afastamentos";
-            btnRemoteness.TextAlign = ContentAlignment.MiddleLeft;
-            btnRemoteness.UseVisualStyleBackColor = false;
-            btnRemoteness.Click += btnRemoteness_Click;
+            btnAbsents.Dock = DockStyle.Top;
+            btnAbsents.FlatAppearance.BorderSize = 0;
+            btnAbsents.FlatStyle = FlatStyle.Flat;
+            btnAbsents.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAbsents.Location = new Point(0, 120);
+            btnAbsents.Name = "btnAbsents";
+            btnAbsents.Padding = new Padding(10, 0, 0, 0);
+            btnAbsents.Size = new Size(250, 60);
+            btnAbsents.TabIndex = 2;
+            btnAbsents.Text = "Bloqueios";
+            btnAbsents.TextAlign = ContentAlignment.MiddleLeft;
+            btnAbsents.UseVisualStyleBackColor = true;
+            btnAbsents.Click += btnAbsents_Click;
             // 
             // btnEmployees
             // 
-            btnEmployees.BackColor = SystemColors.Control;
-            btnEmployees.Cursor = Cursors.Hand;
             btnEmployees.Dock = DockStyle.Top;
             btnEmployees.FlatAppearance.BorderSize = 0;
             btnEmployees.FlatStyle = FlatStyle.Flat;
             btnEmployees.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnEmployees.ForeColor = SystemColors.ControlText;
-            btnEmployees.Location = new Point(0, 50);
-            btnEmployees.Margin = new Padding(5);
+            btnEmployees.Location = new Point(0, 60);
             btnEmployees.Name = "btnEmployees";
-            btnEmployees.Padding = new Padding(8);
-            btnEmployees.Size = new Size(200, 50);
+            btnEmployees.Padding = new Padding(10, 0, 0, 0);
+            btnEmployees.Size = new Size(250, 60);
             btnEmployees.TabIndex = 1;
-            btnEmployees.Text = "Funcionários";
+            btnEmployees.Text = "Servidores";
             btnEmployees.TextAlign = ContentAlignment.MiddleLeft;
-            btnEmployees.UseVisualStyleBackColor = false;
+            btnEmployees.UseVisualStyleBackColor = true;
             btnEmployees.Click += btnEmployees_Click;
             // 
-            // btnHome
+            // panel1
             // 
-            btnHome.BackColor = SystemColors.Control;
-            btnHome.Cursor = Cursors.Hand;
-            btnHome.Dock = DockStyle.Top;
-            btnHome.FlatAppearance.BorderSize = 0;
-            btnHome.FlatStyle = FlatStyle.Flat;
-            btnHome.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnHome.ForeColor = SystemColors.ControlText;
-            btnHome.Location = new Point(0, 0);
-            btnHome.Margin = new Padding(5);
-            btnHome.Name = "btnHome";
-            btnHome.Padding = new Padding(8);
-            btnHome.Size = new Size(200, 50);
-            btnHome.TabIndex = 0;
-            btnHome.Text = "Home";
-            btnHome.TextAlign = ContentAlignment.MiddleLeft;
-            btnHome.UseVisualStyleBackColor = false;
-            btnHome.Click += btnHome_Click;
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(250, 60);
+            panel1.TabIndex = 0;
             // 
             // panelForm
             // 
             panelForm.BackColor = Color.White;
             panelForm.Dock = DockStyle.Fill;
-            panelForm.Location = new Point(200, 0);
+            panelForm.Location = new Point(250, 0);
             panelForm.Name = "panelForm";
-            panelForm.Size = new Size(816, 619);
+            panelForm.Size = new Size(766, 619);
             panelForm.TabIndex = 1;
             // 
             // MainMenu
@@ -247,14 +171,12 @@
         #endregion
 
         private Panel panelMenuButtons;
-        private Button btnHome;
-        private Button btnRoles;
-        private Button btnUsers;
-        private Button btnSchedules;
-        private Button btnRemoteness;
-        private Button btnEmployees;
-        private Button btnSettings;
-        private Button btnClose;
         private Panel panelForm;
+        private Button btnEmployees;
+        private Panel panel1;
+        private Button btnAbsents;
+        private Button btnSchedule;
+        private Button btnClose;
+        private Button btnSettings;
     }
 }

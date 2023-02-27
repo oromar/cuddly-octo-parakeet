@@ -14,7 +14,7 @@ namespace WorkSchedule.Domain.Models
         private static AbsenceValidator validator = new();
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
-        public RemotenessCause Cause { get; private set; }
+        public AbsenceCause Cause { get; private set; }
         public Employee Employee { get; private set; }
         public string Description { get; private set; }
 
@@ -23,7 +23,7 @@ namespace WorkSchedule.Domain.Models
             
         }
 
-        public Absence(DateTime start, DateTime end, RemotenessCause cause, Employee employee)
+        public Absence(DateTime start, DateTime end, AbsenceCause cause, Employee employee)
         {
             Start = start;
             End = end;
@@ -37,7 +37,7 @@ namespace WorkSchedule.Domain.Models
             Description = description;
         }
 
-        public void Update(DateTime start, DateTime end, RemotenessCause cause, Employee employee)
+        public void Update(DateTime start, DateTime end, AbsenceCause cause, Employee employee)
         {
             Start = start;
             End = end;

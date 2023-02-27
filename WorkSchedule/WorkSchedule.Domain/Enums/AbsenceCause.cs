@@ -1,6 +1,6 @@
 ﻿namespace WorkSchedule.Domain.Enums
 {
-    public enum RemotenessCause
+    public enum AbsenceCause
     {
         VACATION,
         SICK_LEAVE,
