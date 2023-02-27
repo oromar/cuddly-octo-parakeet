@@ -18,7 +18,7 @@ namespace WorkSchedule.Domain.Models
 
         public Employee(string name, string code, bool notFirstSchedule)
         {
-            Name = name;
+            Name = name.ToUpper();
             EmployeeCode = code;
             NotFirstSchedule = notFirstSchedule;
             validator.Validate(this);
@@ -26,7 +26,7 @@ namespace WorkSchedule.Domain.Models
 
         public void Update(string name, string code, bool notFirstSchedule)
         {
-            Name = name;
+            Name = name.ToUpper();
             EmployeeCode = code;
             NotFirstSchedule = notFirstSchedule;
             validator.Validate(this);

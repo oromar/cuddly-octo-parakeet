@@ -51,12 +51,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(23, 19);
             label1.Name = "label1";
-            label1.Size = new Size(209, 25);
+            label1.Size = new Size(259, 25);
             label1.TabIndex = 0;
-            label1.Text = "Cadastro de Servidores";
+            label1.Text = "CADASTRO DE SERVIDORES";
             // 
             // labelEmployeeCode
             // 
@@ -88,6 +88,7 @@
             // 
             // textBoxEmployeeName
             // 
+            textBoxEmployeeName.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxEmployeeName.Location = new Point(425, 75);
             textBoxEmployeeName.Name = "textBoxEmployeeName";
