@@ -15,9 +15,9 @@ namespace WorkSchedule.Domain.Services.Validators
 
             if (!DateTime.TryParse(start, out DateTime startDate))
                 throw new DomainException(Strings.RequiredStartDate);
-            if (!DateTime.TryParse(start, out DateTime endDate))
+            if (!DateTime.TryParse(end, out DateTime endDate))
                 throw new DomainException(Strings.RequiredEndDate);
-            if (startDate < endDate)
+            if (startDate > endDate)
                 throw new DomainException(Strings.StartDateCannotBeAfterEndDate);
         }
     }

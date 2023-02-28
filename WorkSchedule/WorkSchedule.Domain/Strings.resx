@@ -117,14 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AbsenceAlreadyExists" xml:space="preserve">
+    <value>Já existe bloqueio para este servidor com mesmo período e causa.</value>
+  </data>
+  <data name="AbsenceNotFound" xml:space="preserve">
+    <value>Bloqueio não encontrado.</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Tem certeza?</value>
+  </data>
+  <data name="Cause" xml:space="preserve">
+    <value>Causa</value>
+  </data>
   <data name="CreationTimeColumnTitle" xml:space="preserve">
     <value>Data/Hora de Cadastro</value>
   </data>
   <data name="EmployeeAlreadyExists" xml:space="preserve">
-    <value>Já existe um funcionário com esta mesma matrícula.</value>
+    <value>Já existe um servidor com esta mesma matrícula.</value>
   </data>
   <data name="EmployeeCodeColumnTitle" xml:space="preserve">
     <value>Matrícula</value>
+  </data>
+  <data name="EmployeeNotFound" xml:space="preserve">
+    <value>Servidor não encontrado.</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fim</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Erro</value>
@@ -142,7 +160,7 @@
     <value>A matrícula deve conter {0} números.</value>
   </data>
   <data name="MinLengthEmployeeName" xml:space="preserve">
-    <value>O nome do funcionário deve conter {0} ou mais letras.</value>
+    <value>O nome do servidor deve conter {0} ou mais letras.</value>
   </data>
   <data name="MinLengthPassword" xml:space="preserve">
     <value>A senha deve conter {0} ou mais caracteres.</value>
@@ -154,19 +172,22 @@
     <value>Não</value>
   </data>
   <data name="OnlyNumbersEmployeeCode" xml:space="preserve">
-    <value>A matrícula do funcionário só pode conter números.</value>
+    <value>A matrícula do servidor só pode conter números.</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Confirma?</value>
   </data>
   <data name="RequiredCause" xml:space="preserve">
     <value>A causa é obrigatória.</value>
   </data>
   <data name="RequiredEmployee" xml:space="preserve">
-    <value>O funcionário é obrigatório.</value>
+    <value>O servidor é obrigatório.</value>
   </data>
   <data name="RequiredEmployeeCode" xml:space="preserve">
-    <value>A matrícula do funcionário é obrigatória.</value>
+    <value>A matrícula do servidor é obrigatória.</value>
   </data>
   <data name="RequiredEmployeeName" xml:space="preserve">
-    <value>O nome do funcionário é obrigatório.</value>
+    <value>O nome do servidor é obrigatório.</value>
   </data>
   <data name="RequiredEndDate" xml:space="preserve">
     <value>Data de final de período obrigatória.</value>
@@ -207,6 +228,12 @@
   <data name="RequiredUsername" xml:space="preserve">
     <value>O nome de usuário é obrigatório.</value>
   </data>
+  <data name="SelectOneRowMessage" xml:space="preserve">
+    <value>Por favor selecione apenas uma linha.</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Início</value>
+  </data>
   <data name="StartDateCannotBeAfterEndDate" xml:space="preserve">
     <value>A data de início não pode ser posterior à data de final de período.</value>
   </data>
@@ -215,6 +242,12 @@
   </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Sucesso</value>
+  </data>
+  <data name="SuccessUpdateMessage" xml:space="preserve">
+    <value>Registro atualizado com sucesso.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Aviso</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sim</value>

@@ -10,12 +10,16 @@ namespace WorkSchedule.Desktop
         private Color defaultButtonColor;
         private Form activeForm;
 
-        private EmployeeViewModel employeeViewModel;
+        private IEmployeeViewModel employeeViewModel;
+        private readonly IAbsenceViewModel absenceViewModel;
 
-        public MainMenu(EmployeeViewModel employeeViewModel)
+        public MainMenu(IEmployeeViewModel employeeViewModel,
+            IAbsenceViewModel absenceViewModel)
         {
             InitializeComponent();
             this.employeeViewModel = employeeViewModel;
+            this.absenceViewModel = absenceViewModel;
+            this.employeeViewModel.ListEmployees();
             foreach (Control item in panelMenuButtons.Controls)
             {
                 if (item.GetType() == typeof(Button))
@@ -75,7 +79,7 @@ namespace WorkSchedule.Desktop
 
         private void btnAbsents_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Absence(), sender);
+            OpenChildForm(new Absence(employeeViewModel, absenceViewModel), sender);
         }
 
         private void btnSchedule_Click(object sender, EventArgs e)

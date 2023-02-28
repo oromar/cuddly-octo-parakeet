@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 using WorkSchedule.Infra.Context;
@@ -16,7 +17,7 @@ namespace WorkSchedule.Infra.Repositories
 
         public async Task<T> Add(T entity)
         {
-            context.Add(entity);
+            await context.AddAsync(entity);
             return entity;
         }
 
@@ -30,22 +31,21 @@ namespace WorkSchedule.Infra.Repositories
             return context.Set<T>().AsQueryable();
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            var entity = Get(id);
+            var entity = await Get(id);
             if (entity != null)
                 context.Remove(entity);
-            return Task.CompletedTask;
         }
 
         public async Task<T> Get(string id)
         {
-            return context.Set<T>().FirstOrDefault(a => a.Id == id);
+            return await context.Set<T>().FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task SaveChanges()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         public async Task<T> Update(T entity)

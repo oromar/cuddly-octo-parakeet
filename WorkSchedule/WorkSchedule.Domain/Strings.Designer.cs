@@ -61,6 +61,42 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Já existe bloqueio para este servidor com mesmo período e causa..
+        /// </summary>
+        public static string AbsenceAlreadyExists {
+            get {
+                return ResourceManager.GetString("AbsenceAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Bloqueio não encontrado..
+        /// </summary>
+        public static string AbsenceNotFound {
+            get {
+                return ResourceManager.GetString("AbsenceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tem certeza?.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Causa.
+        /// </summary>
+        public static string Cause {
+            get {
+                return ResourceManager.GetString("Cause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Data/Hora de Cadastro.
         /// </summary>
         public static string CreationTimeColumnTitle {
@@ -70,7 +106,7 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Já existe um funcionário com esta mesma matrícula..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Já existe um servidor com esta mesma matrícula..
         /// </summary>
         public static string EmployeeAlreadyExists {
             get {
@@ -84,6 +120,24 @@ namespace WorkSchedule.Domain {
         public static string EmployeeCodeColumnTitle {
             get {
                 return ResourceManager.GetString("EmployeeCodeColumnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Servidor não encontrado..
+        /// </summary>
+        public static string EmployeeNotFound {
+            get {
+                return ResourceManager.GetString("EmployeeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fim.
+        /// </summary>
+        public static string End {
+            get {
+                return ResourceManager.GetString("End", resourceCulture);
             }
         }
         
@@ -133,7 +187,7 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do funcionário deve conter {0} ou mais letras..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do servidor deve conter {0} ou mais letras..
         /// </summary>
         public static string MinLengthEmployeeName {
             get {
@@ -169,11 +223,20 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula do funcionário só pode conter números..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula do servidor só pode conter números..
         /// </summary>
         public static string OnlyNumbersEmployeeCode {
             get {
                 return ResourceManager.GetString("OnlyNumbersEmployeeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Confirma?.
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
             }
         }
         
@@ -187,7 +250,7 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O funcionário é obrigatório..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O servidor é obrigatório..
         /// </summary>
         public static string RequiredEmployee {
             get {
@@ -196,7 +259,7 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula do funcionário é obrigatória..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A matrícula do servidor é obrigatória..
         /// </summary>
         public static string RequiredEmployeeCode {
             get {
@@ -205,7 +268,7 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do funcionário é obrigatório..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do servidor é obrigatório..
         /// </summary>
         public static string RequiredEmployeeName {
             get {
@@ -331,6 +394,24 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Por favor selecione apenas uma linha..
+        /// </summary>
+        public static string SelectOneRowMessage {
+            get {
+                return ResourceManager.GetString("SelectOneRowMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Início.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A data de início não pode ser posterior à data de final de período..
         /// </summary>
         public static string StartDateCannotBeAfterEndDate {
@@ -354,6 +435,24 @@ namespace WorkSchedule.Domain {
         public static string SuccessTitle {
             get {
                 return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Registro atualizado com sucesso..
+        /// </summary>
+        public static string SuccessUpdateMessage {
+            get {
+                return ResourceManager.GetString("SuccessUpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Aviso.
+        /// </summary>
+        public static string WarningTitle {
+            get {
+                return ResourceManager.GetString("WarningTitle", resourceCulture);
             }
         }
         

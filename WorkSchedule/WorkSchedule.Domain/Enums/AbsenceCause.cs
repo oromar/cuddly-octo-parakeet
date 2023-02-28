@@ -1,8 +1,12 @@
-﻿namespace WorkSchedule.Domain.Enums
+﻿using System.ComponentModel;
+
+namespace WorkSchedule.Domain.Enums
 {
     public enum AbsenceCause
     {
-        VACATION,
+        [Description("Férias")]
+        VACATION = 1,
+        [Description("Licença Médica")]
         SICK_LEAVE,
     }
 }

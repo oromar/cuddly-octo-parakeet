@@ -1,58 +1,45 @@
 ﻿using MediatR;
 using WorkSchedule.Application.Commands.Employee;
+using WorkSchedule.Application.DataTransferObjects;
+using WorkSchedule.Application.Queries.Employee;
 using WorkSchedule.Domain;
 
 namespace WorkSchedule.Desktop.ViewModels
 {
-    public class EmployeeViewModel
+    public class EmployeeViewModel : IEmployeeViewModel
     {
         private readonly IMediator mediator;
+        private readonly IEmployeeQueries queryService;
 
-        public EmployeeViewModel(IMediator mediator)
+        public EmployeeViewModel(IMediator mediator, IEmployeeQueries queryService)
         {
             this.mediator = mediator;
+            this.queryService = queryService;
         }
 
         public void CreateEmployee(string name, string code, bool notFirstSchedule)
         {
-            var command = new CreateEmployeeCommand(name, code, notFirstSchedule);
-            Task.Run(() => mediator.Send(command)).Wait();
+            Task.Run(() => mediator.Send(new CreateEmployeeCommand(name, code, notFirstSchedule))).Wait();
         }
 
-        public void ListEmployees(DataGridView view)
+        public IEnumerable<EmployeeDTO> ListEmployees()
         {
-            var list = Task.Run(() => mediator.Send(new ListEmployeesCommand())).Result;
-            PopulateDataGridView(view, list);
+            return Task.Run(() => queryService.ListEmployees()).Result;
         }
 
-        public void SeachEmployee(string criteria, DataGridView view)
+        public IEnumerable<EmployeeDTO> SearchEmployee(string criteria)
         {
-            var list = Task.Run(() => mediator.Send(new SearchEmployeesCommand(criteria))).Result;
-            PopulateDataGridView(view, list);
+            return Task.Run(() => queryService.SearchEmployees(criteria)).Result;
         }
 
-        private static void PopulateDataGridView(DataGridView view, IEnumerable<Domain.Models.Employee> list)
+        public void DeleteEmployee(string code)
         {
-            view.Rows.Clear();
-            view.Columns.Clear();
-            view.Columns.Add("index", Strings.IndexSign);
-            view.Columns.Add("code", Strings.EmployeeCodeColumnTitle);
-            view.Columns.Add("name", Strings.EmployeeCodeColumnTitle);
-            view.Columns.Add("creationTime", Strings.CreationTimeColumnTitle);
-            view.Columns.Add("firstSchedule", Strings.FirsScheduleColumnTitle);
-            var index = 1;
-            foreach (var item in list)
-            {
-                string[] row = new string[]
-                {
-                    $"{index++}",
-                    item.EmployeeCode,
-                    item.Name,
-                    DateTime.Parse(item.CreationTime).ToString("dd/MM/yyyy HH:mm:ss"),
-                    item.NotFirstSchedule ? Strings.No: Strings.Yes
-                };
-                view.Rows.Add(row);
-            }
+            Task.Run(() => mediator.Send(new DeleteEmployeeCommand(code))).Wait();
+        }
+
+        public void UpdateEmployee(string name, string code, bool notFirstSchedule)
+        {
+            Task.Run(() => mediator.Send(new UpdateEmployeeCommand(code, name, notFirstSchedule))).Wait();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using WorkSchedule.Application.Commands.Employee;
 using WorkSchedule.Application.Common;
+using WorkSchedule.Application.DataTransferObjects;
 using WorkSchedule.Domain;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
@@ -9,8 +10,8 @@ namespace WorkSchedule.Application.CommandHandlers
 {
     public class EmployeeCommandHandler :
         IRequestHandler<CreateEmployeeCommand>,
-        IRequestHandler<ListEmployeesCommand, IEnumerable<Employee>>,
-        IRequestHandler<SearchEmployeesCommand, IEnumerable<Employee>>
+        IRequestHandler<DeleteEmployeeCommand>,
+        IRequestHandler<UpdateEmployeeCommand>
     {
         private readonly IRepository<Employee> repository;
 
@@ -28,22 +29,21 @@ namespace WorkSchedule.Application.CommandHandlers
             await repository.SaveChanges();
         }
 
-        public async Task<IEnumerable<Employee>> Handle(ListEmployeesCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
         {
-            return repository.AsQueryable()
-                .OrderBy(a => a.CreationTime)
-                .AsEnumerable();
+            var employeeInDB = repository.AsQueryable()
+                .FirstOrDefault(a => a.EmployeeCode == request.Code) ?? throw new BusinessException(Strings.EmployeeNotFound);
+            await repository.Delete(employeeInDB.Id);
+            await repository.SaveChanges();
         }
 
-        public async Task<IEnumerable<Employee>> Handle(SearchEmployeesCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var searchText = request.Criteria?.ToLower();
-            var dbQuery = repository.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(searchText))
-                dbQuery = dbQuery.Where(a => a.Name.ToLower().Contains(searchText) || a.EmployeeCode.ToLower().Contains(searchText));
-            return dbQuery
-                .OrderBy(a => a.CreationTime)
-                .AsEnumerable();
+            var employeeInDB = repository.AsQueryable()
+                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) ?? throw new BusinessException(Strings.EmployeeNotFound);
+            employeeInDB.Update(request.EmployeeName, request.EmployeeCode, request.NotFirstSchedule);
+            await repository.Update(employeeInDB);
+            await repository.SaveChanges();
         }
     }
 }

@@ -14,11 +14,9 @@ namespace WorkSchedule.Domain.Services.Validators
     {
         private static readonly GuidValidator guidValidator = new();
         private static readonly PeriodValidator periodValidator = new();
-        private static readonly AbsenceCauseValidator absenceCauseValidator = new();
         public void Validate(Absence entity)
         {
             periodValidator.Validate(entity.Start, entity.End);
-            absenceCauseValidator.Validate(entity.Cause);
             guidValidator.Validate(entity.EmployeeId);
         }
     }

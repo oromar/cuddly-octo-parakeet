@@ -11,23 +11,21 @@ namespace WorkSchedule.Application.Commands.Absence
 {
     public class CreateAbsenceCommand: IRequest
     {
-        private static readonly GuidValidator guidValidator = new GuidValidator();
+        private static readonly EmployeeCodeValidator codeValidator = new EmployeeCodeValidator();
         private static readonly PeriodValidator periodValidator = new PeriodValidator();
-        private static readonly AbsenceCauseValidator absenceCauseValidator = new AbsenceCauseValidator();
 
-        public string EmployeeId { get; private set; }
-        public string Start { get; private set; }
-        public string End { get; private set; }
+        public string EmployeeCode { get; private set; }
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
         public AbsenceCause Cause { get; private set; }
 
-        public CreateAbsenceCommand(string employeeId, string start, string end, AbsenceCause cause)
+        public CreateAbsenceCommand(string employeeCode, string start, string end, AbsenceCause cause)
         {
-            guidValidator.Validate(employeeId);
+            codeValidator.Validate(employeeCode);
             periodValidator.Validate(start, end);
-            absenceCauseValidator.Validate(cause);
-            EmployeeId = employeeId;
-            Start = start;
-            End = end;
+            EmployeeCode = employeeCode;
+            Start = DateTime.Parse(start).Date;
+            End = DateTime.Parse(end).Date;
             Cause = cause;
         }
     }

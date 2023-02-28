@@ -37,7 +37,8 @@ namespace WorkSchedule.Desktop
         {
             services.AddServices();
             services.AddScoped<MainMenu>();
-            services.AddScoped<EmployeeViewModel>();
+            services.AddScoped<IEmployeeViewModel, EmployeeViewModel>();
+            services.AddScoped<IAbsenceViewModel, AbsenceViewModel>();
         }
     }
 }

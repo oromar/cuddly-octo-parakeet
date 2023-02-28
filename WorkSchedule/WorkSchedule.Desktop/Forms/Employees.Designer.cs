@@ -44,6 +44,9 @@
             label3 = new Label();
             textBoxEmployeeCriteria = new TextBox();
             btnSearchEmployee = new Button();
+            btnDelete = new Button();
+            btnClearSearch = new Button();
+            btnUpdateEmployee = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridEmployees).BeginInit();
             SuspendLayout();
@@ -61,10 +64,10 @@
             // labelEmployeeCode
             // 
             labelEmployeeCode.AutoSize = true;
-            labelEmployeeCode.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEmployeeCode.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             labelEmployeeCode.Location = new Point(31, 52);
             labelEmployeeCode.Name = "labelEmployeeCode";
-            labelEmployeeCode.Size = new Size(62, 17);
+            labelEmployeeCode.Size = new Size(71, 20);
             labelEmployeeCode.TabIndex = 1;
             labelEmployeeCode.Text = "Matrícula";
             // 
@@ -79,10 +82,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(425, 52);
             label2.Name = "label2";
-            label2.Size = new Size(44, 17);
+            label2.Size = new Size(50, 20);
             label2.TabIndex = 3;
             label2.Text = "Nome";
             // 
@@ -156,7 +159,7 @@
             dataGridEmployees.Name = "dataGridEmployees";
             dataGridEmployees.ReadOnly = true;
             dataGridEmployees.RowTemplate.Height = 25;
-            dataGridEmployees.Size = new Size(1370, 546);
+            dataGridEmployees.Size = new Size(1370, 350);
             dataGridEmployees.TabIndex = 7;
             // 
             // seq
@@ -181,7 +184,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(877, 302);
+            label3.Location = new Point(785, 301);
             label3.Name = "label3";
             label3.Size = new Size(209, 20);
             label3.TabIndex = 8;
@@ -190,7 +193,7 @@
             // textBoxEmployeeCriteria
             // 
             textBoxEmployeeCriteria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxEmployeeCriteria.Location = new Point(880, 325);
+            textBoxEmployeeCriteria.Location = new Point(785, 324);
             textBoxEmployeeCriteria.Name = "textBoxEmployeeCriteria";
             textBoxEmployeeCriteria.Size = new Size(373, 27);
             textBoxEmployeeCriteria.TabIndex = 9;
@@ -198,7 +201,7 @@
             // btnSearchEmployee
             // 
             btnSearchEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSearchEmployee.Location = new Point(1255, 324);
+            btnSearchEmployee.Location = new Point(1164, 322);
             btnSearchEmployee.Name = "btnSearchEmployee";
             btnSearchEmployee.Size = new Size(100, 29);
             btnSearchEmployee.TabIndex = 10;
@@ -206,12 +209,48 @@
             btnSearchEmployee.UseVisualStyleBackColor = true;
             btnSearchEmployee.Click += btnSearchEmployee_Click;
             // 
+            // btnDelete
+            // 
+            btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDelete.Location = new Point(1151, 744);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(100, 30);
+            btnDelete.TabIndex = 11;
+            btnDelete.Text = "Excluir";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnClearSearch
+            // 
+            btnClearSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClearSearch.Location = new Point(1270, 322);
+            btnClearSearch.Name = "btnClearSearch";
+            btnClearSearch.Size = new Size(100, 29);
+            btnClearSearch.TabIndex = 12;
+            btnClearSearch.Text = "Limpar";
+            btnClearSearch.UseVisualStyleBackColor = true;
+            btnClearSearch.Click += btnClearSearch_Click;
+            // 
+            // btnUpdateEmployee
+            // 
+            btnUpdateEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUpdateEmployee.Location = new Point(1257, 744);
+            btnUpdateEmployee.Name = "btnUpdateEmployee";
+            btnUpdateEmployee.Size = new Size(100, 30);
+            btnUpdateEmployee.TabIndex = 13;
+            btnUpdateEmployee.Text = "Atualizar";
+            btnUpdateEmployee.UseVisualStyleBackColor = true;
+            btnUpdateEmployee.Click += btnUpdateEmployee_Click;
+            // 
             // Employees
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(1425, 679);
+            ClientSize = new Size(1425, 875);
+            Controls.Add(btnUpdateEmployee);
+            Controls.Add(btnClearSearch);
+            Controls.Add(btnDelete);
             Controls.Add(btnSearchEmployee);
             Controls.Add(textBoxEmployeeCriteria);
             Controls.Add(label3);
@@ -246,5 +285,8 @@
         private DataGridViewTextBoxColumn seq;
         private DataGridViewTextBoxColumn employeeCode;
         private DataGridViewTextBoxColumn name;
+        private Button btnDelete;
+        private Button btnClearSearch;
+        private Button btnUpdateEmployee;
     }
 }
