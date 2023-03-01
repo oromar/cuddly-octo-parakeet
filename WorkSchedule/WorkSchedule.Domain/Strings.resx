@@ -252,6 +252,9 @@
   <data name="SuccessDeleteMessage" xml:space="preserve">
     <value>Registro(s) removido(s) com sucesso</value>
   </data>
+  <data name="SuccessGeneratedScheduleMessage" xml:space="preserve">
+    <value>Escala gerada com sucesso.</value>
+  </data>
   <data name="SuccessSaveMesssage" xml:space="preserve">
     <value>Registro cadastrado com sucesso.</value>
   </data>

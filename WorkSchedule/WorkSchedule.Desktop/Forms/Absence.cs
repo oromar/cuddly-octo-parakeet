@@ -84,6 +84,8 @@ namespace WorkSchedule.Desktop.Forms
             var result = employeeViewModel.SearchEmployee(textBoxEmployeeCode.Text);
             if (result != null && result.Any())
                 labelEmployeeName.Text = $"{result.First().Code} - {result.First().Name}";
+            else
+                AlertBuilder.WarningMessage(Strings.EmployeeNotFound);
         }
 
         private void btnClearSearchEmployee_Click(object sender, EventArgs e)

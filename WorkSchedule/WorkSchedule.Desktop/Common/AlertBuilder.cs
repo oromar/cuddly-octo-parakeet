@@ -38,5 +38,10 @@ namespace WorkSchedule.Desktop.Common
         {
             MessageBox.Show(message, Strings.WarningTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        internal static void ScheduleGeneratedSuccessAlert()
+        {
+            MessageBox.Show(Strings.SuccessGeneratedScheduleMessage, Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

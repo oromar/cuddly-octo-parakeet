@@ -466,6 +466,15 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Escala gerada com sucesso..
+        /// </summary>
+        public static string SuccessGeneratedScheduleMessage {
+            get {
+                return ResourceManager.GetString("SuccessGeneratedScheduleMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registro cadastrado com sucesso..
         /// </summary>
         public static string SuccessSaveMesssage {

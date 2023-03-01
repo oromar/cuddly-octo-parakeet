@@ -72,9 +72,9 @@
             label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(18, 47);
             label2.Name = "label2";
-            label2.Size = new Size(71, 20);
+            label2.Size = new Size(213, 20);
             label2.TabIndex = 1;
-            label2.Text = "Matrícula";
+            label2.Text = "Matrícula ou nome do servidor";
             // 
             // textBoxEmployeeCode
             // 

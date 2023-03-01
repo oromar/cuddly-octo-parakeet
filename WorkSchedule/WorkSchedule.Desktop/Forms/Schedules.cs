@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
 
 namespace WorkSchedule.Desktop.Forms
@@ -22,12 +23,21 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnGenerateOnNotice_Click(object sender, EventArgs e)
         {
-            var result = viewModel.GenerateOnNoticeSchedule(dateTimePickerStart.Value, dateTimePickerEnd.Value, checkIncludeWeekend.Checked);
-            var builder = new StringBuilder();
-            builder.AppendLine(result.CSVHeader);
-            builder.AppendLine(result.CSVBody);
-            var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
-            File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
+            try
+            {
+                var result = viewModel.GenerateOnNoticeSchedule(dateTimePickerStart.Value, dateTimePickerEnd.Value, checkIncludeWeekend.Checked);
+                var builder = new StringBuilder();
+                builder.AppendLine(result.CSVHeader);
+                builder.AppendLine(result.CSVBody);
+                var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
+                File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
+                AlertBuilder.ScheduleGeneratedSuccessAlert();
+            }
+            catch (Exception ex)
+            {
+                AlertBuilder.ErrorMessageAlert(ex);
+            }
+            
         }
     }
 }
