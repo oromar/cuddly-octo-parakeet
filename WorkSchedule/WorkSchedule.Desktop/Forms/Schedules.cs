@@ -1,20 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Text;
+using WorkSchedule.Desktop.ViewModels;
 
 namespace WorkSchedule.Desktop.Forms
 {
     public partial class Schedules : Form
     {
-        public Schedules()
+        private readonly IWorkScheduleViewModel viewModel;
+
+        public Schedules(IWorkScheduleViewModel viewModel)
         {
             InitializeComponent();
+            this.viewModel = viewModel;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            dateTimePickerEnd.Value = DateTime.Now;
+            dateTimePickerStart.Value = DateTime.Now;
+            checkIncludeWeekend.Checked = false;
+        }
+
+        private void btnGenerateOnNotice_Click(object sender, EventArgs e)
+        {
+            var result = viewModel.GenerateOnNoticeSchedule(dateTimePickerStart.Value, dateTimePickerEnd.Value, checkIncludeWeekend.Checked);
+            var builder = new StringBuilder();
+            builder.AppendLine(result.CSVHeader);
+            builder.AppendLine(result.CSVBody);
+            var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
+            File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
         }
     }
 }

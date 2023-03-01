@@ -1,3 +1,4 @@
+using System.Drawing.Design;
 using System.Windows.Forms;
 using WorkSchedule.Desktop.Forms;
 using WorkSchedule.Desktop.ViewModels;
@@ -10,15 +11,21 @@ namespace WorkSchedule.Desktop
         private Color defaultButtonColor;
         private Form activeForm;
 
-        private IEmployeeViewModel employeeViewModel;
+        private readonly IEmployeeViewModel employeeViewModel;
         private readonly IAbsenceViewModel absenceViewModel;
+        private readonly IWorkScheduleViewModel workScheduleViewModel;
+        private readonly ISettingsViewModel settingsViewModel;
 
         public MainMenu(IEmployeeViewModel employeeViewModel,
-            IAbsenceViewModel absenceViewModel)
+            IAbsenceViewModel absenceViewModel,
+            IWorkScheduleViewModel workScheduleViewModel,
+            ISettingsViewModel settingsViewModel)
         {
             InitializeComponent();
             this.employeeViewModel = employeeViewModel;
             this.absenceViewModel = absenceViewModel;
+            this.workScheduleViewModel = workScheduleViewModel;
+            this.settingsViewModel = settingsViewModel;
             this.employeeViewModel.ListEmployees();
             foreach (Control item in panelMenuButtons.Controls)
             {
@@ -84,12 +91,12 @@ namespace WorkSchedule.Desktop
 
         private void btnSchedule_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Schedules(), sender);
+            OpenChildForm(new Schedules(workScheduleViewModel), sender);
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Settings(), sender);
+            OpenChildForm(new Settings(settingsViewModel), sender);
         }
 
         private void btnClose_Click_1(object sender, EventArgs e)

@@ -8,10 +8,6 @@ using WorkSchedule.Domain.Repositories;
 
 namespace WorkSchedule.Application.Queries.Absence
 {
-    public interface IAbsenceQueries
-    {
-        IEnumerable<AbsenceDTO> ListAbsences();
-    }
 
     public class AbsenceQueries : IAbsenceQueries
     {
@@ -43,6 +39,32 @@ namespace WorkSchedule.Application.Queries.Absence
                 .ToList();
 
             return result;
+        }
+
+        public IEnumerable<AbsenceDTO> SearchAbsences(string criteria)
+        {
+            var searchText = criteria.ToLower();
+
+            var employees = employeeRepository.AsQueryable()
+                .ToDictionary(a => a.Id, a => (a.EmployeeCode, a.Name));
+
+            var employeeIds = employees
+                .Where(a => a.Value.EmployeeCode.ToLower().Contains(searchText) || a.Value.Name.ToLower().Contains(searchText))
+                .Select(a => a.Key)
+                .ToList();   
+
+            return repository.AsQueryable()
+                .Where(a => employeeIds.Contains(a.EmployeeId))
+                .Select(a => new AbsenceDTO
+                {
+                    Cause = a.Cause,
+                    CreationTime = a.CreationTime,
+                    Start = a.Start,
+                    End = a.End,
+                    EmployeeCode = employees[a.EmployeeId].EmployeeCode,
+                    EmployeeName = employees[a.EmployeeId].Name,
+                })
+                .ToList();
         }
     }
 }

@@ -195,13 +195,13 @@
             textBoxEmployeeCriteria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxEmployeeCriteria.Location = new Point(785, 324);
             textBoxEmployeeCriteria.Name = "textBoxEmployeeCriteria";
-            textBoxEmployeeCriteria.Size = new Size(373, 27);
+            textBoxEmployeeCriteria.Size = new Size(396, 27);
             textBoxEmployeeCriteria.TabIndex = 9;
             // 
             // btnSearchEmployee
             // 
             btnSearchEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSearchEmployee.Location = new Point(1164, 322);
+            btnSearchEmployee.Location = new Point(1187, 324);
             btnSearchEmployee.Name = "btnSearchEmployee";
             btnSearchEmployee.Size = new Size(100, 29);
             btnSearchEmployee.TabIndex = 10;
@@ -212,7 +212,7 @@
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnDelete.Location = new Point(1151, 744);
+            btnDelete.Location = new Point(1187, 744);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(100, 30);
             btnDelete.TabIndex = 11;
@@ -223,7 +223,7 @@
             // btnClearSearch
             // 
             btnClearSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClearSearch.Location = new Point(1270, 322);
+            btnClearSearch.Location = new Point(1293, 324);
             btnClearSearch.Name = "btnClearSearch";
             btnClearSearch.Size = new Size(100, 29);
             btnClearSearch.TabIndex = 12;
@@ -234,7 +234,7 @@
             // btnUpdateEmployee
             // 
             btnUpdateEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUpdateEmployee.Location = new Point(1257, 744);
+            btnUpdateEmployee.Location = new Point(1293, 744);
             btnUpdateEmployee.Name = "btnUpdateEmployee";
             btnUpdateEmployee.Size = new Size(100, 30);
             btnUpdateEmployee.TabIndex = 13;

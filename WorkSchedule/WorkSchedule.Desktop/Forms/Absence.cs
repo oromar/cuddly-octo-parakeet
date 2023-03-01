@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using WorkSchedule.Application.DataTransferObjects;
+using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
 using WorkSchedule.Domain;
 using WorkSchedule.Domain.Enums;
@@ -54,7 +55,7 @@ namespace WorkSchedule.Desktop.Forms
             dataGridAbsences.Columns.Clear();
             dataGridAbsences.Columns.Add("index", Strings.IndexSign);
             dataGridAbsences.Columns.Add("code", Strings.EmployeeCodeColumnTitle);
-            dataGridAbsences.Columns.Add("name", Strings.EmployeeCodeColumnTitle);
+            dataGridAbsences.Columns.Add("name", Strings.EmployeeNameColumnTitle);
             dataGridAbsences.Columns.Add("cause", Strings.Cause);
             dataGridAbsences.Columns.Add("start", Strings.Start);
             dataGridAbsences.Columns.Add("end", Strings.End);
@@ -114,12 +115,11 @@ namespace WorkSchedule.Desktop.Forms
             {
                 absenceViewModel.CreateAbsence(textBoxEmployeeCode.Text, dateTimePickerStartPeriod.Value,
                 dateTimePickerEndPeriod.Value, comboBoxCause.Text);
-                MessageBox.Show(Strings.SuccessSaveMesssage, Strings.SuccessTitle, MessageBoxButtons.OK);
+                AlertBuilder.SaveSuccessAlert();
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.InnerException?.Message ?? ex.Message, Strings.ErrorTitle, MessageBoxButtons.OK);
+                AlertBuilder.ErrorMessageAlert(ex);
             }
             ClearAllForms();
             FillDataGrid();
@@ -127,7 +127,7 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            var dialogResult = MessageBox.Show(Strings.AreYouSure, Strings.Question, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var dialogResult = AlertBuilder.ConfirmQuestionAlert();
             if (dialogResult == DialogResult.Yes)
             {
                 var codes = new List<string>();
@@ -137,7 +137,7 @@ namespace WorkSchedule.Desktop.Forms
                 var rows = dataGridAbsences.SelectedRows;
                 foreach (DataGridViewRow row in rows)
                 {
-                    foreach(DataGridViewCell column in row.Cells)
+                    foreach (DataGridViewCell column in row.Cells)
                     {
                         if (column.ColumnIndex == EMPLOYEE_CODE_INDEX)
                             codes.Add(column.Value.ToString());
@@ -153,8 +153,21 @@ namespace WorkSchedule.Desktop.Forms
                 for (int i = 0; i < codes.Count; i++)
                     absenceViewModel.DeleteAbsence(codes[i], DateTime.Parse(starts[i]), DateTime.Parse(ends[i]), causes[i]);
 
+                AlertBuilder.DeleteSuccessAlert();
                 FillDataGrid();
             }
+        }
+
+        private void btnClearSearchAbsence_Click(object sender, EventArgs e)
+        {
+            textBoxSearchAbsence.Text = string.Empty;
+            FillDataGrid();
+        }
+
+        private void btnSearchAbsences_Click(object sender, EventArgs e)
+        {
+            var list = absenceViewModel.SearchAbsences(textBoxSearchAbsence.Text);
+            PopulateDataGrid(list);
         }
     }
 }

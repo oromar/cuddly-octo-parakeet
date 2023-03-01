@@ -132,11 +132,17 @@
   <data name="CreationTimeColumnTitle" xml:space="preserve">
     <value>Data/Hora de Cadastro</value>
   </data>
+  <data name="DateColumnTitle" xml:space="preserve">
+    <value>Data</value>
+  </data>
   <data name="EmployeeAlreadyExists" xml:space="preserve">
     <value>Já existe um servidor com esta mesma matrícula.</value>
   </data>
   <data name="EmployeeCodeColumnTitle" xml:space="preserve">
     <value>Matrícula</value>
+  </data>
+  <data name="EmployeeNameColumnTitle" xml:space="preserve">
+    <value>Nome</value>
   </data>
   <data name="EmployeeNotFound" xml:space="preserve">
     <value>Servidor não encontrado.</value>
@@ -171,8 +177,14 @@
   <data name="No" xml:space="preserve">
     <value>Não</value>
   </data>
+  <data name="NSchedule" xml:space="preserve">
+    <value>º Sobreaviso</value>
+  </data>
   <data name="OnlyNumbersEmployeeCode" xml:space="preserve">
     <value>A matrícula do servidor só pode conter números.</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Período</value>
   </data>
   <data name="Question" xml:space="preserve">
     <value>Confirma?</value>
@@ -236,6 +248,9 @@
   </data>
   <data name="StartDateCannotBeAfterEndDate" xml:space="preserve">
     <value>A data de início não pode ser posterior à data de final de período.</value>
+  </data>
+  <data name="SuccessDeleteMessage" xml:space="preserve">
+    <value>Registro(s) removido(s) com sucesso</value>
   </data>
   <data name="SuccessSaveMesssage" xml:space="preserve">
     <value>Registro cadastrado com sucesso.</value>

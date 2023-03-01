@@ -19,8 +19,8 @@ namespace WorkSchedule.Application.Commands.Employee
 
         public CreateEmployeeCommand(string name, string code, bool notFirstSchedule)
         {
-            employeeNameValidator.Validate(name);
             employeeCodeValidator.Validate(code);
+            employeeNameValidator.Validate(name);
             Name = name;
             Code = code;
             NotFirstSchedule = notFirstSchedule;

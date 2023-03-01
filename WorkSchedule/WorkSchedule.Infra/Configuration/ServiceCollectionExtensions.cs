@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorkSchedule.Application.Commands.Absence;
 using WorkSchedule.Application.Queries.Absence;
 using WorkSchedule.Application.Queries.Employee;
@@ -21,7 +16,7 @@ namespace WorkSchedule.Infra.Configuration
         {
             services.AddDbContext<WorkScheduleContext>(opt =>
             {
-                opt.UseSqlite("Data Source=WorkSchedule.db;");
+                opt.UseSqlite(WorkScheduleContext.DATA_SOURCE);
             });
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAbsenceCommand).Assembly));
@@ -31,7 +26,9 @@ namespace WorkSchedule.Infra.Configuration
 
             services.AddScoped<IRepository<Absence>, AbsenceRepository>();
             services.AddScoped<IAbsenceQueries, AbsenceQueries>();
-           
+
+            services.AddScoped<IRepository<Settings>, SettingsRepository>();
+
         }
     }
 }

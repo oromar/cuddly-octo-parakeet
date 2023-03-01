@@ -29,26 +29,98 @@
         private void InitializeComponent()
         {
             label1 = new Label();
+            groupBox1 = new GroupBox();
+            numericUpDownOnNoticeScheduleEmployeesPerDay = new NumericUpDown();
+            label2 = new Label();
+            label3 = new Label();
+            numericUpDownDaysToCheckOverload = new NumericUpDown();
+            btnSaveSettings = new Button();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownOnNoticeScheduleEmployeesPerDay).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownDaysToCheckOverload).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(473, 149);
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(34, 26);
             label1.Name = "label1";
-            label1.Size = new Size(57, 15);
+            label1.Size = new Size(169, 25);
             label1.TabIndex = 0;
-            label1.Text = "SETTINGS";
+            label1.Text = "CONFIGURAÇÕES";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(btnSaveSettings);
+            groupBox1.Controls.Add(numericUpDownDaysToCheckOverload);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(numericUpDownOnNoticeScheduleEmployeesPerDay);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox1.Location = new Point(39, 83);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(402, 208);
+            groupBox1.TabIndex = 1;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Escala de Sobreaviso";
+            // 
+            // numericUpDownOnNoticeScheduleEmployeesPerDay
+            // 
+            numericUpDownOnNoticeScheduleEmployeesPerDay.Location = new Point(23, 64);
+            numericUpDownOnNoticeScheduleEmployeesPerDay.Name = "numericUpDownOnNoticeScheduleEmployeesPerDay";
+            numericUpDownOnNoticeScheduleEmployeesPerDay.Size = new Size(120, 27);
+            numericUpDownOnNoticeScheduleEmployeesPerDay.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(16, 38);
+            label2.Name = "label2";
+            label2.Size = new Size(327, 20);
+            label2.TabIndex = 0;
+            label2.Text = "Quantidade de servidores de sobreaviso por dia";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(16, 125);
+            label3.Name = "label3";
+            label3.Size = new Size(193, 20);
+            label3.TabIndex = 2;
+            label3.Text = "Dias de intervalo por escala";
+            // 
+            // numericUpDownDaysToCheckOverload
+            // 
+            numericUpDownDaysToCheckOverload.Location = new Point(23, 151);
+            numericUpDownDaysToCheckOverload.Name = "numericUpDownDaysToCheckOverload";
+            numericUpDownDaysToCheckOverload.Size = new Size(120, 27);
+            numericUpDownDaysToCheckOverload.TabIndex = 3;
+            // 
+            // btnSaveSettings
+            // 
+            btnSaveSettings.Location = new Point(275, 151);
+            btnSaveSettings.Name = "btnSaveSettings";
+            btnSaveSettings.Size = new Size(100, 30);
+            btnSaveSettings.TabIndex = 4;
+            btnSaveSettings.Text = "Salvar";
+            btnSaveSettings.UseVisualStyleBackColor = true;
+            btnSaveSettings.Click += btnSaveSettings_Click;
             // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1341, 802);
+            Controls.Add(groupBox1);
             Controls.Add(label1);
             Name = "Settings";
             Text = "Settings";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownOnNoticeScheduleEmployeesPerDay).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownDaysToCheckOverload).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -56,5 +128,11 @@
         #endregion
 
         private Label label1;
+        private GroupBox groupBox1;
+        private NumericUpDown numericUpDownOnNoticeScheduleEmployeesPerDay;
+        private Label label2;
+        private NumericUpDown numericUpDownDaysToCheckOverload;
+        private Label label3;
+        private Button btnSaveSettings;
     }
 }

@@ -6,14 +6,6 @@ using WorkSchedule.Domain.Enums;
 
 namespace WorkSchedule.Desktop.ViewModels
 {
-    public interface IAbsenceViewModel
-    {
-        void CreateAbsence(string employeeCode, DateTime start, DateTime end, string cause);
-        IEnumerable<string> GetCauses();
-        IEnumerable<AbsenceDTO> ListAbsences();
-        void DeleteAbsence(string employeeCode, DateTime start, DateTime end, string cause);
-
-    }
 
     public class AbsenceViewModel : IAbsenceViewModel
     {
@@ -48,6 +40,11 @@ namespace WorkSchedule.Desktop.ViewModels
         public IEnumerable<AbsenceDTO> ListAbsences()
         {
             return queryService.ListAbsences();
+        }
+
+        public IEnumerable<AbsenceDTO> SearchAbsences(string criteria)
+        {
+            return queryService.SearchAbsences(criteria);
         }
     }
 }

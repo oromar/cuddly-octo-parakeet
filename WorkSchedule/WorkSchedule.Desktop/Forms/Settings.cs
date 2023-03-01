@@ -7,14 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WorkSchedule.Desktop.Common;
+using WorkSchedule.Desktop.ViewModels;
 
 namespace WorkSchedule.Desktop.Forms
 {
     public partial class Settings : Form
     {
-        public Settings()
+        private readonly ISettingsViewModel viewModel;
+
+        public Settings(ISettingsViewModel viewModel)
         {
             InitializeComponent();
+            this.viewModel = viewModel;
+        }
+
+        private void btnSaveSettings_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                viewModel.SaveSettings((int)numericUpDownDaysToCheckOverload.Value,
+                    (int)numericUpDownOnNoticeScheduleEmployeesPerDay.Value);
+                AlertBuilder.SaveSuccessAlert();
+            }
+            catch (Exception ex)
+            {
+                AlertBuilder.ErrorMessageAlert(ex);
+            }
         }
     }
 }
