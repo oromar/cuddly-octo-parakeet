@@ -37,14 +37,14 @@ namespace WorkSchedule.Desktop.ViewModels
                 .Select(a => a.GetDescription());
         }
 
-        public IEnumerable<AbsenceDTO> ListAbsences()
+        public PaginationDTO<AbsenceDTO> ListAbsences(int page, int pageSize)
         {
-            return queryService.ListAbsences();
+            return queryService.ListAbsences(page, pageSize);
         }
 
-        public IEnumerable<AbsenceDTO> SearchAbsences(string criteria)
+        public PaginationDTO<AbsenceDTO> SearchAbsences(string criteria, int page, int pageSize)
         {
-            return queryService.SearchAbsences(criteria);
+            return queryService.SearchAbsences(criteria, page, pageSize);
         }
     }
 }

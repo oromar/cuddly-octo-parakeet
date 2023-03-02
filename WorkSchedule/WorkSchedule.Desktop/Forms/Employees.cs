@@ -11,9 +11,12 @@ namespace WorkSchedule.Desktop.Forms
         private const int EMPLOYEE_CODE_INDEX = 0;
         private const int EMPLOYEE_NAME_INDEX = 1;
         private const int EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX = 2;
+        private const int PAGE_SIZE = 8;
 
         private readonly IEmployeeViewModel viewModel;
         private bool editMode = false;
+        private int currentPage = 1;
+        private int totalItems = 0;
 
         public Employees(IEmployeeViewModel viewModel)
         {
@@ -59,11 +62,24 @@ namespace WorkSchedule.Desktop.Forms
         {
 
             //PopulateDummyData(250);
-            var list = viewModel.ListEmployees();
-            PopulateDataGridView(list);
-
+            PaginationDTO<EmployeeDTO> data;
+            if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))
+                data = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
+            else
+                data = viewModel.ListEmployees(currentPage, PAGE_SIZE);
+            totalItems = data.Total;
+            PopulateDataGridView(data.Items);
+            UpdatePaginationLabel(data);
         }
 
+        private void UpdatePaginationLabel(PaginationDTO<EmployeeDTO> data)
+        {
+            var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
+            var lastItem = firstItem + data.Items.Count() - 1;
+            labelPagination.Text = $"{firstItem} - {lastItem} Total: {totalItems}.";
+        }
+
+        #region populate dummy data
         private void PopulateDummyData(int employeeCount)
         {
             var employeeCodes = new List<string>();
@@ -362,6 +378,8 @@ namespace WorkSchedule.Desktop.Forms
                 viewModel.CreateEmployee(currentName, currentCode, new Random().Next(1, 3) == 2);
             }
         }
+
+        #endregion
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -391,8 +409,11 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnSearchEmployee_Click(object sender, EventArgs e)
         {
-            var list = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text);
-            PopulateDataGridView(list);
+            currentPage = 1;
+            var data = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
+            totalItems = data.Total;
+            PopulateDataGridView(data.Items);
+            UpdatePaginationLabel(data);
         }
 
         private void btnClearSearch_Click(object sender, EventArgs e)
@@ -435,7 +456,25 @@ namespace WorkSchedule.Desktop.Forms
 
             textBoxEmployeeCode.Text = rows[0].Cells[EMPLOYEE_CODE_INDEX].Value.ToString();
             textBoxEmployeeName.Text = rows[0].Cells[EMPLOYEE_NAME_INDEX].Value.ToString();
-            checkFirstSchedule.Checked = rows[0].Cells[EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX].Value.ToString() == Strings.No;
+            checkFirstSchedule.Checked = rows[0].Cells[EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX].Value.ToString() == Strings.Yes;
+        }
+
+        private void BtnPreviousPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                FillDataGrid();
+            }
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage < (totalItems / PAGE_SIZE) + 1)
+            {
+                currentPage++;
+                FillDataGrid();
+            }
         }
     }
 }

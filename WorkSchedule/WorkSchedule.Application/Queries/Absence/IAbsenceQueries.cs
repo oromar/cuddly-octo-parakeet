@@ -4,7 +4,7 @@ namespace WorkSchedule.Application.Queries.Absence
 {
     public interface IAbsenceQueries
     {
-        IEnumerable<AbsenceDTO> ListAbsences();
-        IEnumerable<AbsenceDTO> SearchAbsences(string criteria);
+        PaginationDTO<AbsenceDTO> ListAbsences(int page, int pageSize);
+        PaginationDTO<AbsenceDTO> SearchAbsences(string criteria, int page, int pageSize);
     }
 }

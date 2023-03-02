@@ -27,7 +27,7 @@ namespace WorkSchedule.Desktop
             this.absenceViewModel = absenceViewModel;
             this.workScheduleViewModel = workScheduleViewModel;
             this.settingsViewModel = settingsViewModel;
-            this.employeeViewModel.ListEmployees();
+            employeeViewModel.ListEmployees(1, 1);
             foreach (Control item in panelMenuButtons.Controls)
             {
                 if (item.GetType() == typeof(Button))

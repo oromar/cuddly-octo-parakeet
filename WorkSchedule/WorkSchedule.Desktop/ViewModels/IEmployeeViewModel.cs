@@ -5,8 +5,8 @@ namespace WorkSchedule.Desktop.ViewModels
     public interface IEmployeeViewModel
     {
         void CreateEmployee(string name, string code, bool notFirstSchedule);
-        IEnumerable<EmployeeDTO> ListEmployees();
-        IEnumerable<EmployeeDTO> SearchEmployee(string criteria);
+        PaginationDTO<EmployeeDTO> ListEmployees(int page, int pageSize);
+        PaginationDTO<EmployeeDTO> SearchEmployee(string criteria, int page, int pageSize);
         void DeleteEmployee(string code);
         void UpdateEmployee(string name, string code, bool notFirstSchedule);
     }

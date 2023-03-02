@@ -38,9 +38,6 @@
             btnClear = new Button();
             btnSave = new Button();
             dataGridEmployees = new DataGridView();
-            seq = new DataGridViewTextBoxColumn();
-            employeeCode = new DataGridViewTextBoxColumn();
-            name = new DataGridViewTextBoxColumn();
             label3 = new Label();
             textBoxEmployeeCriteria = new TextBox();
             btnSearchEmployee = new Button();
@@ -48,6 +45,9 @@
             btnClearSearch = new Button();
             btnUpdateEmployee = new Button();
             groupBox2 = new GroupBox();
+            labelPagination = new Label();
+            btnNextPage = new Button();
+            BtnPreviousPage = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridEmployees).BeginInit();
             groupBox2.SuspendLayout();
@@ -101,12 +101,12 @@
             textBoxEmployeeName.Size = new Size(464, 27);
             textBoxEmployeeName.TabIndex = 4;
             // 
-            // checkNotFirstSchedule
+            // checkFirstSchedule
             // 
             checkFirstSchedule.AutoSize = true;
             checkFirstSchedule.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             checkFirstSchedule.Location = new Point(6, 123);
-            checkFirstSchedule.Name = "checkNotFirstSchedule";
+            checkFirstSchedule.Name = "checkFirstSchedule";
             checkFirstSchedule.Size = new Size(168, 24);
             checkFirstSchedule.TabIndex = 5;
             checkFirstSchedule.Text = "Primeiro Sobreaviso?";
@@ -157,31 +157,12 @@
             dataGridEmployees.AllowUserToDeleteRows = false;
             dataGridEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridEmployees.Columns.AddRange(new DataGridViewColumn[] { seq, employeeCode, name });
             dataGridEmployees.Location = new Point(6, 93);
             dataGridEmployees.Name = "dataGridEmployees";
             dataGridEmployees.ReadOnly = true;
             dataGridEmployees.RowTemplate.Height = 25;
             dataGridEmployees.Size = new Size(628, 242);
             dataGridEmployees.TabIndex = 7;
-            // 
-            // seq
-            // 
-            seq.HeaderText = "#";
-            seq.Name = "seq";
-            seq.ReadOnly = true;
-            // 
-            // employeeCode
-            // 
-            employeeCode.HeaderText = "Matrícula";
-            employeeCode.Name = "employeeCode";
-            employeeCode.ReadOnly = true;
-            // 
-            // name
-            // 
-            name.HeaderText = "Nome";
-            name.Name = "name";
-            name.ReadOnly = true;
             // 
             // label3
             // 
@@ -248,6 +229,9 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(labelPagination);
+            groupBox2.Controls.Add(btnNextPage);
+            groupBox2.Controls.Add(BtnPreviousPage);
             groupBox2.Controls.Add(btnUpdateEmployee);
             groupBox2.Controls.Add(btnClearSearch);
             groupBox2.Controls.Add(btnDelete);
@@ -262,6 +246,35 @@
             groupBox2.TabIndex = 14;
             groupBox2.TabStop = false;
             groupBox2.Text = "Servidores Cadastrados";
+            // 
+            // labelPagination
+            // 
+            labelPagination.AutoSize = true;
+            labelPagination.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPagination.Location = new Point(272, 346);
+            labelPagination.Name = "labelPagination";
+            labelPagination.Size = new Size(0, 20);
+            labelPagination.TabIndex = 16;
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.Location = new Point(112, 341);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Size = new Size(100, 30);
+            btnNextPage.TabIndex = 15;
+            btnNextPage.Text = "Próximo";
+            btnNextPage.UseVisualStyleBackColor = true;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // BtnPreviousPage
+            // 
+            BtnPreviousPage.Location = new Point(6, 341);
+            BtnPreviousPage.Name = "BtnPreviousPage";
+            BtnPreviousPage.Size = new Size(100, 30);
+            BtnPreviousPage.TabIndex = 14;
+            BtnPreviousPage.Text = "Anterior";
+            BtnPreviousPage.UseVisualStyleBackColor = true;
+            BtnPreviousPage.Click += BtnPreviousPage_Click;
             // 
             // Employees
             // 
@@ -299,12 +312,12 @@
         private Label label3;
         private TextBox textBoxEmployeeCriteria;
         private Button btnSearchEmployee;
-        private DataGridViewTextBoxColumn seq;
-        private DataGridViewTextBoxColumn employeeCode;
-        private DataGridViewTextBoxColumn name;
         private Button btnDelete;
         private Button btnClearSearch;
         private Button btnUpdateEmployee;
         private GroupBox groupBox2;
+        private Button btnNextPage;
+        private Button BtnPreviousPage;
+        private Label labelPagination;
     }
 }

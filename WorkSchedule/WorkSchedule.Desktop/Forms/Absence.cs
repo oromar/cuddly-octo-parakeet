@@ -16,7 +16,9 @@ namespace WorkSchedule.Desktop.Forms
 
         private readonly IEmployeeViewModel employeeViewModel;
         private readonly IAbsenceViewModel absenceViewModel;
-
+        private int currentPage = 1;
+        private const int PAGE_SIZE = 5;
+        private int totalItems = 0;
         public Absence(IEmployeeViewModel employeeViewModel,
             IAbsenceViewModel absenceViewModel)
         {
@@ -36,8 +38,21 @@ namespace WorkSchedule.Desktop.Forms
 
         private void FillDataGrid()
         {
-            var list = absenceViewModel.ListAbsences();
-            PopulateDataGrid(list);
+            PaginationDTO<AbsenceDTO> data;
+            if (!string.IsNullOrWhiteSpace(textBoxEmployee.Text))
+                data = absenceViewModel.SearchAbsences(textBoxEmployee.Text, currentPage, PAGE_SIZE);
+            else
+                data = absenceViewModel.ListAbsences(currentPage, PAGE_SIZE);
+            totalItems = data.Total;
+            PopulateDataGrid(data.Items);
+            UpdatePaginationLabel(data);
+        }
+
+        private void UpdatePaginationLabel(PaginationDTO<AbsenceDTO> data)
+        {
+            var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
+            var lastItem = firstItem + data.Items.Count() - 1;
+            labelPagination.Text = $"{firstItem} - {lastItem} Total: {totalItems}.";
         }
 
         private void PopulateDataGrid(IEnumerable<AbsenceDTO> list)
@@ -67,9 +82,9 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnSearchEmployee_Click(object sender, EventArgs e)
         {
-            var result = employeeViewModel.SearchEmployee(textBoxEmployeeCode.Text);
-            if (result != null && result.Any())
-                textBoxEmployee.Text = $"{result.First().Code} - {result.First().Name}";
+            var result = employeeViewModel.SearchEmployee(textBoxEmployeeCode.Text, 1, 1);
+            if (result != null && result.Items.Any())
+                textBoxEmployee.Text = $"{result.Items.First().Code} - {result.Items.First().Name}";
             else
                 AlertBuilder.WarningMessage(Strings.EmployeeNotFound);
         }
@@ -155,8 +170,28 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnSearchAbsences_Click(object sender, EventArgs e)
         {
-            var list = absenceViewModel.SearchAbsences(textBoxSearchAbsence.Text);
-            PopulateDataGrid(list);
+            currentPage = 1;
+            var data = absenceViewModel.SearchAbsences(textBoxSearchAbsence.Text, currentPage, PAGE_SIZE);
+            totalItems = data.Total;
+            PopulateDataGrid(data.Items);
+        }
+
+        private void buttonPreviousPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                FillDataGrid();
+            }
+        }
+
+        private void buttonNextPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage < (totalItems / PAGE_SIZE) + 1)
+            {
+                currentPage++;
+                FillDataGrid();
+            }
         }
     }
 }

@@ -22,14 +22,14 @@ namespace WorkSchedule.Desktop.ViewModels
             Task.Run(() => mediator.Send(new CreateEmployeeCommand(name, code, firstSchedule))).Wait();
         }
 
-        public IEnumerable<EmployeeDTO> ListEmployees()
+        public PaginationDTO<EmployeeDTO> ListEmployees(int page, int pageSize)
         {
-            return Task.Run(() => queryService.ListEmployees()).Result;
+            return Task.Run(() => queryService.ListEmployees(page, pageSize)).Result;
         }
 
-        public IEnumerable<EmployeeDTO> SearchEmployee(string criteria)
+        public PaginationDTO<EmployeeDTO> SearchEmployee(string criteria, int page, int pageSize)
         {
-            return Task.Run(() => queryService.SearchEmployees(criteria)).Result;
+            return Task.Run(() => queryService.SearchEmployees(criteria, page, pageSize)).Result;
         }
 
         public void DeleteEmployee(string code)

@@ -4,7 +4,7 @@ namespace WorkSchedule.Application.Queries.Employee
 {
     public interface IEmployeeQueries
     {
-        Task<IEnumerable<EmployeeDTO>> ListEmployees();
-        Task<IEnumerable<EmployeeDTO>> SearchEmployees(string criteria);
+        Task<PaginationDTO<EmployeeDTO>> ListEmployees(int page, int pageSize);
+        Task<PaginationDTO<EmployeeDTO>> SearchEmployees(string criteria, int page, int pageSize);
     }
 }

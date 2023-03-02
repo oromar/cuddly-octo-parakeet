@@ -1,4 +1,5 @@
-﻿using WorkSchedule.Application.DataTransferObjects;
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using WorkSchedule.Application.DataTransferObjects;
 using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Repositories;
 
@@ -17,12 +18,15 @@ namespace WorkSchedule.Application.Queries.Absence
             this.employeeRepository = employeeRepository;
         }
 
-        public IEnumerable<AbsenceDTO> ListAbsences()
+        public PaginationDTO<AbsenceDTO> ListAbsences(int page, int pageSize)
         {
             var employees = employeeRepository.AsQueryable()
                 .ToDictionary(a => a.Id, a => (a.EmployeeCode, a.Name));
 
-            var result = repository.AsQueryable()
+            var total = repository.AsQueryable().Count();
+            var items = repository.AsQueryable()
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(a => new AbsenceDTO
                 {
                     Cause = a.Cause,
@@ -34,19 +38,26 @@ namespace WorkSchedule.Application.Queries.Absence
                 })
                 .ToList();
 
-            return result;
+            return new PaginationDTO<AbsenceDTO>
+            {
+                Items = items,
+                Total = total,
+            };
         }
 
-        public IEnumerable<AbsenceDTO> SearchAbsences(string criteria)
+        public PaginationDTO<AbsenceDTO> SearchAbsences(string criteria, int page, int pageSize)
         {
             var searchText = criteria.ToLower().RemoveDiacritics();
             var employees = employeeRepository.AsQueryable()
                 .Where(a => a.SearchText.ToLower().Contains(searchText))
                 .ToDictionary(a => a.Id, a => (a.EmployeeCode, a.Name));
             var employeeIds = employees.Keys;
-
-            return repository.AsQueryable()
-                .Where(a => employeeIds.Contains(a.EmployeeId))
+            var dbQuery = repository.AsQueryable()
+                .Where(a => employeeIds.Contains(a.EmployeeId));
+            var total = dbQuery.Count();
+            var items = dbQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(a => new AbsenceDTO
                 {
                     Cause = a.Cause,
@@ -57,6 +68,11 @@ namespace WorkSchedule.Application.Queries.Absence
                     EmployeeName = employees[a.EmployeeId].Name,
                 })
                 .ToList();
+            return new PaginationDTO<AbsenceDTO>
+            {
+                Total = total,
+                Items = items,
+            };
         }
     }
 }

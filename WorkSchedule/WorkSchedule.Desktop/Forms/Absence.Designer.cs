@@ -41,6 +41,9 @@
             btnSearchAbsences = new Button();
             label7 = new Label();
             groupBox2 = new GroupBox();
+            labelPagination = new Label();
+            buttonNextPage = new Button();
+            buttonPreviousPage = new Button();
             btnClearSearchEmployee = new Button();
             textBoxEmployeeCode = new TextBox();
             btnSearchEmployee = new Button();
@@ -184,6 +187,9 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(labelPagination);
+            groupBox2.Controls.Add(buttonNextPage);
+            groupBox2.Controls.Add(buttonPreviousPage);
             groupBox2.Controls.Add(btnSearchAbsences);
             groupBox2.Controls.Add(btnClearSearchAbsence);
             groupBox2.Controls.Add(textBoxSearchAbsence);
@@ -197,6 +203,36 @@
             groupBox2.TabIndex = 23;
             groupBox2.TabStop = false;
             groupBox2.Text = "Bloqueios Cadastrados";
+            // 
+            // labelPagination
+            // 
+            labelPagination.AutoSize = true;
+            labelPagination.Location = new Point(298, 251);
+            labelPagination.Name = "labelPagination";
+            labelPagination.Size = new Size(0, 20);
+            labelPagination.TabIndex = 24;
+            // 
+            // buttonNextPage
+            // 
+            buttonNextPage.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonNextPage.Location = new Point(125, 246);
+            buttonNextPage.Name = "buttonNextPage";
+            buttonNextPage.Size = new Size(100, 30);
+            buttonNextPage.TabIndex = 23;
+            buttonNextPage.Text = "Próximo";
+            buttonNextPage.UseVisualStyleBackColor = true;
+            buttonNextPage.Click += buttonNextPage_Click;
+            // 
+            // buttonPreviousPage
+            // 
+            buttonPreviousPage.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonPreviousPage.Location = new Point(19, 246);
+            buttonPreviousPage.Name = "buttonPreviousPage";
+            buttonPreviousPage.Size = new Size(100, 30);
+            buttonPreviousPage.TabIndex = 22;
+            buttonPreviousPage.Text = "Anterior";
+            buttonPreviousPage.UseVisualStyleBackColor = true;
+            buttonPreviousPage.Click += buttonPreviousPage_Click;
             // 
             // btnClearSearchEmployee
             // 
@@ -366,5 +402,8 @@
         private DateTimePicker dateTimePickerEndPeriod;
         private TextBox textBoxEmployee;
         private Label label8;
+        private Button buttonNextPage;
+        private Button buttonPreviousPage;
+        private Label labelPagination;
     }
 }
