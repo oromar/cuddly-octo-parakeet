@@ -115,6 +115,15 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DOM.
+        /// </summary>
+        public static string DOM {
+            get {
+                return ResourceManager.GetString("DOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Já existe um servidor com esta mesma matrícula..
         /// </summary>
         public static string EmployeeAlreadyExists {
@@ -169,11 +178,11 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entra no primeiro sobreaviso?.
+        ///   Looks up a localized string similar to Primeiro sobreaviso?.
         /// </summary>
-        public static string FirsScheduleColumnTitle {
+        public static string FirstScheduleColumnTitle {
             get {
-                return ResourceManager.GetString("FirsScheduleColumnTitle", resourceCulture);
+                return ResourceManager.GetString("FirstScheduleColumnTitle", resourceCulture);
             }
         }
         
@@ -183,6 +192,24 @@ namespace WorkSchedule.Domain {
         public static string IndexSign {
             get {
                 return ResourceManager.GetString("IndexSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A quantidade de servidores por dia de escala de sobreaviso dever ser maior que zero..
+        /// </summary>
+        public static string InvalidEmployeeCountMessage {
+            get {
+                return ResourceManager.GetString("InvalidEmployeeCountMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O intervalo de dias para evitar sobrecarga do servidor deve ser maior que zero..
+        /// </summary>
+        public static string InvalidEmployeeIntervalMessage {
+            get {
+                return ResourceManager.GetString("InvalidEmployeeIntervalMessage", resourceCulture);
             }
         }
         
@@ -268,11 +295,29 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QUA.
+        /// </summary>
+        public static string QUA {
+            get {
+                return ResourceManager.GetString("QUA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirma?.
         /// </summary>
         public static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QUI.
+        /// </summary>
+        public static string QUI {
+            get {
+                return ResourceManager.GetString("QUI", resourceCulture);
             }
         }
         
@@ -430,11 +475,47 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SAB.
+        /// </summary>
+        public static string SAB {
+            get {
+                return ResourceManager.GetString("SAB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEG.
+        /// </summary>
+        public static string SEG {
+            get {
+                return ResourceManager.GetString("SEG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Por favor selecione apenas uma linha..
         /// </summary>
         public static string SelectOneRowMessage {
             get {
                 return ResourceManager.GetString("SelectOneRowMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favor verifique os parametros da escala no menu &quot;Configurações&quot;..
+        /// </summary>
+        public static string SettingsNotConfiguredMessage {
+            get {
+                return ResourceManager.GetString("SettingsNotConfiguredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEX.
+        /// </summary>
+        public static string SEX {
+            get {
+                return ResourceManager.GetString("SEX", resourceCulture);
             }
         }
         
@@ -498,6 +579,15 @@ namespace WorkSchedule.Domain {
         public static string SuccessUpdateMessage {
             get {
                 return ResourceManager.GetString("SuccessUpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TER.
+        /// </summary>
+        public static string TER {
+            get {
+                return ResourceManager.GetString("TER", resourceCulture);
             }
         }
         

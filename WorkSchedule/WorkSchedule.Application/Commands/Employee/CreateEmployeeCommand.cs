@@ -15,15 +15,15 @@ namespace WorkSchedule.Application.Commands.Employee
 
         public string Name { get; private set; }
         public string Code { get; private set; }
-        public bool NotFirstSchedule { get; private set; }
+        public bool FirstSchedule { get; private set; }
 
-        public CreateEmployeeCommand(string name, string code, bool notFirstSchedule)
+        public CreateEmployeeCommand(string name, string code, bool firstSchedule)
         {
             employeeCodeValidator.Validate(code);
             employeeNameValidator.Validate(name);
             Name = name;
             Code = code;
-            NotFirstSchedule = notFirstSchedule;
+            FirstSchedule = firstSchedule;
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WorkSchedule.Application.Commands.Absence;
 using WorkSchedule.Application.Queries.Absence;
 using WorkSchedule.Application.Queries.Employee;
+using WorkSchedule.Application.Queries.Queries;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 using WorkSchedule.Infra.Context;
@@ -28,6 +29,7 @@ namespace WorkSchedule.Infra.Configuration
             services.AddScoped<IAbsenceQueries, AbsenceQueries>();
 
             services.AddScoped<IRepository<Settings>, SettingsRepository>();
+            services.AddScoped<ISettingsQueries, SettingsQueries>();
 
         }
     }

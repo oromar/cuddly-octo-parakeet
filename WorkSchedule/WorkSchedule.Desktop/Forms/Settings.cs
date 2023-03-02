@@ -20,6 +20,9 @@ namespace WorkSchedule.Desktop.Forms
         {
             InitializeComponent();
             this.viewModel = viewModel;
+            var settings = viewModel.GetSettings();
+            numericUpDownDaysToCheckOverload.Value = settings.DaysToCheckCount;
+            numericUpDownOnNoticeScheduleEmployeesPerDay.Value = settings.EmployeeDayCount;
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)

@@ -1,10 +1,5 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorkSchedule.Application.Commands;
+using WorkSchedule.Application.Commands.Settings;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 
@@ -20,7 +15,18 @@ namespace WorkSchedule.Application.CommandHandlers
         }
         public async Task Handle(SaveSettingsCommand request, CancellationToken cancellationToken)
         {
-            await repository.Add(new Settings(request.EmployeesDay, request.DaysToCheck));
+            var exists = repository.AsQueryable().Any();    
+            if (exists)
+            {
+                var dataInDB = repository.AsQueryable().First();
+                dataInDB.DaysToCheckOnNoticeSchedule = request.DaysToCheck;
+                dataInDB.EmployeesPerDateInOnNoticeSchedule = request.EmployeesDay;
+                await repository.Update(dataInDB);
+            }
+            else
+            {
+                await repository.Add(new Settings(request.EmployeesDay, request.DaysToCheck));
+            }
             await repository.SaveChanges();
         }
     }

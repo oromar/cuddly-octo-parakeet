@@ -44,7 +44,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(38, 22);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(147, 25);
             label1.TabIndex = 0;
@@ -60,16 +60,16 @@
             groupBox1.Controls.Add(dateTimePickerStart);
             groupBox1.Controls.Add(label2);
             groupBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(26, 75);
+            groupBox1.Location = new Point(12, 49);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1370, 151);
+            groupBox1.Size = new Size(656, 151);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Escala de Sobreaviso";
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(611, 75);
+            btnClear.Location = new Point(550, 115);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(100, 30);
             btnClear.TabIndex = 6;
@@ -79,7 +79,7 @@
             // 
             // btnGenerateOnNotice
             // 
-            btnGenerateOnNotice.Location = new Point(505, 75);
+            btnGenerateOnNotice.Location = new Point(444, 115);
             btnGenerateOnNotice.Name = "btnGenerateOnNotice";
             btnGenerateOnNotice.Size = new Size(100, 30);
             btnGenerateOnNotice.TabIndex = 5;
@@ -90,7 +90,7 @@
             // checkIncludeWeekend
             // 
             checkIncludeWeekend.AutoSize = true;
-            checkIncludeWeekend.Location = new Point(305, 79);
+            checkIncludeWeekend.Location = new Point(12, 102);
             checkIncludeWeekend.Name = "checkIncludeWeekend";
             checkIncludeWeekend.Size = new Size(194, 24);
             checkIncludeWeekend.TabIndex = 4;
@@ -100,15 +100,15 @@
             // dateTimePickerEnd
             // 
             dateTimePickerEnd.Format = DateTimePickerFormat.Short;
-            dateTimePickerEnd.Location = new Point(171, 75);
+            dateTimePickerEnd.Location = new Point(163, 59);
             dateTimePickerEnd.Name = "dateTimePickerEnd";
-            dateTimePickerEnd.Size = new Size(111, 27);
+            dateTimePickerEnd.Size = new Size(135, 27);
             dateTimePickerEnd.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(171, 49);
+            label3.Location = new Point(163, 33);
             label3.Name = "label3";
             label3.Size = new Size(33, 20);
             label3.TabIndex = 2;
@@ -117,15 +117,15 @@
             // dateTimePickerStart
             // 
             dateTimePickerStart.Format = DateTimePickerFormat.Short;
-            dateTimePickerStart.Location = new Point(20, 75);
+            dateTimePickerStart.Location = new Point(12, 59);
             dateTimePickerStart.Name = "dateTimePickerStart";
-            dateTimePickerStart.Size = new Size(111, 27);
+            dateTimePickerStart.Size = new Size(135, 27);
             dateTimePickerStart.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(20, 49);
+            label2.Location = new Point(12, 33);
             label2.Name = "label2";
             label2.Size = new Size(45, 20);
             label2.TabIndex = 0;
@@ -136,7 +136,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(1364, 789);
+            ClientSize = new Size(680, 663);
             Controls.Add(groupBox1);
             Controls.Add(label1);
             Name = "Schedules";

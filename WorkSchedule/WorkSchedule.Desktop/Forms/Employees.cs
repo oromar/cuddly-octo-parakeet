@@ -3,13 +3,14 @@ using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
 using WorkSchedule.Domain;
 
+
 namespace WorkSchedule.Desktop.Forms
 {
     public partial class Employees : Form
     {
-        private const int EMPLOYEE_CODE_INDEX = 1;
-        private const int EMPLOYEE_NAME_INDEX = 2;
-        private const int EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX = 3;
+        private const int EMPLOYEE_CODE_INDEX = 0;
+        private const int EMPLOYEE_NAME_INDEX = 1;
+        private const int EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX = 2;
 
         private readonly IEmployeeViewModel viewModel;
         private bool editMode = false;
@@ -31,28 +32,23 @@ namespace WorkSchedule.Desktop.Forms
         {
             textBoxEmployeeCode.Text = string.Empty;
             textBoxEmployeeName.Text = string.Empty;
-            checkNotFirstSchedule.Checked = false;
+            checkFirstSchedule.Checked = false;
         }
 
         private void PopulateDataGridView(IEnumerable<EmployeeDTO> list)
         {
             dataGridEmployees.Rows.Clear();
             dataGridEmployees.Columns.Clear();
-            dataGridEmployees.Columns.Add("index", Strings.IndexSign);
             dataGridEmployees.Columns.Add("code", Strings.EmployeeCodeColumnTitle);
             dataGridEmployees.Columns.Add("name", Strings.EmployeeNameColumnTitle);
-            dataGridEmployees.Columns.Add("firstSchedule", Strings.FirsScheduleColumnTitle);
-            dataGridEmployees.Columns.Add("creationTime", Strings.CreationTimeColumnTitle);
-            var index = 1;
+            dataGridEmployees.Columns.Add("firstSchedule", Strings.FirstScheduleColumnTitle);
             foreach (var item in list)
             {
                 string[] row = new string[]
                 {
-                    $"{index++}",
                     item.Code,
                     item.Name,
-                    item.NotFirstSchedule? Strings.No: Strings.Yes,
-                    DateTime.Parse(item.CreationTime).ToString("dd/MM/yyyy HH:mm:ss"),
+                    item.FirstSchedule? Strings.Yes: Strings.No,
                 };
                 dataGridEmployees.Rows.Add(row);
             }
@@ -62,7 +58,7 @@ namespace WorkSchedule.Desktop.Forms
         private void FillDataGrid()
         {
 
-            //PopulateDummyData(350);
+            //PopulateDummyData(250);
             var list = viewModel.ListEmployees();
             PopulateDataGridView(list);
 
@@ -71,13 +67,285 @@ namespace WorkSchedule.Desktop.Forms
         private void PopulateDummyData(int employeeCount)
         {
             var employeeCodes = new List<string>();
-            var names = new List<string> {
-                "José", "João", "Joaquim", "Joana", "Genivaldo", "Maria", "Edgar", "Ovídio", "Osmar", "Vanessa",
-                "Mário", "Débora", "Carlos", "Augusto", "Otávio", "Lucas", "Davi", "Mateus", "Marcos", "Cristina" };
-            var surnames = new List<string> {
-                "Silva", "Souza", "Lopes", "Aguiar", "Peixoto", "Teixeira", "Trindade", "Cavalcanti", "Cavalcante", "Casé",
-                "Dantas", "Barbosa", "Oliveira", "Melo", "Medeiros", "Pereira", "Soares", "Andrade", "Camargo", "Caixola" };
-            string getCurrentName() => $"{names.OrderBy(a => Guid.NewGuid()).First()} {surnames.OrderBy(a => Guid.NewGuid()).First()}"; ;
+            var names = new List<string>
+            {
+                "Sofia",
+                "Isabella",
+                "Camila",
+                "Valentina",
+                "Valeria",
+                "Mariana",
+                "Luciana",
+                "Daniela",
+                "Gabriela",
+                "Victoria",
+                "Martina",
+                "Lucia",
+                "Jimena",
+                "Sara",
+                "Samantha",
+                "Maria José",
+                "Emma",
+                "Catalina",
+                "Julieta",
+                "Mía",
+                "Antonella",
+                "Renata",
+                "Emilia",
+                "Natalia",
+                "Zoe",
+                "Nicole",
+                "Paula",
+                "Amanda",
+                "María Fernanda",
+                "Emily",
+                "Antonia",
+                "Alejandra",
+                "Juana",
+                "Andrea",
+                "Manuela",
+                "Ana Sofia",
+                "Guadalupe",
+                "Agustina",
+                "Elena",
+                "María",
+                "Bianca",
+                "Ariana",
+                "Ivanna",
+                "Abril",
+                "Florencia",
+                "Carolina",
+                "Maite",
+                "Rafaela",
+                "Regina",
+                "Adriana",
+                "Michelle",
+                "Alma",
+                "Violeta",
+                "Salomé",
+                "Abigail",
+                "Juliana",
+                "Valery",
+                "Isabel",
+                "Montserrat",
+                "Allison",
+                "Jazmín",
+                "Julia",
+                "Lola",
+                "Luna",
+                "Ana",
+                "Delfina",
+                "Alessandra",
+                "Ashley",
+                "Olivia",
+                "Constanza",
+                "Paulina",
+                "Rebeca",
+                "Carla",
+                "María Paula",
+                "Micaela",
+                "Fabiana",
+                "Miranda",
+                "Josefina",
+                "Laura",
+                "Alexa",
+                "María Alejandra",
+                "Luana",
+                "Fátima",
+                "Sara Sofía",
+                "Isidora",
+                "Malena",
+                "Romina",
+                "Ana Paula",
+                "Mariangel",
+                "Amelia",
+                "Elizabeth",
+                "Aitana",
+                "Ariadna",
+                "María Camila",
+                "Irene",
+                "Silvana",
+                "Clara",
+                "Magdalena",
+                "Sophie",
+                "Josefa",
+                "Santiago",
+                "Sebastián",
+                "Matías",
+                "Mateo",
+                "Nicolás",
+                "Alejandro",
+                "Diego",
+                "Samuel",
+                "Benjamín",
+                "Daniel",
+                "Joaquín",
+                "Lucas",
+                "Tomas",
+                "Gabriel",
+                "Martín",
+                "David",
+                "Emiliano",
+                "Jerónimo",
+                "Emmanuel",
+                "Agustín",
+                "Juan Pablo",
+                "Juan José",
+                "Andrés",
+                "Thiago",
+                "Leonardo",
+                "Felipe",
+                "Ángel",
+                "Maximiliano",
+                "Christopher",
+                "Juan Diego",
+                "Adrián",
+                "Pablo",
+                "Miguel Ángel",
+                "Rodrigo",
+                "Alexander",
+                "Ignacio",
+                "Emilio",
+                "Dylan",
+                "Bruno",
+                "Carlos",
+                "Vicente",
+                "Valentino",
+                "Santino",
+                "Julián",
+                "Juan Sebastián",
+                "Aarón",
+                "Lautaro",
+                "Axel",
+                "Fernando",
+                "Ian",
+                "Christian",
+                "Javier",
+                "Manuel",
+                "Luciano",
+                "Francisco",
+                "Juan David",
+                "Iker",
+                "Facundo",
+                "Rafael",
+                "Alex",
+                "Franco",
+                "Antonio",
+                "Luis",
+                "Isaac",
+                "Máximo",
+                "Pedro",
+                "Ricardo",
+                "Sergio",
+                "Eduardo",
+                "Bautista",
+                "Miguel",
+                "Cristóbal",
+                "Kevin",
+                "Jorge",
+                "Alonso",
+                "Anthony",
+                "Simón",
+                "Juan",
+                "Joshua",
+                "Diego Alejandro",
+                "Juan Manuel",
+                "Mario",
+                "Alan",
+                "Josué",
+                "Gael",
+                "Hugo",
+                "Matthew",
+                "Ivan",
+                "Damián",
+                "Lorenzo",
+                "Juan Martín",
+                "Esteban",
+                "Álvaro",
+                "Valentín",
+                "Dante",
+                "Jacobo",
+                "Jesús",
+                "Camilo",
+                "Juan Esteban",
+                "Elías",
+            };
+            var surnames = new List<string>
+            {
+                "Silva",
+                "Santos",
+                "Oliveira",
+                "Souza",
+                "Pereira",
+                "Rodrigues",
+                "Almeida",
+                "Costa",
+                "Carvalho",
+                "Ferreira",
+                "Lima",
+                "Barbosa",
+                "Ribeiro",
+                "Gomes",
+                "Castro",
+                "Dias",
+                "Fernandes",
+                "Martins",
+                "Bezerra",
+                "Teixeira",
+                "Cardoso",
+                "Cavalcanti",
+                "Lima",
+                "Mendes",
+                "Miranda",
+                "Santos",
+                "Campos",
+                "Cardoso",
+                "Andrade",
+                "Costa",
+                "Oliveira",
+                "Pereira",
+                "Ferreira",
+                "Ribeiro",
+                "Barros",
+                "Moraes",
+                "Machado",
+                "Alves",
+                "Batista",
+                "Lima",
+                "Martins",
+                "Gomes",
+                "Farias",
+                "Azevedo",
+                "Nascimento",
+                "Sousa",
+                "Monteiro",
+                "Carneiro",
+                "Castro",
+                "Fonseca",
+                "Oliveira",
+                "Nogueira",
+                "Andrade",
+                "Santos",
+                "Lima",
+                "Oliveira",
+                "Ribeiro",
+                "Moraes",
+                "Soares",
+                "Freitas",
+                "Santana",
+                "Pereira",
+                "Barros",
+                "Farias",
+                "Castro",
+                "Costa",
+                "Mendes",
+                "Siqueira",
+                "Gomes",
+                "Barreto",
+                "Teixeira",
+                "Moura",
+            };
+            string getCurrentName() => $"{names.OrderBy(a => Guid.NewGuid()).First()} {surnames.OrderBy(a => Guid.NewGuid()).First()} {surnames.OrderBy(a => Guid.NewGuid()).First()}"; ;
             string getCurrentCode() => string.Join("", Guid.NewGuid().ToString().Replace("-", "").Where(a => char.IsDigit(a)).Take(10));
             var namesToInsert = new List<string>();
             for (int i = 0; i < employeeCount; i++)
@@ -94,23 +362,22 @@ namespace WorkSchedule.Desktop.Forms
                 viewModel.CreateEmployee(currentName, currentCode, new Random().Next(1, 3) == 2);
             }
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 var name = textBoxEmployeeName.Text;
                 var code = textBoxEmployeeCode.Text;
-                var notFirstSchedule = checkNotFirstSchedule.Checked;
+                var firstSchedule = checkFirstSchedule.Checked;
                 if (editMode)
                 {
-                    viewModel.UpdateEmployee(name, code, notFirstSchedule);
+                    viewModel.UpdateEmployee(name, code, firstSchedule);
                     AlertBuilder.UpdateSuccessAlert();
                     editMode = false;
                 }
                 else
                 {
-                    viewModel.CreateEmployee(name, code, notFirstSchedule);
+                    viewModel.CreateEmployee(name, code, firstSchedule);
                     AlertBuilder.SaveSuccessAlert();
                 }
                 ClearForm();
@@ -168,7 +435,7 @@ namespace WorkSchedule.Desktop.Forms
 
             textBoxEmployeeCode.Text = rows[0].Cells[EMPLOYEE_CODE_INDEX].Value.ToString();
             textBoxEmployeeName.Text = rows[0].Cells[EMPLOYEE_NAME_INDEX].Value.ToString();
-            checkNotFirstSchedule.Checked = rows[0].Cells[EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX].Value.ToString() == Strings.No;
+            checkFirstSchedule.Checked = rows[0].Cells[EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX].Value.ToString() == Strings.No;
         }
     }
 }

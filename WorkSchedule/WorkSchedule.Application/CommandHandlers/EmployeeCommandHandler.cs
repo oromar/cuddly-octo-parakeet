@@ -24,7 +24,7 @@ namespace WorkSchedule.Application.CommandHandlers
         {
             var alreadyExists = repository.AsQueryable().Any(a => a.EmployeeCode == request.Code);
             if (alreadyExists) throw new BusinessException(Strings.EmployeeAlreadyExists);
-            var employee = new Employee(request.Name, request.Code, request.NotFirstSchedule);
+            var employee = new Employee(request.Name, request.Code, request.FirstSchedule);
             await repository.Add(employee);
             await repository.SaveChanges();
         }

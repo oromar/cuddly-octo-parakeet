@@ -135,6 +135,9 @@
   <data name="DateColumnTitle" xml:space="preserve">
     <value>Data</value>
   </data>
+  <data name="DOM" xml:space="preserve">
+    <value>DOM</value>
+  </data>
   <data name="EmployeeAlreadyExists" xml:space="preserve">
     <value>Já existe um servidor com esta mesma matrícula.</value>
   </data>
@@ -153,11 +156,17 @@
   <data name="ErrorTitle" xml:space="preserve">
     <value>Erro</value>
   </data>
-  <data name="FirsScheduleColumnTitle" xml:space="preserve">
-    <value>Entra no primeiro sobreaviso?</value>
+  <data name="FirstScheduleColumnTitle" xml:space="preserve">
+    <value>Primeiro sobreaviso?</value>
   </data>
   <data name="IndexSign" xml:space="preserve">
     <value>#</value>
+  </data>
+  <data name="InvalidEmployeeCountMessage" xml:space="preserve">
+    <value>A quantidade de servidores por dia de escala de sobreaviso dever ser maior que zero.</value>
+  </data>
+  <data name="InvalidEmployeeIntervalMessage" xml:space="preserve">
+    <value>O intervalo de dias para evitar sobrecarga do servidor deve ser maior que zero.</value>
   </data>
   <data name="InvalidGuid" xml:space="preserve">
     <value>O id é inválido.</value>
@@ -186,8 +195,14 @@
   <data name="Period" xml:space="preserve">
     <value>Período</value>
   </data>
+  <data name="QUA" xml:space="preserve">
+    <value>QUA</value>
+  </data>
   <data name="Question" xml:space="preserve">
     <value>Confirma?</value>
+  </data>
+  <data name="QUI" xml:space="preserve">
+    <value>QUI</value>
   </data>
   <data name="RequiredCause" xml:space="preserve">
     <value>A causa é obrigatória.</value>
@@ -240,8 +255,20 @@
   <data name="RequiredUsername" xml:space="preserve">
     <value>O nome de usuário é obrigatório.</value>
   </data>
+  <data name="SAB" xml:space="preserve">
+    <value>SAB</value>
+  </data>
+  <data name="SEG" xml:space="preserve">
+    <value>SEG</value>
+  </data>
   <data name="SelectOneRowMessage" xml:space="preserve">
     <value>Por favor selecione apenas uma linha.</value>
+  </data>
+  <data name="SettingsNotConfiguredMessage" xml:space="preserve">
+    <value>Favor verifique os parametros da escala no menu "Configurações".</value>
+  </data>
+  <data name="SEX" xml:space="preserve">
+    <value>SEX</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Início</value>
@@ -263,6 +290,9 @@
   </data>
   <data name="SuccessUpdateMessage" xml:space="preserve">
     <value>Registro atualizado com sucesso.</value>
+  </data>
+  <data name="TER" xml:space="preserve">
+    <value>TER</value>
   </data>
   <data name="WarningTitle" xml:space="preserve">
     <value>Aviso</value>

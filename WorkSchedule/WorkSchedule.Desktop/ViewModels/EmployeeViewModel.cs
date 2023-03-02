@@ -17,9 +17,9 @@ namespace WorkSchedule.Desktop.ViewModels
             this.queryService = queryService;
         }
 
-        public void CreateEmployee(string name, string code, bool notFirstSchedule)
+        public void CreateEmployee(string name, string code, bool firstSchedule)
         {
-            Task.Run(() => mediator.Send(new CreateEmployeeCommand(name, code, notFirstSchedule))).Wait();
+            Task.Run(() => mediator.Send(new CreateEmployeeCommand(name, code, firstSchedule))).Wait();
         }
 
         public IEnumerable<EmployeeDTO> ListEmployees()

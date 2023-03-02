@@ -10,7 +10,7 @@ namespace WorkSchedule.Application.DataTransferObjects
     {
         public string Name { get; set; }
         public string Code { get; set; }
-        public bool NotFirstSchedule { get; set; }
+        public bool FirstSchedule { get; set; }
         public string CreationTime { get; set; }
     }
 }

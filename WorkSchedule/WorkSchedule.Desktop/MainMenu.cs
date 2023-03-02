@@ -22,6 +22,7 @@ namespace WorkSchedule.Desktop
             ISettingsViewModel settingsViewModel)
         {
             InitializeComponent();
+            this.MaximizeBox = false;
             this.employeeViewModel = employeeViewModel;
             this.absenceViewModel = absenceViewModel;
             this.workScheduleViewModel = workScheduleViewModel;

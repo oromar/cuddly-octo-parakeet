@@ -33,13 +33,14 @@ namespace WorkSchedule.Infra.Context
 
         private void CreateTables()
         {
-            var createTablesSql = @"
+            var createTablesSql = @$"
                 CREATE TABLE IF NOT EXISTS Employees(
                     Id TEXT PRIMARY KEY NOT NULL,
                     CreationTime TEXT NOT NULL,
                     EmployeeCode TEXT NOT NULL,
                     Name TEXT NOT NULL,
-                    NotFirstSchedule TEXT NOT NULL DEFAULT 0
+                    FirstSchedule TEXT NOT NULL DEFAULT 0,
+                    SearchText TEXT NULL
                 );
                 CREATE TABLE IF NOT EXISTS Absences(
                     Id TEXT PRIMARY KEY NOT NULL,
@@ -49,7 +50,6 @@ namespace WorkSchedule.Infra.Context
                     Cause INTEGER NOT NULL,
                     EmployeeId TEXT NOT NULL
                 );
-
                 CREATE TABLE IF NOT EXISTS Settings(
                     Id TEXT PRIMARY KEY NOT NULL,
                     CreationTime TEXT NOT NULL,

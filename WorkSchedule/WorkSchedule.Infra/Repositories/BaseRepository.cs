@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 using WorkSchedule.Infra.Context;
@@ -18,6 +19,8 @@ namespace WorkSchedule.Infra.Repositories
         public async Task<T> Add(T entity)
         {
             await context.AddAsync(entity);
+            if (entity is ITextSearcheable)
+                ((ITextSearcheable)entity).CreateSearchText();
             return entity;
         }
 

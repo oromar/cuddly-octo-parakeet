@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
 
@@ -32,12 +33,19 @@ namespace WorkSchedule.Desktop.Forms
                 var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
                 File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
                 AlertBuilder.ScheduleGeneratedSuccessAlert();
+
+                var psInfo = new ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                };
+                Process.Start(psInfo);
             }
             catch (Exception ex)
             {
                 AlertBuilder.ErrorMessageAlert(ex);
             }
-            
+
         }
     }
 }

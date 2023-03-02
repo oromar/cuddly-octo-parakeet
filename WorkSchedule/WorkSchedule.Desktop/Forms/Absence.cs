@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
+﻿using System.Data;
 using WorkSchedule.Application.DataTransferObjects;
 using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
@@ -18,10 +9,10 @@ namespace WorkSchedule.Desktop.Forms
 {
     public partial class Absence : Form
     {
-        private const int EMPLOYEE_CODE_INDEX = 1;
-        private const int ABSENCE_CAUSE_INDEX = 3;
-        private const int ABSENCE_START_INDEX = 4;
-        private const int ABSENCE_END_INDEX = 5;
+        private const int EMPLOYEE_CODE_INDEX = 0;
+        private const int ABSENCE_CAUSE_INDEX = 2;
+        private const int ABSENCE_START_INDEX = 3;
+        private const int ABSENCE_END_INDEX = 4;
 
         private readonly IEmployeeViewModel employeeViewModel;
         private readonly IAbsenceViewModel absenceViewModel;
@@ -53,25 +44,20 @@ namespace WorkSchedule.Desktop.Forms
         {
             dataGridAbsences.Rows.Clear();
             dataGridAbsences.Columns.Clear();
-            dataGridAbsences.Columns.Add("index", Strings.IndexSign);
             dataGridAbsences.Columns.Add("code", Strings.EmployeeCodeColumnTitle);
             dataGridAbsences.Columns.Add("name", Strings.EmployeeNameColumnTitle);
             dataGridAbsences.Columns.Add("cause", Strings.Cause);
             dataGridAbsences.Columns.Add("start", Strings.Start);
             dataGridAbsences.Columns.Add("end", Strings.End);
-            dataGridAbsences.Columns.Add("creationTime", Strings.CreationTimeColumnTitle);
-            var index = 1;
             foreach (var item in list)
             {
                 string[] row = new string[]
                 {
-                    $"{index++}",
                     item.EmployeeCode,
                     item.EmployeeName,
                     item.Cause.GetDescription(),
-                    DateTime.Parse(item.Start).ToString("dd/MM/yyyy HH:mm:ss"),
-                    DateTime.Parse(item.End).ToString("dd/MM/yyyy HH:mm:ss"),
-                    DateTime.Parse(item.CreationTime).ToString("dd/MM/yyyy HH:mm:ss"),
+                    DateTime.Parse(item.Start).ToString("dd/MM/yyyy"),
+                    DateTime.Parse(item.End).ToString("dd/MM/yyyy"),
                 };
                 dataGridAbsences.Rows.Add(row);
             }
@@ -83,7 +69,7 @@ namespace WorkSchedule.Desktop.Forms
         {
             var result = employeeViewModel.SearchEmployee(textBoxEmployeeCode.Text);
             if (result != null && result.Any())
-                labelEmployeeName.Text = $"{result.First().Code} - {result.First().Name}";
+                textBoxEmployee.Text = $"{result.First().Code} - {result.First().Name}";
             else
                 AlertBuilder.WarningMessage(Strings.EmployeeNotFound);
         }
@@ -95,7 +81,7 @@ namespace WorkSchedule.Desktop.Forms
 
         private void ClearSearchEmployeeForm()
         {
-            labelEmployeeName.Text = string.Empty;
+            textBoxEmployee.Text = string.Empty;
             textBoxEmployeeCode.Text = string.Empty;
         }
 
@@ -115,7 +101,8 @@ namespace WorkSchedule.Desktop.Forms
         {
             try
             {
-                absenceViewModel.CreateAbsence(textBoxEmployeeCode.Text, dateTimePickerStartPeriod.Value,
+                var employeeCode = textBoxEmployee.Text.Split(" - ")[0];
+                absenceViewModel.CreateAbsence(employeeCode, dateTimePickerStartPeriod.Value,
                 dateTimePickerEndPeriod.Value, comboBoxCause.Text);
                 AlertBuilder.SaveSuccessAlert();
             }

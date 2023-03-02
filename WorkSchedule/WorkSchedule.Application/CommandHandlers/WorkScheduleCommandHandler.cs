@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using WorkSchedule.Application.Commands.Schedule;
+using WorkSchedule.Application.Common;
 using WorkSchedule.Application.DataTransferObjects;
+using WorkSchedule.Domain;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 
@@ -20,6 +22,9 @@ namespace WorkSchedule.Application.CommandHandlers
             this.employeeRepository = employeeRepository;
             this.absenceRepository = absenceRepository;
             settings = settingsRepository.AsQueryable().First();
+            if (settings.DaysToCheckOnNoticeSchedule <= 0
+                || settings.EmployeesPerDateInOnNoticeSchedule <= 0)
+                throw new BusinessException(Strings.SettingsNotConfiguredMessage);
         }
 
         public async Task<OnNoticeWorkSchedule> Handle(GenerateOnNoticeScheduleCommand request, CancellationToken cancellationToken)
@@ -27,40 +32,40 @@ namespace WorkSchedule.Application.CommandHandlers
             var result = new OnNoticeWorkSchedule
             {
                 Start = request.Start,
-                End = request.End, 
+                End = request.End,
             };
 
             var dates = GetScheduleDates(request);
-            var blockedEmployeeIds = GetBlockedEmployeeIds(request);
 
             var allEmployees = employeeRepository.AsQueryable()
-                .Where(a => !blockedEmployeeIds.Contains(a.Id))
                 .ToList();
 
-            var employeesFirstOnNotice = allEmployees
-                .Where(a => !a.NotFirstSchedule)
+            var employeesFirstSchedule = allEmployees
+                .Where(a => a.FirstSchedule)
                 .ToList();
 
+            Employee employee;
+            DateOnNotice dateOnNotice;
             foreach (var item in dates)
             {
-                var dateOnNotice = new DateOnNotice { Date = item.Date };
+                dateOnNotice = new DateOnNotice { Date = item.Date };
                 for (var i = 0; i < settings.EmployeesPerDateInOnNoticeSchedule; i++)
                 {
-                    Employee employee;
                     if (i == 0)
-                        employee = GetRandomEmployee(employeesFirstOnNotice);
+                        employee = GetRandomEmployee(employeesFirstSchedule);
                     else
                         employee = GetRandomEmployee(allEmployees);
 
-                    while (dateOnNotice.Employees.Any(a => a.EmployeeCode == employee.EmployeeCode)
-                        || result.Items.Any(a => (item.Date - a.Date) <= TimeSpan.FromDays(settings.DaysToCheckOnNoticeSchedule)
-                                            && a.Employees.Any(b => b.EmployeeCode == employee.EmployeeCode)))
+                    while (IsEmployeeBlocked(employee, item.Date)
+                        || IsEmployeeAlreadyScheduled(employee, dateOnNotice)
+                        || IsEmployeeOverload(result, employee, item))
                         employee = GetRandomEmployee(allEmployees);
 
                     dateOnNotice.Employees.Add(new EmployeeOnNotice
                     {
                         EmployeeCode = employee.EmployeeCode,
                         EmployeeName = employee.Name,
+                        EmployeeId = employee.Id,
                     });
                 }
                 result.Items.Add(dateOnNotice);
@@ -68,23 +73,27 @@ namespace WorkSchedule.Application.CommandHandlers
             return result;
         }
 
-        private IEnumerable<string> GetBlockedEmployeeIds(GenerateOnNoticeScheduleCommand request)
+        private bool IsEmployeeOverload(OnNoticeWorkSchedule result, Employee employee, DateTime dateTime)
         {
-            var start = request.Start.Date.ToString("s");
-            var end = request.End.Date.ToString("s");
-            return absenceRepository.AsQueryable()
-                .Where(a =>
-                       (a.Start.CompareTo(start) >= 0
-                        && a.End.CompareTo(end) <= 0)
-                    || (a.Start.CompareTo(start) <= 0
-                        && a.End.CompareTo(start) >= 0)
-                    || (a.End.CompareTo(end) >= 0
-                        && a.Start.CompareTo(end) <= 0))
-                .Select(a => a.EmployeeId)
-                .ToList();
+            return result.Items.Any(a => (dateTime.Date - a.Date) <= TimeSpan.FromDays(settings.DaysToCheckOnNoticeSchedule)
+                                                        && a.Employees.Any(b => b.EmployeeId == employee.Id));
         }
 
-        private static new IEnumerable<DateTime> GetScheduleDates(GenerateOnNoticeScheduleCommand request)
+        private bool IsEmployeeBlocked(Employee employee, DateTime dateTime)
+        {
+            var reference = dateTime.ToString("s");
+            return absenceRepository.AsQueryable()
+                .Where(a => a.Start.CompareTo(reference) <= 0
+                        && a.End.CompareTo(reference) >= 0)
+                .Any(a => a.EmployeeId == employee.Id);
+        }
+
+        private static bool IsEmployeeAlreadyScheduled(Employee employee, DateOnNotice dateOnNotice)
+        {
+            return dateOnNotice.Employees.Any(a => a.EmployeeId == employee.Id);
+        }
+
+        private static IEnumerable<DateTime> GetScheduleDates(GenerateOnNoticeScheduleCommand request)
         {
             var weekendDays = new List<DayOfWeek> { DayOfWeek.Saturday, DayOfWeek.Sunday };
             var dates = new List<DateTime>();

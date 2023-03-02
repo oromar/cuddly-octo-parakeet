@@ -33,7 +33,7 @@
             textBoxEmployeeCode = new TextBox();
             label2 = new Label();
             textBoxEmployeeName = new TextBox();
-            checkNotFirstSchedule = new CheckBox();
+            checkFirstSchedule = new CheckBox();
             groupBox1 = new GroupBox();
             btnClear = new Button();
             btnSave = new Button();
@@ -47,15 +47,17 @@
             btnDelete = new Button();
             btnClearSearch = new Button();
             btnUpdateEmployee = new Button();
+            groupBox2 = new GroupBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridEmployees).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(23, 19);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(259, 25);
             label1.TabIndex = 0;
@@ -65,7 +67,7 @@
             // 
             labelEmployeeCode.AutoSize = true;
             labelEmployeeCode.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEmployeeCode.Location = new Point(31, 52);
+            labelEmployeeCode.Location = new Point(6, 52);
             labelEmployeeCode.Name = "labelEmployeeCode";
             labelEmployeeCode.Size = new Size(71, 20);
             labelEmployeeCode.TabIndex = 1;
@@ -73,17 +75,18 @@
             // 
             // textBoxEmployeeCode
             // 
+            textBoxEmployeeCode.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeCode.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxEmployeeCode.Location = new Point(31, 75);
+            textBoxEmployeeCode.Location = new Point(6, 75);
             textBoxEmployeeCode.Name = "textBoxEmployeeCode";
-            textBoxEmployeeCode.Size = new Size(369, 27);
+            textBoxEmployeeCode.Size = new Size(158, 27);
             textBoxEmployeeCode.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(425, 52);
+            label2.Location = new Point(170, 52);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 3;
@@ -93,21 +96,21 @@
             // 
             textBoxEmployeeName.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxEmployeeName.Location = new Point(425, 75);
+            textBoxEmployeeName.Location = new Point(170, 75);
             textBoxEmployeeName.Name = "textBoxEmployeeName";
-            textBoxEmployeeName.Size = new Size(596, 27);
+            textBoxEmployeeName.Size = new Size(464, 27);
             textBoxEmployeeName.TabIndex = 4;
             // 
             // checkNotFirstSchedule
             // 
-            checkNotFirstSchedule.AutoSize = true;
-            checkNotFirstSchedule.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            checkNotFirstSchedule.Location = new Point(1067, 77);
-            checkNotFirstSchedule.Name = "checkNotFirstSchedule";
-            checkNotFirstSchedule.Size = new Size(217, 24);
-            checkNotFirstSchedule.TabIndex = 5;
-            checkNotFirstSchedule.Text = "Não entra no 1º Sobreaviso?";
-            checkNotFirstSchedule.UseVisualStyleBackColor = true;
+            checkFirstSchedule.AutoSize = true;
+            checkFirstSchedule.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            checkFirstSchedule.Location = new Point(6, 123);
+            checkFirstSchedule.Name = "checkNotFirstSchedule";
+            checkFirstSchedule.Size = new Size(168, 24);
+            checkFirstSchedule.TabIndex = 5;
+            checkFirstSchedule.Text = "Primeiro Sobreaviso?";
+            checkFirstSchedule.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -117,11 +120,11 @@
             groupBox1.Controls.Add(btnSave);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(textBoxEmployeeName);
-            groupBox1.Controls.Add(checkNotFirstSchedule);
+            groupBox1.Controls.Add(checkFirstSchedule);
             groupBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(23, 83);
+            groupBox1.Location = new Point(12, 49);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1370, 188);
+            groupBox1.Size = new Size(640, 177);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Novo Servidor";
@@ -129,7 +132,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClear.Location = new Point(1067, 120);
+            btnClear.Location = new Point(428, 123);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(100, 30);
             btnClear.TabIndex = 7;
@@ -140,7 +143,7 @@
             // btnSave
             // 
             btnSave.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSave.Location = new Point(1184, 120);
+            btnSave.Location = new Point(534, 123);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(100, 30);
             btnSave.TabIndex = 6;
@@ -155,11 +158,11 @@
             dataGridEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridEmployees.Columns.AddRange(new DataGridViewColumn[] { seq, employeeCode, name });
-            dataGridEmployees.Location = new Point(23, 371);
+            dataGridEmployees.Location = new Point(6, 93);
             dataGridEmployees.Name = "dataGridEmployees";
             dataGridEmployees.ReadOnly = true;
             dataGridEmployees.RowTemplate.Height = 25;
-            dataGridEmployees.Size = new Size(1370, 350);
+            dataGridEmployees.Size = new Size(628, 242);
             dataGridEmployees.TabIndex = 7;
             // 
             // seq
@@ -184,7 +187,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(785, 301);
+            label3.Location = new Point(6, 34);
             label3.Name = "label3";
             label3.Size = new Size(209, 20);
             label3.TabIndex = 8;
@@ -192,16 +195,17 @@
             // 
             // textBoxEmployeeCriteria
             // 
+            textBoxEmployeeCriteria.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeCriteria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxEmployeeCriteria.Location = new Point(785, 324);
+            textBoxEmployeeCriteria.Location = new Point(6, 57);
             textBoxEmployeeCriteria.Name = "textBoxEmployeeCriteria";
-            textBoxEmployeeCriteria.Size = new Size(396, 27);
+            textBoxEmployeeCriteria.Size = new Size(416, 27);
             textBoxEmployeeCriteria.TabIndex = 9;
             // 
             // btnSearchEmployee
             // 
             btnSearchEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSearchEmployee.Location = new Point(1187, 324);
+            btnSearchEmployee.Location = new Point(428, 55);
             btnSearchEmployee.Name = "btnSearchEmployee";
             btnSearchEmployee.Size = new Size(100, 29);
             btnSearchEmployee.TabIndex = 10;
@@ -212,7 +216,7 @@
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnDelete.Location = new Point(1187, 744);
+            btnDelete.Location = new Point(428, 341);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(100, 30);
             btnDelete.TabIndex = 11;
@@ -223,7 +227,7 @@
             // btnClearSearch
             // 
             btnClearSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClearSearch.Location = new Point(1293, 324);
+            btnClearSearch.Location = new Point(534, 55);
             btnClearSearch.Name = "btnClearSearch";
             btnClearSearch.Size = new Size(100, 29);
             btnClearSearch.TabIndex = 12;
@@ -234,7 +238,7 @@
             // btnUpdateEmployee
             // 
             btnUpdateEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUpdateEmployee.Location = new Point(1293, 744);
+            btnUpdateEmployee.Location = new Point(534, 341);
             btnUpdateEmployee.Name = "btnUpdateEmployee";
             btnUpdateEmployee.Size = new Size(100, 30);
             btnUpdateEmployee.TabIndex = 13;
@@ -242,19 +246,30 @@
             btnUpdateEmployee.UseVisualStyleBackColor = true;
             btnUpdateEmployee.Click += btnUpdateEmployee_Click;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(btnUpdateEmployee);
+            groupBox2.Controls.Add(btnClearSearch);
+            groupBox2.Controls.Add(btnDelete);
+            groupBox2.Controls.Add(btnSearchEmployee);
+            groupBox2.Controls.Add(textBoxEmployeeCriteria);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(dataGridEmployees);
+            groupBox2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox2.Location = new Point(12, 242);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(640, 377);
+            groupBox2.TabIndex = 14;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Servidores Cadastrados";
+            // 
             // Employees
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(1425, 875);
-            Controls.Add(btnUpdateEmployee);
-            Controls.Add(btnClearSearch);
-            Controls.Add(btnDelete);
-            Controls.Add(btnSearchEmployee);
-            Controls.Add(textBoxEmployeeCriteria);
-            Controls.Add(label3);
-            Controls.Add(dataGridEmployees);
+            ClientSize = new Size(680, 643);
+            Controls.Add(groupBox2);
             Controls.Add(label1);
             Controls.Add(groupBox1);
             Name = "Employees";
@@ -263,6 +278,8 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridEmployees).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -274,7 +291,7 @@
         private TextBox textBoxEmployeeCode;
         private Label label2;
         private TextBox textBoxEmployeeName;
-        private CheckBox checkNotFirstSchedule;
+        private CheckBox checkFirstSchedule;
         private GroupBox groupBox1;
         private Button btnClear;
         private Button btnSave;
@@ -288,5 +305,6 @@
         private Button btnDelete;
         private Button btnClearSearch;
         private Button btnUpdateEmployee;
+        private GroupBox groupBox2;
     }
 }

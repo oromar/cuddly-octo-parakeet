@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorkSchedule.Application.DataTransferObjects;
+﻿using WorkSchedule.Application.DataTransferObjects;
+using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Repositories;
 
 namespace WorkSchedule.Application.Queries.Absence
@@ -43,15 +39,11 @@ namespace WorkSchedule.Application.Queries.Absence
 
         public IEnumerable<AbsenceDTO> SearchAbsences(string criteria)
         {
-            var searchText = criteria.ToLower();
-
+            var searchText = criteria.ToLower().RemoveDiacritics();
             var employees = employeeRepository.AsQueryable()
+                .Where(a => a.SearchText.ToLower().Contains(searchText))
                 .ToDictionary(a => a.Id, a => (a.EmployeeCode, a.Name));
-
-            var employeeIds = employees
-                .Where(a => a.Value.EmployeeCode.ToLower().Contains(searchText) || a.Value.Name.ToLower().Contains(searchText))
-                .Select(a => a.Key)
-                .ToList();   
+            var employeeIds = employees.Keys;
 
             return repository.AsQueryable()
                 .Where(a => employeeIds.Contains(a.EmployeeId))
