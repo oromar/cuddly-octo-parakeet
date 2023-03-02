@@ -493,7 +493,7 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Por favor selecione apenas uma linha..
+        ///   Looks up a localized string similar to Por favor selecione uma linha..
         /// </summary>
         public static string SelectOneRowMessage {
             get {

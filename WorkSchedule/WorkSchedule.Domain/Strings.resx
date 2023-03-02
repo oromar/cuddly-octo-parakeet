@@ -262,7 +262,7 @@
     <value>SEG</value>
   </data>
   <data name="SelectOneRowMessage" xml:space="preserve">
-    <value>Por favor selecione apenas uma linha.</value>
+    <value>Por favor selecione uma linha.</value>
   </data>
   <data name="SettingsNotConfiguredMessage" xml:space="preserve">
     <value>Favor verifique os parametros da escala no menu "Configurações".</value>

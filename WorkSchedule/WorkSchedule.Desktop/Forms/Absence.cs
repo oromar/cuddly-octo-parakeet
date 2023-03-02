@@ -131,6 +131,12 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            var rows = dataGridAbsences.SelectedRows;
+            if (rows.Count == 0) 
+            {
+                AlertBuilder.WarningMessage(Strings.SelectOneRowMessage);
+                return;
+            }
             var dialogResult = AlertBuilder.ConfirmQuestionAlert();
             if (dialogResult == DialogResult.Yes)
             {
@@ -138,7 +144,7 @@ namespace WorkSchedule.Desktop.Forms
                 var starts = new List<string>();
                 var ends = new List<string>();
                 var causes = new List<string>();
-                var rows = dataGridAbsences.SelectedRows;
+                
                 foreach (DataGridViewRow row in rows)
                 {
                     foreach (DataGridViewCell column in row.Cells)

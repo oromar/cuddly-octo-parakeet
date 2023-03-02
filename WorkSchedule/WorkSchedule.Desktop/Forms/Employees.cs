@@ -61,7 +61,7 @@ namespace WorkSchedule.Desktop.Forms
         private void FillDataGrid()
         {
 
-            //PopulateDummyData(250);
+            //PopulateDummyData(1000);
             PaginationDTO<EmployeeDTO> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))
                 data = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
@@ -424,11 +424,16 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            var rows = dataGridEmployees.SelectedRows;
+            if (rows.Count == 0)
+            {
+                AlertBuilder.WarningMessage(Strings.SelectOneRowMessage);
+                return;
+            }
             var dialogResult = AlertBuilder.ConfirmQuestionAlert();
             if (dialogResult == DialogResult.Yes)
             {
                 var codes = new List<string>();
-                var rows = dataGridEmployees.SelectedRows;
                 foreach (DataGridViewRow row in rows)
                 {
                     var column = row.Cells[EMPLOYEE_CODE_INDEX];
@@ -448,7 +453,7 @@ namespace WorkSchedule.Desktop.Forms
         {
             editMode = true;
             var rows = dataGridEmployees.SelectedRows;
-            if (rows.Count > 1)
+            if (rows.Count == 0 || rows.Count > 1)
             {
                 AlertBuilder.WarningMessage(Strings.SelectOneRowMessage);
                 return;
