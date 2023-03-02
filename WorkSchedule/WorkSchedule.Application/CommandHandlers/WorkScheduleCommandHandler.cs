@@ -51,15 +51,15 @@ namespace WorkSchedule.Application.CommandHandlers
                 dateOnNotice = new DateOnNotice { Date = item.Date };
                 for (var i = 0; i < settings.EmployeesPerDateInOnNoticeSchedule; i++)
                 {
+                    employee = null;
                     if (i == 0)
                         employee = GetRandomEmployee(employeesFirstSchedule);
                     else
-                        employee = GetRandomEmployee(allEmployees);
-
-                    while (IsEmployeeBlocked(employee, item.Date)
-                        || IsEmployeeAlreadyScheduled(employee, dateOnNotice)
-                        || IsEmployeeOverload(result, employee, item))
-                        employee = GetRandomEmployee(allEmployees);
+                        while (employee == null
+                            || IsEmployeeBlocked(employee, item.Date)
+                            || IsEmployeeAlreadyScheduled(employee, dateOnNotice)
+                            || IsEmployeeOverload(result, employee, item))
+                            employee = GetRandomEmployee(allEmployees);
 
                     dateOnNotice.Employees.Add(new EmployeeOnNotice
                     {
