@@ -24,7 +24,7 @@ namespace WorkSchedule.Application.Queries.Employee
 
             var total = repository.AsQueryable().Count();
             var items = repository.AsQueryable()
-                .OrderBy(a => a.CreationTime)
+                .OrderBy(a => a.Name)
                 .Skip((pageSize * (page - 1)))
                 .Take(pageSize)
                 .Select(a => new EmployeeDTO
@@ -50,7 +50,7 @@ namespace WorkSchedule.Application.Queries.Employee
                 dbQuery = dbQuery.Where(a => a.SearchText.ToLower().Contains(searchText));
             var total = dbQuery.Count();
             var items = dbQuery
-                .OrderBy(a => a.CreationTime)
+                .OrderBy(a => a.Name)
                 .Skip((pageSize * (page - 1)))
                 .Take(pageSize)
                 .Select(a => new EmployeeDTO

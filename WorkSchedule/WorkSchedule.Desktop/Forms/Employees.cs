@@ -11,7 +11,7 @@ namespace WorkSchedule.Desktop.Forms
         private const int EMPLOYEE_CODE_INDEX = 0;
         private const int EMPLOYEE_NAME_INDEX = 1;
         private const int EMPLOYEE_NOT_FIRST_SCHEDULE_INDEX = 2;
-        private const int PAGE_SIZE = 8;
+        private const int PAGE_SIZE = 11;
 
         private readonly IEmployeeViewModel viewModel;
         private bool editMode = false;

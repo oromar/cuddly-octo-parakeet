@@ -25,6 +25,7 @@ namespace WorkSchedule.Application.Queries.Absence
 
             var total = repository.AsQueryable().Count();
             var items = repository.AsQueryable()
+                .OrderBy(a => a.CreationTime)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .Select(a => new AbsenceDTO
@@ -56,6 +57,7 @@ namespace WorkSchedule.Application.Queries.Absence
                 .Where(a => employeeIds.Contains(a.EmployeeId));
             var total = dbQuery.Count();
             var items = dbQuery
+                .OrderBy(a => a.CreationTime)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .Select(a => new AbsenceDTO

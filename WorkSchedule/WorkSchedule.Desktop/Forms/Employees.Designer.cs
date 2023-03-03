@@ -67,7 +67,7 @@
             // 
             labelEmployeeCode.AutoSize = true;
             labelEmployeeCode.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEmployeeCode.Location = new Point(6, 52);
+            labelEmployeeCode.Location = new Point(6, 25);
             labelEmployeeCode.Name = "labelEmployeeCode";
             labelEmployeeCode.Size = new Size(71, 20);
             labelEmployeeCode.TabIndex = 1;
@@ -77,7 +77,7 @@
             // 
             textBoxEmployeeCode.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeCode.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxEmployeeCode.Location = new Point(6, 75);
+            textBoxEmployeeCode.Location = new Point(6, 48);
             textBoxEmployeeCode.Name = "textBoxEmployeeCode";
             textBoxEmployeeCode.Size = new Size(158, 27);
             textBoxEmployeeCode.TabIndex = 2;
@@ -86,7 +86,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(170, 52);
+            label2.Location = new Point(170, 25);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 3;
@@ -96,7 +96,7 @@
             // 
             textBoxEmployeeName.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxEmployeeName.Location = new Point(170, 75);
+            textBoxEmployeeName.Location = new Point(170, 48);
             textBoxEmployeeName.Name = "textBoxEmployeeName";
             textBoxEmployeeName.Size = new Size(464, 27);
             textBoxEmployeeName.TabIndex = 4;
@@ -105,7 +105,7 @@
             // 
             checkFirstSchedule.AutoSize = true;
             checkFirstSchedule.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            checkFirstSchedule.Location = new Point(6, 123);
+            checkFirstSchedule.Location = new Point(6, 81);
             checkFirstSchedule.Name = "checkFirstSchedule";
             checkFirstSchedule.Size = new Size(168, 24);
             checkFirstSchedule.TabIndex = 5;
@@ -124,7 +124,7 @@
             groupBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(12, 49);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(640, 177);
+            groupBox1.Size = new Size(640, 121);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Novo Servidor";
@@ -132,7 +132,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClear.Location = new Point(428, 123);
+            btnClear.Location = new Point(428, 81);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(100, 30);
             btnClear.TabIndex = 7;
@@ -143,7 +143,7 @@
             // btnSave
             // 
             btnSave.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSave.Location = new Point(534, 123);
+            btnSave.Location = new Point(534, 81);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(100, 30);
             btnSave.TabIndex = 6;
@@ -157,11 +157,11 @@
             dataGridEmployees.AllowUserToDeleteRows = false;
             dataGridEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridEmployees.Location = new Point(6, 93);
+            dataGridEmployees.Location = new Point(6, 90);
             dataGridEmployees.Name = "dataGridEmployees";
             dataGridEmployees.ReadOnly = true;
             dataGridEmployees.RowTemplate.Height = 25;
-            dataGridEmployees.Size = new Size(628, 242);
+            dataGridEmployees.Size = new Size(628, 308);
             dataGridEmployees.TabIndex = 7;
             // 
             // label3
@@ -197,7 +197,7 @@
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnDelete.Location = new Point(428, 341);
+            btnDelete.Location = new Point(428, 407);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(100, 30);
             btnDelete.TabIndex = 11;
@@ -219,7 +219,7 @@
             // btnUpdateEmployee
             // 
             btnUpdateEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUpdateEmployee.Location = new Point(534, 341);
+            btnUpdateEmployee.Location = new Point(534, 407);
             btnUpdateEmployee.Name = "btnUpdateEmployee";
             btnUpdateEmployee.Size = new Size(100, 30);
             btnUpdateEmployee.TabIndex = 13;
@@ -232,17 +232,17 @@
             groupBox2.Controls.Add(labelPagination);
             groupBox2.Controls.Add(btnNextPage);
             groupBox2.Controls.Add(BtnPreviousPage);
+            groupBox2.Controls.Add(dataGridEmployees);
             groupBox2.Controls.Add(btnUpdateEmployee);
             groupBox2.Controls.Add(btnClearSearch);
             groupBox2.Controls.Add(btnDelete);
             groupBox2.Controls.Add(btnSearchEmployee);
             groupBox2.Controls.Add(textBoxEmployeeCriteria);
             groupBox2.Controls.Add(label3);
-            groupBox2.Controls.Add(dataGridEmployees);
             groupBox2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox2.Location = new Point(12, 242);
+            groupBox2.Location = new Point(12, 176);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(640, 377);
+            groupBox2.Size = new Size(640, 443);
             groupBox2.TabIndex = 14;
             groupBox2.TabStop = false;
             groupBox2.Text = "Servidores Cadastrados";
@@ -251,14 +251,14 @@
             // 
             labelPagination.AutoSize = true;
             labelPagination.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelPagination.Location = new Point(272, 346);
+            labelPagination.Location = new Point(271, 412);
             labelPagination.Name = "labelPagination";
             labelPagination.Size = new Size(0, 20);
             labelPagination.TabIndex = 16;
             // 
             // btnNextPage
             // 
-            btnNextPage.Location = new Point(112, 341);
+            btnNextPage.Location = new Point(112, 407);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Size = new Size(100, 30);
             btnNextPage.TabIndex = 15;
@@ -268,7 +268,7 @@
             // 
             // BtnPreviousPage
             // 
-            BtnPreviousPage.Location = new Point(6, 341);
+            BtnPreviousPage.Location = new Point(6, 407);
             BtnPreviousPage.Name = "BtnPreviousPage";
             BtnPreviousPage.Size = new Size(100, 30);
             BtnPreviousPage.TabIndex = 14;

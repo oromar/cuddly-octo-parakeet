@@ -21,8 +21,9 @@ namespace WorkSchedule.Application.CommandHandlers
         {
             this.employeeRepository = employeeRepository;
             this.absenceRepository = absenceRepository;
-            settings = settingsRepository.AsQueryable().First();
-            if (settings.DaysToCheckOnNoticeSchedule <= 0
+            settings = settingsRepository.AsQueryable().FirstOrDefault();
+            if (settings == null 
+                || settings.DaysToCheckOnNoticeSchedule <= 0
                 || settings.EmployeesPerDateInOnNoticeSchedule <= 0)
                 throw new BusinessException(Strings.SettingsNotConfiguredMessage);
         }
