@@ -22,7 +22,7 @@ namespace WorkSchedule.Application.CommandHandlers
             this.employeeRepository = employeeRepository;
             this.absenceRepository = absenceRepository;
             settings = settingsRepository.AsQueryable().FirstOrDefault();
-            if (settings == null 
+            if (settings == null
                 || settings.DaysToCheckOnNoticeSchedule <= 0
                 || settings.EmployeesPerDateInOnNoticeSchedule <= 0)
                 throw new BusinessException(Strings.SettingsNotConfiguredMessage);
@@ -41,26 +41,21 @@ namespace WorkSchedule.Application.CommandHandlers
             var allEmployees = employeeRepository.AsQueryable()
                 .ToList();
 
-            var employeesFirstSchedule = allEmployees
+            var firstEmployees = allEmployees
                 .Where(a => a.FirstSchedule)
                 .ToList();
 
             Employee employee;
             DateOnNotice dateOnNotice;
-            foreach (var item in dates)
+            foreach (var date in dates)
             {
-                dateOnNotice = new DateOnNotice { Date = item.Date };
+                dateOnNotice = new DateOnNotice { Date = date.Date };
                 for (var i = 0; i < settings.EmployeesPerDateInOnNoticeSchedule; i++)
                 {
-                    employee = null;
                     if (i == 0)
-                        employee = GetRandomEmployee(employeesFirstSchedule);
+                        employee = GetRandomEmployee(firstEmployees, date, dateOnNotice, result);
                     else
-                        while (employee == null
-                            || IsEmployeeBlocked(employee, item.Date)
-                            || IsEmployeeAlreadyScheduled(employee, dateOnNotice)
-                            || IsEmployeeOverload(result, employee, item))
-                            employee = GetRandomEmployee(allEmployees);
+                        employee = GetRandomEmployee(allEmployees, date, dateOnNotice, result);
 
                     dateOnNotice.Employees.Add(new EmployeeOnNotice
                     {
@@ -72,6 +67,17 @@ namespace WorkSchedule.Application.CommandHandlers
                 result.Items.Add(dateOnNotice);
             }
             return result;
+        }
+
+        private Employee GetRandomEmployee(IEnumerable<Employee> employees, DateTime date,
+            DateOnNotice dateOnNotice, OnNoticeWorkSchedule result)
+        {
+            var choosedEmployee = ChooseRandomEmployee(employees);
+            while (IsEmployeeBlocked(choosedEmployee, date.Date)
+                   || IsEmployeeAlreadyScheduled(choosedEmployee, dateOnNotice)
+                   || IsEmployeeOverload(result, choosedEmployee, date))
+                choosedEmployee = ChooseRandomEmployee(employees);
+            return choosedEmployee;
         }
 
         private bool IsEmployeeOverload(OnNoticeWorkSchedule result, Employee employee, DateTime dateTime)
@@ -89,6 +95,12 @@ namespace WorkSchedule.Application.CommandHandlers
                 .Any(a => a.EmployeeId == employee.Id);
         }
 
+        private static Employee ChooseRandomEmployee(IEnumerable<Employee> employees)
+        {
+            return employees.OrderBy(a => Guid.NewGuid()).First();
+        }
+
+
         private static bool IsEmployeeAlreadyScheduled(Employee employee, DateOnNotice dateOnNotice)
         {
             return dateOnNotice.Employees.Any(a => a.EmployeeId == employee.Id);
@@ -105,11 +117,6 @@ namespace WorkSchedule.Application.CommandHandlers
                 dates.Add(currentDate);
             }
             return dates;
-        }
-
-        private static Employee GetRandomEmployee(IEnumerable<Employee> employees)
-        {
-            return employees.OrderBy(a => Guid.NewGuid()).First();
         }
     }
 }
