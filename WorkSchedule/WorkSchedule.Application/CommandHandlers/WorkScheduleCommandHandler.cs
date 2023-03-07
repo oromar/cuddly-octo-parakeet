@@ -52,10 +52,8 @@ namespace WorkSchedule.Application.CommandHandlers
                 dateOnNotice = new DateOnNotice { Date = date.Date };
                 for (var i = 0; i < settings.EmployeesPerDateInOnNoticeSchedule; i++)
                 {
-                    if (i == 0)
-                        employee = GetRandomEmployee(firstEmployees, date, dateOnNotice, result);
-                    else
-                        employee = GetRandomEmployee(allEmployees, date, dateOnNotice, result);
+                    employee = GetRandomEmployee(i == 0 ? firstEmployees : allEmployees,
+                        date, dateOnNotice, result);
 
                     dateOnNotice.Employees.Add(new EmployeeOnNotice
                     {
