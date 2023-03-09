@@ -41,7 +41,7 @@
             // 
             // panelMenuButtons
             // 
-            panelMenuButtons.BackColor = SystemColors.Control;
+            panelMenuButtons.BackColor = Color.Black;
             panelMenuButtons.Controls.Add(btnClose);
             panelMenuButtons.Controls.Add(btnSettings);
             panelMenuButtons.Controls.Add(btnSchedule);
@@ -61,6 +61,7 @@
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClose.ForeColor = Color.White;
             btnClose.Location = new Point(0, 603);
             btnClose.Name = "btnClose";
             btnClose.Padding = new Padding(10, 0, 0, 0);
@@ -77,6 +78,7 @@
             btnSettings.FlatAppearance.BorderSize = 0;
             btnSettings.FlatStyle = FlatStyle.Flat;
             btnSettings.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSettings.ForeColor = Color.White;
             btnSettings.Location = new Point(0, 240);
             btnSettings.Name = "btnSettings";
             btnSettings.Padding = new Padding(10, 0, 0, 0);
@@ -93,6 +95,7 @@
             btnSchedule.FlatAppearance.BorderSize = 0;
             btnSchedule.FlatStyle = FlatStyle.Flat;
             btnSchedule.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSchedule.ForeColor = Color.White;
             btnSchedule.Location = new Point(0, 180);
             btnSchedule.Name = "btnSchedule";
             btnSchedule.Padding = new Padding(10, 0, 0, 0);
@@ -109,6 +112,7 @@
             btnAbsents.FlatAppearance.BorderSize = 0;
             btnAbsents.FlatStyle = FlatStyle.Flat;
             btnAbsents.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAbsents.ForeColor = Color.White;
             btnAbsents.Location = new Point(0, 120);
             btnAbsents.Name = "btnAbsents";
             btnAbsents.Padding = new Padding(10, 0, 0, 0);
@@ -125,6 +129,7 @@
             btnEmployees.FlatAppearance.BorderSize = 0;
             btnEmployees.FlatStyle = FlatStyle.Flat;
             btnEmployees.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEmployees.ForeColor = Color.White;
             btnEmployees.Location = new Point(0, 60);
             btnEmployees.Name = "btnEmployees";
             btnEmployees.Padding = new Padding(10, 0, 0, 0);

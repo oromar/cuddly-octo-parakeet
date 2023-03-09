@@ -21,9 +21,8 @@ namespace WorkSchedule.Application.CommandHandlers
         {
             this.employeeRepository = employeeRepository;
             this.absenceRepository = absenceRepository;
-            settings = settingsRepository.AsQueryable().FirstOrDefault();
-            if (settings == null
-                || settings.DaysToCheckOnNoticeSchedule <= 0
+            settings = settingsRepository.AsQueryable().FirstOrDefault() ?? new Settings();
+            if (settings.DaysToCheckOnNoticeSchedule <= 0
                 || settings.EmployeesPerDateInOnNoticeSchedule <= 0)
                 throw new BusinessException(Strings.SettingsNotConfiguredMessage);
         }
@@ -52,7 +51,7 @@ namespace WorkSchedule.Application.CommandHandlers
                 dateOnNotice = new DateOnNotice { Date = date.Date };
                 for (var i = 0; i < settings.EmployeesPerDateInOnNoticeSchedule; i++)
                 {
-                    employee = GetRandomEmployee(i == 0 ? firstEmployees : allEmployees,
+                    employee = ChooseEmployee(i == 0 ? firstEmployees : allEmployees,
                         date, dateOnNotice, result);
 
                     dateOnNotice.Employees.Add(new EmployeeOnNotice
@@ -67,14 +66,14 @@ namespace WorkSchedule.Application.CommandHandlers
             return result;
         }
 
-        private Employee GetRandomEmployee(IEnumerable<Employee> employees, DateTime date,
+        private Employee ChooseEmployee(IEnumerable<Employee> employees, DateTime date,
             DateOnNotice dateOnNotice, OnNoticeWorkSchedule result)
         {
-            var choosedEmployee = ChooseRandomEmployee(employees);
+            var choosedEmployee = GetRandomEmployee(employees);
             while (IsEmployeeBlocked(choosedEmployee, date.Date)
                    || IsEmployeeAlreadyScheduled(choosedEmployee, dateOnNotice)
                    || IsEmployeeOverload(result, choosedEmployee, date))
-                choosedEmployee = ChooseRandomEmployee(employees);
+                choosedEmployee = GetRandomEmployee(employees);
             return choosedEmployee;
         }
 
@@ -93,7 +92,7 @@ namespace WorkSchedule.Application.CommandHandlers
                 .Any(a => a.EmployeeId == employee.Id);
         }
 
-        private static Employee ChooseRandomEmployee(IEnumerable<Employee> employees)
+        private static Employee GetRandomEmployee(IEnumerable<Employee> employees)
         {
             return employees.OrderBy(a => Guid.NewGuid()).First();
         }

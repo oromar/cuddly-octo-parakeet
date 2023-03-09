@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label1 = new Label();
             labelEmployeeCode = new Label();
             textBoxEmployeeCode = new TextBox();
@@ -56,7 +57,9 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.White;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Black;
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(259, 25);
@@ -160,6 +163,14 @@
             dataGridEmployees.Location = new Point(6, 90);
             dataGridEmployees.Name = "dataGridEmployees";
             dataGridEmployees.ReadOnly = true;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.Black;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridEmployees.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridEmployees.RowTemplate.Height = 25;
             dataGridEmployees.Size = new Size(628, 308);
             dataGridEmployees.TabIndex = 7;

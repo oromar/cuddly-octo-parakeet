@@ -8,7 +8,6 @@ namespace WorkSchedule.Desktop
     public partial class MainMenu : Form
     {
         private Button activeButton;
-        private Color defaultButtonColor;
         private Form activeForm;
 
         private readonly IEmployeeViewModel employeeViewModel;
@@ -22,20 +21,12 @@ namespace WorkSchedule.Desktop
             ISettingsViewModel settingsViewModel)
         {
             InitializeComponent();
-            this.MaximizeBox = false;
+            MaximizeBox = false;
             this.employeeViewModel = employeeViewModel;
             this.absenceViewModel = absenceViewModel;
             this.workScheduleViewModel = workScheduleViewModel;
             this.settingsViewModel = settingsViewModel;
             employeeViewModel.ListEmployees(1, 1);
-            foreach (Control item in panelMenuButtons.Controls)
-            {
-                if (item.GetType() == typeof(Button))
-                {
-                    defaultButtonColor = item.BackColor;
-                    break;
-                }
-            }
         }
 
         private void ActiveButton(object sender)
@@ -47,8 +38,8 @@ namespace WorkSchedule.Desktop
                 {
                     DisableButtons();
                     activeButton = btnSender;
-                    activeButton.BackColor = Color.LightSteelBlue;
-                    activeButton.ForeColor = Color.White;
+                    activeButton.BackColor = Color.White;
+                    activeButton.ForeColor = Color.Black;
                 }
             }
         }
@@ -59,8 +50,8 @@ namespace WorkSchedule.Desktop
             {
                 if (item.GetType() == typeof(Button))
                 {
-                    item.BackColor = defaultButtonColor;
-                    item.ForeColor = Color.Black;
+                    item.BackColor = Color.Black;
+                    item.ForeColor = Color.White;
                 }
             }
         }
