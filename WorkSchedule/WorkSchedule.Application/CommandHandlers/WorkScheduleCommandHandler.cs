@@ -79,16 +79,17 @@ namespace WorkSchedule.Application.CommandHandlers
 
         private bool IsEmployeeOverload(OnNoticeWorkSchedule result, Employee employee, DateTime dateTime)
         {
-            return result.Items.Any(a => (dateTime.Date - a.Date) <= TimeSpan.FromDays(settings.DaysToCheckOnNoticeSchedule)
-                                                        && a.Employees.Any(b => b.EmployeeId == employee.Id));
+            return result.Items
+                .Where(a => a.Employees.Any(b => b.EmployeeId == employee.Id))
+                .Any(a => (dateTime.Date - a.Date) <= TimeSpan.FromDays(settings.DaysToCheckOnNoticeSchedule));
         }
 
         private bool IsEmployeeBlocked(Employee employee, DateTime dateTime)
         {
             var reference = dateTime.ToString("s");
             return absenceRepository.AsQueryable()
-                .Where(a => a.Start.CompareTo(reference) <= 0
-                        && a.End.CompareTo(reference) >= 0)
+                .Where(a => a.Start.CompareTo(reference) <= 0)
+                .Where(a => a.End.CompareTo(reference) >= 0)
                 .Any(a => a.EmployeeId == employee.Id);
         }
 

@@ -17,7 +17,7 @@ namespace WorkSchedule.Desktop.Forms
         private readonly IEmployeeViewModel employeeViewModel;
         private readonly IAbsenceViewModel absenceViewModel;
         private int currentPage = 1;
-        private const int PAGE_SIZE = 5;
+        private const int PAGE_SIZE = 8;
         private int totalItems = 0;
         public Absence(IEmployeeViewModel employeeViewModel,
             IAbsenceViewModel absenceViewModel)
@@ -102,7 +102,7 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            ClearSaveForm();
+            ClearAllForms();
         }
 
         private void ClearSaveForm()
@@ -132,7 +132,7 @@ namespace WorkSchedule.Desktop.Forms
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var rows = dataGridAbsences.SelectedRows;
-            if (rows.Count == 0) 
+            if (rows.Count == 0)
             {
                 AlertBuilder.WarningMessage(Strings.SelectOneRowMessage);
                 return;
@@ -144,7 +144,7 @@ namespace WorkSchedule.Desktop.Forms
                 var starts = new List<string>();
                 var ends = new List<string>();
                 var causes = new List<string>();
-                
+
                 foreach (DataGridViewRow row in rows)
                 {
                     foreach (DataGridViewCell column in row.Cells)
@@ -193,7 +193,10 @@ namespace WorkSchedule.Desktop.Forms
 
         private void buttonNextPage_Click(object sender, EventArgs e)
         {
-            if (currentPage < (totalItems / PAGE_SIZE) + 1)
+            var maxPages = (totalItems / PAGE_SIZE);
+            if (totalItems % PAGE_SIZE > 0)
+                maxPages += 1;
+            if (currentPage <  maxPages)
             {
                 currentPage++;
                 FillDataGrid();

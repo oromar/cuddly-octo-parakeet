@@ -44,7 +44,6 @@
             labelPagination = new Label();
             buttonNextPage = new Button();
             buttonPreviousPage = new Button();
-            btnClearSearchEmployee = new Button();
             textBoxEmployeeCode = new TextBox();
             btnSearchEmployee = new Button();
             label2 = new Label();
@@ -82,7 +81,7 @@
             // btnSave
             // 
             btnSave.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSave.Location = new Point(430, 241);
+            btnSave.Location = new Point(302, 195);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(100, 30);
             btnSave.TabIndex = 10;
@@ -96,17 +95,17 @@
             dataGridAbsences.AllowUserToDeleteRows = false;
             dataGridAbsences.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridAbsences.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridAbsences.Location = new Point(19, 88);
+            dataGridAbsences.Location = new Point(19, 79);
             dataGridAbsences.Name = "dataGridAbsences";
             dataGridAbsences.ReadOnly = true;
             dataGridAbsences.RowTemplate.Height = 25;
-            dataGridAbsences.Size = new Size(594, 152);
+            dataGridAbsences.Size = new Size(594, 228);
             dataGridAbsences.TabIndex = 12;
             // 
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnDelete.Location = new Point(513, 246);
+            btnDelete.Location = new Point(513, 313);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(100, 30);
             btnDelete.TabIndex = 13;
@@ -118,16 +117,16 @@
             // 
             comboBoxCause.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxCause.FormattingEnabled = true;
-            comboBoxCause.Location = new Point(21, 195);
+            comboBoxCause.Location = new Point(354, 127);
             comboBoxCause.Name = "comboBoxCause";
-            comboBoxCause.Size = new Size(327, 28);
+            comboBoxCause.Size = new Size(279, 28);
             comboBoxCause.TabIndex = 15;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(20, 32);
+            label6.Location = new Point(20, 23);
             label6.Name = "label6";
             label6.Size = new Size(288, 20);
             label6.TabIndex = 17;
@@ -137,7 +136,7 @@
             // 
             textBoxSearchAbsence.CharacterCasing = CharacterCasing.Upper;
             textBoxSearchAbsence.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxSearchAbsence.Location = new Point(20, 55);
+            textBoxSearchAbsence.Location = new Point(20, 46);
             textBoxSearchAbsence.Name = "textBoxSearchAbsence";
             textBoxSearchAbsence.Size = new Size(381, 27);
             textBoxSearchAbsence.TabIndex = 18;
@@ -145,7 +144,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClear.Location = new Point(533, 241);
+            btnClear.Location = new Point(408, 195);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(100, 30);
             btnClear.TabIndex = 11;
@@ -156,7 +155,7 @@
             // btnClearSearchAbsence
             // 
             btnClearSearchAbsence.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClearSearchAbsence.Location = new Point(513, 53);
+            btnClearSearchAbsence.Location = new Point(513, 44);
             btnClearSearchAbsence.Name = "btnClearSearchAbsence";
             btnClearSearchAbsence.Size = new Size(100, 30);
             btnClearSearchAbsence.TabIndex = 19;
@@ -167,7 +166,7 @@
             // btnSearchAbsences
             // 
             btnSearchAbsences.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSearchAbsences.Location = new Point(411, 53);
+            btnSearchAbsences.Location = new Point(411, 44);
             btnSearchAbsences.Name = "btnSearchAbsences";
             btnSearchAbsences.Size = new Size(100, 30);
             btnSearchAbsences.TabIndex = 20;
@@ -179,7 +178,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(19, 171);
+            label7.Location = new Point(354, 104);
             label7.Name = "label7";
             label7.Size = new Size(56, 20);
             label7.TabIndex = 22;
@@ -197,9 +196,9 @@
             groupBox2.Controls.Add(btnDelete);
             groupBox2.Controls.Add(dataGridAbsences);
             groupBox2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox2.Location = new Point(12, 338);
+            groupBox2.Location = new Point(12, 302);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(639, 294);
+            groupBox2.Size = new Size(639, 349);
             groupBox2.TabIndex = 23;
             groupBox2.TabStop = false;
             groupBox2.Text = "Bloqueios Cadastrados";
@@ -207,7 +206,7 @@
             // labelPagination
             // 
             labelPagination.AutoSize = true;
-            labelPagination.Location = new Point(298, 251);
+            labelPagination.Location = new Point(298, 318);
             labelPagination.Name = "labelPagination";
             labelPagination.Size = new Size(0, 20);
             labelPagination.TabIndex = 24;
@@ -215,7 +214,7 @@
             // buttonNextPage
             // 
             buttonNextPage.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonNextPage.Location = new Point(125, 246);
+            buttonNextPage.Location = new Point(125, 313);
             buttonNextPage.Name = "buttonNextPage";
             buttonNextPage.Size = new Size(100, 30);
             buttonNextPage.TabIndex = 23;
@@ -226,7 +225,7 @@
             // buttonPreviousPage
             // 
             buttonPreviousPage.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonPreviousPage.Location = new Point(19, 246);
+            buttonPreviousPage.Location = new Point(19, 313);
             buttonPreviousPage.Name = "buttonPreviousPage";
             buttonPreviousPage.Size = new Size(100, 30);
             buttonPreviousPage.TabIndex = 22;
@@ -234,30 +233,19 @@
             buttonPreviousPage.UseVisualStyleBackColor = true;
             buttonPreviousPage.Click += buttonPreviousPage_Click;
             // 
-            // btnClearSearchEmployee
-            // 
-            btnClearSearchEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClearSearchEmployee.Location = new Point(533, 64);
-            btnClearSearchEmployee.Name = "btnClearSearchEmployee";
-            btnClearSearchEmployee.Size = new Size(100, 30);
-            btnClearSearchEmployee.TabIndex = 28;
-            btnClearSearchEmployee.Text = "Limpar";
-            btnClearSearchEmployee.UseVisualStyleBackColor = true;
-            btnClearSearchEmployee.Click += btnClearSearchEmployee_Click;
-            // 
             // textBoxEmployeeCode
             // 
             textBoxEmployeeCode.CharacterCasing = CharacterCasing.Upper;
             textBoxEmployeeCode.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxEmployeeCode.Location = new Point(19, 64);
             textBoxEmployeeCode.Name = "textBoxEmployeeCode";
-            textBoxEmployeeCode.Size = new Size(402, 27);
+            textBoxEmployeeCode.Size = new Size(508, 27);
             textBoxEmployeeCode.TabIndex = 25;
             // 
             // btnSearchEmployee
             // 
             btnSearchEmployee.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnSearchEmployee.Location = new Point(427, 64);
+            btnSearchEmployee.Location = new Point(533, 63);
             btnSearchEmployee.Name = "btnSearchEmployee";
             btnSearchEmployee.Size = new Size(100, 30);
             btnSearchEmployee.TabIndex = 27;
@@ -283,7 +271,6 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(dateTimePickerEndPeriod);
-            groupBox1.Controls.Add(btnClearSearchEmployee);
             groupBox1.Controls.Add(textBoxEmployeeCode);
             groupBox1.Controls.Add(btnSearchEmployee);
             groupBox1.Controls.Add(label2);
@@ -295,7 +282,7 @@
             groupBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(12, 55);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(639, 277);
+            groupBox1.Size = new Size(639, 241);
             groupBox1.TabIndex = 29;
             groupBox1.TabStop = false;
             groupBox1.Text = "Novo Bloqueio";
@@ -305,7 +292,7 @@
             textBoxEmployee.Enabled = false;
             textBoxEmployee.Location = new Point(20, 127);
             textBoxEmployee.Name = "textBoxEmployee";
-            textBoxEmployee.Size = new Size(613, 27);
+            textBoxEmployee.Size = new Size(328, 27);
             textBoxEmployee.TabIndex = 34;
             // 
             // label8
@@ -322,7 +309,7 @@
             // 
             dateTimePickerStartPeriod.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerStartPeriod.Format = DateTimePickerFormat.Short;
-            dateTimePickerStartPeriod.Location = new Point(354, 196);
+            dateTimePickerStartPeriod.Location = new Point(20, 196);
             dateTimePickerStartPeriod.Name = "dateTimePickerStartPeriod";
             dateTimePickerStartPeriod.Size = new Size(135, 27);
             dateTimePickerStartPeriod.TabIndex = 29;
@@ -331,7 +318,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(353, 172);
+            label4.Location = new Point(19, 172);
             label4.Name = "label4";
             label4.Size = new Size(45, 20);
             label4.TabIndex = 31;
@@ -341,7 +328,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(498, 171);
+            label5.Location = new Point(161, 171);
             label5.Name = "label5";
             label5.Size = new Size(33, 20);
             label5.TabIndex = 32;
@@ -351,7 +338,7 @@
             // 
             dateTimePickerEndPeriod.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dateTimePickerEndPeriod.Format = DateTimePickerFormat.Short;
-            dateTimePickerEndPeriod.Location = new Point(498, 196);
+            dateTimePickerEndPeriod.Location = new Point(161, 196);
             dateTimePickerEndPeriod.Name = "dateTimePickerEndPeriod";
             dateTimePickerEndPeriod.Size = new Size(135, 27);
             dateTimePickerEndPeriod.TabIndex = 30;
@@ -391,7 +378,6 @@
         private Button btnSearchAbsences;
         private Label label7;
         private GroupBox groupBox2;
-        private Button btnClearSearchEmployee;
         private TextBox textBoxEmployeeCode;
         private Button btnSearchEmployee;
         private Label label2;

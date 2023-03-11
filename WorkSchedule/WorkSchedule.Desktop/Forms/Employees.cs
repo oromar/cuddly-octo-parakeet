@@ -475,7 +475,10 @@ namespace WorkSchedule.Desktop.Forms
 
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            if (currentPage < (totalItems / PAGE_SIZE) + 1)
+            var maxPages = totalItems / PAGE_SIZE;
+            if (totalItems % PAGE_SIZE > 0)
+                maxPages += 1;
+            if (currentPage < maxPages)
             {
                 currentPage++;
                 FillDataGrid();
