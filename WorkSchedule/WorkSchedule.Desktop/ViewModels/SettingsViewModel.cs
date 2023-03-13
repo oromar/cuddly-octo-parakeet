@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using WorkSchedule.Application.Commands.Settings;
 using WorkSchedule.Application.DataTransferObjects;
-using WorkSchedule.Application.Queries.Queries;
+using WorkSchedule.Application.Queries.Settings;
 
 namespace WorkSchedule.Desktop.ViewModels
 {

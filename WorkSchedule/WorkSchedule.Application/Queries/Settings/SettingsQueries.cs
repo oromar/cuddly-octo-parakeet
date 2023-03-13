@@ -2,13 +2,13 @@
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 
-namespace WorkSchedule.Application.Queries.Queries
+namespace WorkSchedule.Application.Queries.Settings
 {
     public class SettingsQueries : ISettingsQueries
     {
-        private readonly IRepository<Settings> repository;
+        private readonly IRepository<Domain.Models.Settings> repository;
 
-        public SettingsQueries(IRepository<Settings> repository)
+        public SettingsQueries(IRepository<Domain.Models.Settings> repository)
         {
             this.repository = repository;
         }

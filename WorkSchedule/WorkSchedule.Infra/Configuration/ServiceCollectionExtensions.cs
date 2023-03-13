@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WorkSchedule.Application.Commands.Absence;
 using WorkSchedule.Application.Queries.Absence;
 using WorkSchedule.Application.Queries.Employee;
-using WorkSchedule.Application.Queries.Queries;
+using WorkSchedule.Application.Queries.Settings;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
 using WorkSchedule.Infra.Context;
