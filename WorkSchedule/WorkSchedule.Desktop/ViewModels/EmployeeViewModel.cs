@@ -2,7 +2,6 @@
 using WorkSchedule.Application.Commands.Employee;
 using WorkSchedule.Application.DataTransferObjects;
 using WorkSchedule.Application.Queries.Employee;
-using WorkSchedule.Domain;
 
 namespace WorkSchedule.Desktop.ViewModels
 {

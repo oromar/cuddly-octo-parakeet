@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorkSchedule.Domain;
+﻿using WorkSchedule.Domain;
 
 namespace WorkSchedule.Desktop.Common
 {
@@ -39,7 +34,7 @@ namespace WorkSchedule.Desktop.Common
             MessageBox.Show(message, Strings.WarningTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        internal static void ScheduleGeneratedSuccessAlert()
+        public static void ScheduleGeneratedSuccessAlert()
         {
             MessageBox.Show(Strings.SuccessGeneratedScheduleMessage, Strings.SuccessTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
