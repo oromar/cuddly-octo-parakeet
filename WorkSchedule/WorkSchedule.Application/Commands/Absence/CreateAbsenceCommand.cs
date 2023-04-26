@@ -11,8 +11,8 @@ namespace WorkSchedule.Application.Commands.Absence
 {
     public class CreateAbsenceCommand: IRequest
     {
-        private static readonly EmployeeCodeValidator codeValidator = new EmployeeCodeValidator();
-        private static readonly PeriodValidator periodValidator = new PeriodValidator();
+        private static readonly EmployeeCodeValidator codeValidator = new();
+        private static readonly PeriodValidator periodValidator = new();
 
         public string EmployeeCode { get; private set; }
         public DateTime Start { get; private set; }

@@ -7,7 +7,7 @@ using WorkSchedule.Infra.Context;
 
 namespace WorkSchedule.Infra.Repositories
 {
-    public class BaseRepository<T>: IRepository<T> where T : BaseEntity
+    public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly WorkScheduleContext context;
 
@@ -19,8 +19,7 @@ namespace WorkSchedule.Infra.Repositories
         public async Task<T> Add(T entity)
         {
             await context.AddAsync(entity);
-            if (entity is ITextSearcheable)
-                ((ITextSearcheable)entity).CreateSearchText();
+            CreateSearchText(entity);
             return entity;
         }
 
@@ -54,7 +53,14 @@ namespace WorkSchedule.Infra.Repositories
         public async Task<T> Update(T entity)
         {
             context.Update(entity);
+            CreateSearchText(entity);
             return entity;
+        }
+
+        private static void CreateSearchText(T entity)
+        {
+            if (entity is ITextSearcheable searcheable)
+                searcheable.CreateSearchText();
         }
     }
 }
