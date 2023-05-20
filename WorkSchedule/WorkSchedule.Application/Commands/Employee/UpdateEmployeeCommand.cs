@@ -10,8 +10,8 @@ namespace WorkSchedule.Application.Commands.Employee
 {
     public class UpdateEmployeeCommand: IRequest
     {
-        private static readonly EmployeeCodeValidator codeValidator = new EmployeeCodeValidator();
-        private static readonly EmployeeNameValidator nameValidator = new EmployeeNameValidator();
+        private static readonly EmployeeCodeValidator codeValidator = new();
+        private static readonly EmployeeNameValidator nameValidator = new();
         public string EmployeeCode { get; private set; }
         public string EmployeeName { get; private set; }
         public bool NotFirstSchedule { get; private set; }

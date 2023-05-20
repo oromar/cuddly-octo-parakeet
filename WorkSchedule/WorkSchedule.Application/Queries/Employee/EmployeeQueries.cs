@@ -47,7 +47,9 @@ namespace WorkSchedule.Application.Queries.Employee
             var searchText = criteria?.ToLower().RemoveDiacritics();
             var dbQuery = repository.AsQueryable();
             if (!string.IsNullOrWhiteSpace(searchText))
+            {
                 dbQuery = dbQuery.Where(a => a.SearchText.ToLower().Contains(searchText));
+            }
             var total = dbQuery.Count();
             var items = dbQuery
                 .OrderBy(a => a.Name)

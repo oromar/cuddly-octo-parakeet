@@ -45,7 +45,6 @@ namespace WorkSchedule.Desktop.Forms
             {
                 AlertBuilder.ErrorMessageAlert(ex);
             }
-
         }
     }
 }

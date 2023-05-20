@@ -37,7 +37,9 @@ namespace WorkSchedule.Infra.Repositories
         {
             var entity = await Get(id);
             if (entity != null)
+            {
                 context.Remove(entity);
+            }
         }
 
         public async Task<T> Get(string id)
@@ -60,7 +62,9 @@ namespace WorkSchedule.Infra.Repositories
         private static void CreateSearchText(T entity)
         {
             if (entity is ITextSearcheable searcheable)
+            {
                 searcheable.CreateSearchText();
+            }
         }
     }
 }

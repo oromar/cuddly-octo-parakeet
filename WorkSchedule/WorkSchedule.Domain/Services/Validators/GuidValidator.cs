@@ -13,9 +13,13 @@ namespace WorkSchedule.Domain.Services.Validators
         public void Validate(string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 throw new DomainException(Strings.RequiredGuid);
-            if (!Guid.TryParse(value, out Guid id) || id == Guid.Empty) 
+            }
+            if (!Guid.TryParse(value, out Guid id) || id == Guid.Empty)
+            {
                 throw new DomainException(Strings.InvalidGuid);
+            }
         }
     }
 }

@@ -23,7 +23,10 @@ namespace WorkSchedule.Application.CommandHandlers
         public async Task Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
             var alreadyExists = repository.AsQueryable().Any(a => a.EmployeeCode == request.Code);
-            if (alreadyExists) throw new BusinessException(Strings.EmployeeAlreadyExists);
+            if (alreadyExists)
+            {
+                throw new BusinessException(Strings.EmployeeAlreadyExists);
+            }
             var employee = new Employee(request.Name, request.Code, request.FirstSchedule);
             await repository.Add(employee);
             await repository.SaveChanges();

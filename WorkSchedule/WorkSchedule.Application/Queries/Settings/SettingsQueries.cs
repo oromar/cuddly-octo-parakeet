@@ -15,6 +15,8 @@ namespace WorkSchedule.Application.Queries.Settings
         public OnNoticeScheduleSettings GetSettings()
         {
             if (repository.AsQueryable().Any())
+            {
+
                 return repository.AsQueryable()
                     .Select(a => new OnNoticeScheduleSettings
                     {
@@ -22,6 +24,7 @@ namespace WorkSchedule.Application.Queries.Settings
                         DaysToCheckCount = a.DaysToCheckOnNoticeSchedule,
                     })
                     .First();
+            }
             return new OnNoticeScheduleSettings();
         }
     }

@@ -40,9 +40,13 @@ namespace WorkSchedule.Desktop.Forms
         {
             PaginationDTO<AbsenceDTO> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployee.Text))
+            {
                 data = absenceViewModel.SearchAbsences(textBoxEmployee.Text, currentPage, PAGE_SIZE);
+            }
             else
+            {
                 data = absenceViewModel.ListAbsences(currentPage, PAGE_SIZE);
+            }
             totalItems = data.Total;
             PopulateDataGrid(data.Items);
             UpdatePaginationLabel(data);
@@ -84,9 +88,13 @@ namespace WorkSchedule.Desktop.Forms
         {
             var result = employeeViewModel.SearchEmployee(textBoxEmployeeCode.Text, 1, 1);
             if (result != null && result.Items.Any())
+            {
                 textBoxEmployee.Text = $"{result.Items.First().Code} - {result.Items.First().Name}";
+            }
             else
+            {
                 AlertBuilder.WarningMessage(Strings.EmployeeNotFound);
+            }
         }
 
         private void btnClearSearchEmployee_Click(object sender, EventArgs e)
@@ -150,18 +158,28 @@ namespace WorkSchedule.Desktop.Forms
                     foreach (DataGridViewCell column in row.Cells)
                     {
                         if (column.ColumnIndex == EMPLOYEE_CODE_INDEX)
+                        {
                             codes.Add(column.Value.ToString());
+                        }
                         if (column.ColumnIndex == ABSENCE_CAUSE_INDEX)
+                        {
                             causes.Add(column.Value.ToString());
+                        }
                         if (column.ColumnIndex == ABSENCE_START_INDEX)
+                        {
                             starts.Add(column.Value.ToString());
+                        }
                         if (column.ColumnIndex == ABSENCE_END_INDEX)
+                        {
                             ends.Add(column.Value.ToString());
+                        }
                     }
                 }
 
                 for (int i = 0; i < codes.Count; i++)
+                {
                     absenceViewModel.DeleteAbsence(codes[i], DateTime.Parse(starts[i]), DateTime.Parse(ends[i]), causes[i]);
+                }
 
                 AlertBuilder.DeleteSuccessAlert();
                 FillDataGrid();
@@ -195,7 +213,9 @@ namespace WorkSchedule.Desktop.Forms
         {
             var maxPages = (totalItems / PAGE_SIZE);
             if (totalItems % PAGE_SIZE > 0)
+            {
                 maxPages += 1;
+            }
             if (currentPage <  maxPages)
             {
                 currentPage++;

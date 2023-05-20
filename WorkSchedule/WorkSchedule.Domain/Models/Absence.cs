@@ -3,10 +3,9 @@ using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Domain.Models
 {
-
     public class Absence: BaseEntity
     {
-        private static AbsenceValidator validator = new();
+        private static readonly AbsenceValidator validator = new();
         public string Start { get; private set; }
         public string End { get; private set; }
         public AbsenceCause Cause { get; private set; }

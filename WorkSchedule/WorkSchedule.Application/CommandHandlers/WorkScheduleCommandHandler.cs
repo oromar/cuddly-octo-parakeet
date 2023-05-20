@@ -73,7 +73,9 @@ namespace WorkSchedule.Application.CommandHandlers
             while (IsEmployeeBlocked(choosedEmployee, date.Date)
                    || IsEmployeeAlreadyScheduled(choosedEmployee, dateOnNotice)
                    || IsEmployeeOverload(result, choosedEmployee, date))
+            {
                 choosedEmployee = GetRandomEmployee(employees);
+            }
             return choosedEmployee;
         }
 
@@ -110,8 +112,11 @@ namespace WorkSchedule.Application.CommandHandlers
             var dates = new List<DateTime>();
             for (var currentDate = request.Start.Date; currentDate <= request.End.Date; currentDate = currentDate.AddDays(1))
             {
-                if (!request.IncludeWeekends && weekendDays.Contains(currentDate.DayOfWeek))
+                if (!request.IncludeWeekends 
+                    && weekendDays.Contains(currentDate.DayOfWeek))
+                {
                     continue;
+                }
                 dates.Add(currentDate);
             }
             return dates;

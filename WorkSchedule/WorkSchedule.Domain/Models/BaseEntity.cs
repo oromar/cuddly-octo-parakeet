@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Models
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         public string Id { get; set; }
         public string CreationTime { get; set; }
@@ -20,7 +22,9 @@ namespace WorkSchedule.Domain.Models
         public override bool Equals(object? obj)
         {
             if (obj is BaseEntity entity)
+            {
                 return Id == entity.Id;
+            }
             return false;
         }
 

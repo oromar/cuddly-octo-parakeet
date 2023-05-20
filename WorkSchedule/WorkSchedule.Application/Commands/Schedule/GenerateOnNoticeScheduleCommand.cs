@@ -13,9 +13,9 @@ namespace WorkSchedule.Application.Commands.Schedule
         IRequest<OnNoticeWorkSchedule>
     {
         private readonly PeriodValidator periodValidator = new();
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public bool IncludeWeekends { get; set; }
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
+        public bool IncludeWeekends { get; private set; }
 
         public GenerateOnNoticeScheduleCommand(DateTime start, DateTime end, bool includeWeekends)
         {

@@ -2,7 +2,7 @@
 using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
 using WorkSchedule.Domain;
-
+using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Desktop.Forms
 {
@@ -64,9 +64,13 @@ namespace WorkSchedule.Desktop.Forms
             //PopulateDummyData(1000);
             PaginationDTO<EmployeeDTO> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))
+            {
                 data = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
+            }
             else
+            {
                 data = viewModel.ListEmployees(currentPage, PAGE_SIZE);
+            }
             totalItems = data.Total;
             PopulateDataGridView(data.Items);
             UpdatePaginationLabel(data);
@@ -362,17 +366,21 @@ namespace WorkSchedule.Desktop.Forms
                 "Moura",
             };
             string getCurrentName() => $"{names.OrderBy(a => Guid.NewGuid()).First()} {surnames.OrderBy(a => Guid.NewGuid()).First()} {surnames.OrderBy(a => Guid.NewGuid()).First()}"; ;
-            string getCurrentCode() => string.Join("", Guid.NewGuid().ToString().Replace("-", "").Where(a => char.IsDigit(a)).Take(10));
+            string getCurrentCode() => string.Join("", Guid.NewGuid().ToString().Replace("-", "").Where(a => char.IsDigit(a)).Take(EmployeeCodeValidator.CODE_LENGTH));
             var namesToInsert = new List<string>();
             for (int i = 0; i < employeeCount; i++)
             {
                 var currentName = getCurrentName();
                 while (namesToInsert.Contains(currentName))
+                {
                     currentName = getCurrentName();
+                }
                 namesToInsert.Add(currentName);
                 var currentCode = getCurrentCode();
                 while (employeeCodes.Contains(currentCode))
+                {
                     currentCode = getCurrentCode();
+                }
                 employeeCodes.Add(currentCode);
 
                 viewModel.CreateEmployee(currentName, currentCode, new Random().Next(1, 3) == 2);
@@ -438,11 +446,15 @@ namespace WorkSchedule.Desktop.Forms
                 {
                     var column = row.Cells[EMPLOYEE_CODE_INDEX];
                     if (column != null && column.Value != null)
+                    {
                         codes.Add(column.Value.ToString());
+                    }
                 }
 
                 foreach (var code in codes)
+                {
                     viewModel.DeleteEmployee(code);
+                }
 
                 AlertBuilder.DeleteSuccessAlert();
                 FillDataGrid();
@@ -477,7 +489,9 @@ namespace WorkSchedule.Desktop.Forms
         {
             var maxPages = totalItems / PAGE_SIZE;
             if (totalItems % PAGE_SIZE > 0)
+            {
                 maxPages += 1;
+            }
             if (currentPage < maxPages)
             {
                 currentPage++;

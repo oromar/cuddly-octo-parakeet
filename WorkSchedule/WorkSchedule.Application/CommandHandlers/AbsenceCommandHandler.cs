@@ -40,7 +40,10 @@ namespace WorkSchedule.Application.CommandHandlers
                 .Where(a => a.Cause == request.Cause)
                 .Any(a => a.EmployeeId == employeeInDB.Id);
 
-            if (exists) throw new BusinessException(Strings.AbsenceAlreadyExists);
+            if (exists)
+            {
+                throw new BusinessException(Strings.AbsenceAlreadyExists);
+            }
 
             var newAbsence = new Absence(request.Start, request.End, request.Cause, employeeInDB.Id);
             await repository.Add(newAbsence);
@@ -59,9 +62,7 @@ namespace WorkSchedule.Application.CommandHandlers
                .Where(a => a.Start == start)
                .Where(a => a.End == end)
                .Where(a => a.Cause == request.Cause)
-               .FirstOrDefault(a => a.EmployeeId == employeeInDB.Id);
-
-            if (absenceInDB == null) throw new BusinessException(Strings.AbsenceNotFound);
+               .FirstOrDefault(a => a.EmployeeId == employeeInDB.Id) ?? throw new BusinessException(Strings.AbsenceNotFound);
 
             await repository.Delete(absenceInDB.Id);
             await repository.SaveChanges();

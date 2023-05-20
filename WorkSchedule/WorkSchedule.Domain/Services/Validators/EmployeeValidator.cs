@@ -10,7 +10,6 @@ using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Services.Validators
 {
-
     public class EmployeeValidator : IValidator<Employee>
     {
         private readonly EmployeeNameValidator employeeNameValidator = new();
@@ -19,10 +18,11 @@ namespace WorkSchedule.Domain.Services.Validators
         public void Validate(Employee entity)
         {
             if (entity == null)
+            {
                 throw new DomainException(Strings.RequiredEmployee);
+            }
             employeeNameValidator.Validate(entity.Name);
             employeeCodeValidator.Validate(entity.EmployeeCode);
         }
     }
-
 }

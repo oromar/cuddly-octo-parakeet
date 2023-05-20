@@ -32,10 +32,16 @@ namespace WorkSchedule.Application.DataTransferObjects
                 builder.AppendLine($"{Strings.Period}: {Start: dd/MM/yyyy} - {End: dd/MM/yyyy}");
                 var employeeCount = Items[0].Employees.Count;
                 builder.Append(';');
-                for (var i = 0; i < employeeCount; i++) builder.Append($"{i + 1}{Strings.NSchedule};;");
+                for (var i = 0; i < employeeCount; i++)
+                {
+                    builder.Append($"{i + 1}{Strings.NSchedule};;");
+                }
                 builder.AppendLine();
                 builder.Append($"{Strings.DateColumnTitle};");
-                for (var i = 0; i < employeeCount; i++) builder.Append($"{Strings.EmployeeCodeColumnTitle};{Strings.EmployeeNameColumnTitle};");
+                for (var i = 0; i < employeeCount; i++)
+                {
+                    builder.Append($"{Strings.EmployeeCodeColumnTitle};{Strings.EmployeeNameColumnTitle};");
+                }
                 return builder.ToString();
             }
         }
@@ -48,7 +54,9 @@ namespace WorkSchedule.Application.DataTransferObjects
                 {
                     builder.Append($"{item.Date.Date: dd/MM} - {dayOfWeekName[item.Date.DayOfWeek]};");
                     foreach (var employee in item.Employees)
+                    {
                         builder.Append($"{employee.EmployeeCode};{employee.EmployeeName};");
+                    }
                     builder.AppendLine();
                 }
                 return builder.ToString();

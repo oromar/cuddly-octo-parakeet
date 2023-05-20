@@ -5,15 +5,15 @@ namespace WorkSchedule.Application.Commands.Settings
 {
     public class SaveSettingsCommand : IRequest
     {
-        private readonly EmployeeDayCountOnNoticeScheduleValidator employeeDayCountOnNoticeScheduleValidator = new();
-        private readonly DaysToCheckOverloadOnNoticeScheduleValidator daysToCheckOverloadOnNoticeScheduleValidator = new();
-        public int EmployeesDay { get; set; }
-        public int DaysToCheck { get; set; }
+        private readonly EmployeePerDayValidator employeePerDayValidator = new();
+        private readonly DayOverloadValidator dayOverloadValidator = new();
+        public int EmployeesDay { get; private set; }
+        public int DaysToCheck { get; private set; }
 
         public SaveSettingsCommand(int employeesDay, int daysToCheck)
         {
-            employeeDayCountOnNoticeScheduleValidator.Validate(employeesDay);
-            daysToCheckOverloadOnNoticeScheduleValidator.Validate(daysToCheck);
+            employeePerDayValidator.Validate(employeesDay);
+            dayOverloadValidator.Validate(daysToCheck);
             EmployeesDay = employeesDay;
             DaysToCheck = daysToCheck;
         }
