@@ -22,11 +22,15 @@ namespace WorkSchedule.Application.CommandHandlers
 
         public async Task Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var alreadyExists = repository.AsQueryable().Any(a => a.EmployeeCode == request.Code);
+            var alreadyExists = repository
+                .AsQueryable()
+                .Any(a => a.EmployeeCode == request.Code);
+
             if (alreadyExists)
             {
                 throw new BusinessException(Strings.EmployeeAlreadyExists);
             }
+
             var employee = new Employee(request.Name, request.Code, request.FirstSchedule);
             await repository.Add(employee);
             await repository.SaveChanges();
@@ -34,16 +38,22 @@ namespace WorkSchedule.Application.CommandHandlers
 
         public async Task Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var employeeInDB = repository.AsQueryable()
-                .FirstOrDefault(a => a.EmployeeCode == request.Code) ?? throw new BusinessException(Strings.EmployeeNotFound);
+            var employeeInDB = repository
+                .AsQueryable()
+                .FirstOrDefault(a => a.EmployeeCode == request.Code) 
+                ?? throw new BusinessException(Strings.EmployeeNotFound);
+
             await repository.Delete(employeeInDB.Id);
             await repository.SaveChanges();
         }
 
         public async Task Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var employeeInDB = repository.AsQueryable()
-                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) ?? throw new BusinessException(Strings.EmployeeNotFound);
+            var employeeInDB = repository
+                .AsQueryable()
+                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) 
+                ?? throw new BusinessException(Strings.EmployeeNotFound);
+
             employeeInDB.Update(request.EmployeeName, request.EmployeeCode, request.NotFirstSchedule);
             await repository.Update(employeeInDB);
             await repository.SaveChanges();

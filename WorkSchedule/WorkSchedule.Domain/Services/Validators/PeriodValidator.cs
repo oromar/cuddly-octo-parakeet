@@ -12,11 +12,13 @@ namespace WorkSchedule.Domain.Services.Validators
     {
         public void Validate(string start, string end)
         {
-            if (!DateTime.TryParse(start, out DateTime startDate))
+            if (!DateTime.TryParse(start, out DateTime startDate) 
+                || startDate == default)
             {
                 throw new DomainException(Strings.RequiredStartDate);
             }
-            if (!DateTime.TryParse(end, out DateTime endDate))
+            if (!DateTime.TryParse(end, out DateTime endDate)
+                || endDate == default)
             {
                 throw new DomainException(Strings.RequiredEndDate);
             }

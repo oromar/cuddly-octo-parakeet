@@ -268,6 +268,15 @@ namespace WorkSchedule.Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Favor especifique um intervalo de datas válido..
+        /// </summary>
+        public static string NoDateInterval {
+            get {
+                return ResourceManager.GetString("NoDateInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to º Sobreaviso.
         /// </summary>
         public static string NSchedule {

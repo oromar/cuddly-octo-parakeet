@@ -20,21 +20,27 @@ namespace WorkSchedule.Application.CommandHandlers
         private readonly IRepository<Absence> repository;
         private readonly IRepository<Employee> employeeRepository;
 
-        public AbsenceCommandHandler(IRepository<Absence> repository,
-            IRepository<Employee> employeeRepository)
+        public AbsenceCommandHandler
+        (
+            IRepository<Absence> repository,
+            IRepository<Employee> employeeRepository
+        )
         {
             this.repository = repository;
             this.employeeRepository = employeeRepository;
         }
         public async Task Handle(CreateAbsenceCommand request, CancellationToken cancellationToken)
         {
-            var employeeInDB = employeeRepository.AsQueryable()
-                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) ?? throw new BusinessException(Strings.EmployeeNotFound);
+            var employeeInDB = employeeRepository
+                .AsQueryable()
+                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) 
+                ?? throw new BusinessException(Strings.EmployeeNotFound);
 
             var start = request.Start.ToString("s");
             var end = request.End.ToString("s");
 
-            var exists = repository.AsQueryable()
+            var exists = repository
+                .AsQueryable()
                 .Where(a => a.Start == start)
                 .Where(a => a.End == end)
                 .Where(a => a.Cause == request.Cause)
@@ -52,17 +58,21 @@ namespace WorkSchedule.Application.CommandHandlers
 
         public async Task Handle(DeleteAbsenceCommand request, CancellationToken cancellationToken)
         {
-            var employeeInDB = employeeRepository.AsQueryable()
-                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) ?? throw new BusinessException(Strings.EmployeeNotFound);
+            var employeeInDB = employeeRepository
+                .AsQueryable()
+                .FirstOrDefault(a => a.EmployeeCode == request.EmployeeCode) 
+                ?? throw new BusinessException(Strings.EmployeeNotFound);
 
             var start = request.Start.ToString("s");
             var end = request.End.ToString("s");
 
-            var absenceInDB = repository.AsQueryable()
-               .Where(a => a.Start == start)
-               .Where(a => a.End == end)
-               .Where(a => a.Cause == request.Cause)
-               .FirstOrDefault(a => a.EmployeeId == employeeInDB.Id) ?? throw new BusinessException(Strings.AbsenceNotFound);
+            var absenceInDB = repository
+                .AsQueryable()
+                .Where(a => a.Start == start)
+                .Where(a => a.End == end)
+                .Where(a => a.Cause == request.Cause)
+                .FirstOrDefault(a => a.EmployeeId == employeeInDB.Id) 
+                ?? throw new BusinessException(Strings.AbsenceNotFound);
 
             await repository.Delete(absenceInDB.Id);
             await repository.SaveChanges();

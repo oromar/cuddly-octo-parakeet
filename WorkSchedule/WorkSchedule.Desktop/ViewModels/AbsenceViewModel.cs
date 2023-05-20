@@ -12,8 +12,11 @@ namespace WorkSchedule.Desktop.ViewModels
         private readonly IMediator mediator;
         private readonly IAbsenceQueries queryService;
 
-        public AbsenceViewModel(IMediator mediator,
-            IAbsenceQueries queryService)
+        public AbsenceViewModel
+        (
+            IMediator mediator,
+            IAbsenceQueries queryService
+        )
         {
             this.mediator = mediator;
             this.queryService = queryService;

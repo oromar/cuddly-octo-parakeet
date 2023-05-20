@@ -23,6 +23,14 @@ namespace WorkSchedule.Domain.Models
             validator.Validate(this);
         }
 
+        public Settings Update(int  employeesCount, int daysToCheck)
+        {
+            EmployeesPerDateInOnNoticeSchedule = employeesCount;
+            DaysToCheckOnNoticeSchedule = daysToCheck;
+            validator.Validate(this);
+            return this;
+        }
+
         public bool IsValid()
         {
             try

@@ -26,7 +26,10 @@ namespace WorkSchedule.Application.CommandHandlers
             this.employeeRepository = employeeRepository;
             this.absenceRepository = absenceRepository;
 
-            settings = settingsRepository.AsQueryable().FirstOrDefault() ?? new Settings();
+            settings = settingsRepository
+                .AsQueryable()
+                .FirstOrDefault() 
+                ?? new Settings();
 
             if (!settings.IsValid())
             {
@@ -43,6 +46,8 @@ namespace WorkSchedule.Application.CommandHandlers
             };
 
             var dates = GetScheduleDates(request);
+
+            if (!dates.Any()) throw new BusinessException(Strings.NoDateInterval);
 
             var allEmployees = employeeRepository
                 .AsQueryable()
@@ -62,12 +67,16 @@ namespace WorkSchedule.Application.CommandHandlers
                     employee = ChooseEmployee(i == 0 ? firstEmployees : allEmployees,
                         date, dateOnNotice, result);
 
-                    dateOnNotice.Employees.Add(new EmployeeOnNotice
-                    {
-                        EmployeeCode = employee.EmployeeCode,
-                        EmployeeName = employee.Name,
-                        EmployeeId = employee.Id,
-                    });
+                    dateOnNotice.Employees
+                        .Add
+                        (
+                            new EmployeeOnNotice
+                            {
+                                EmployeeCode = employee.EmployeeCode,
+                                EmployeeName = employee.Name,
+                                EmployeeId = employee.Id,
+                            }
+                        );
                 }
                 result.Items.Add(dateOnNotice);
             }
@@ -78,6 +87,7 @@ namespace WorkSchedule.Application.CommandHandlers
             DateOnNotice dateOnNotice, OnNoticeWorkSchedule result)
         {
             var choosedEmployee = GetRandomEmployee(employees);
+
             while (IsEmployeeBlocked(choosedEmployee, date.Date)
                    || IsEmployeeAlreadyScheduled(choosedEmployee, dateOnNotice)
                    || IsEmployeeOverload(result, choosedEmployee, date))
@@ -97,7 +107,8 @@ namespace WorkSchedule.Application.CommandHandlers
         private bool IsEmployeeBlocked(Employee employee, DateTime dateTime)
         {
             var reference = dateTime.ToString("s");
-            return absenceRepository.AsQueryable()
+            return absenceRepository
+                .AsQueryable()
                 .Where(a => a.Start.CompareTo(reference) <= 0)
                 .Where(a => a.End.CompareTo(reference) >= 0)
                 .Any(a => a.EmployeeId == employee.Id);

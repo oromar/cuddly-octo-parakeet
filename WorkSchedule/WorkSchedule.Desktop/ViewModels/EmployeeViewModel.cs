@@ -10,7 +10,11 @@ namespace WorkSchedule.Desktop.ViewModels
         private readonly IMediator mediator;
         private readonly IEmployeeQueries queryService;
 
-        public EmployeeViewModel(IMediator mediator, IEmployeeQueries queryService)
+        public EmployeeViewModel
+        (
+            IMediator mediator, 
+            IEmployeeQueries queryService
+        )
         {
             this.mediator = mediator;
             this.queryService = queryService;

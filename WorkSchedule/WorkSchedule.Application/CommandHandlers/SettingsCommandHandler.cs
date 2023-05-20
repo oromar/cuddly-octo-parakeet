@@ -16,11 +16,14 @@ namespace WorkSchedule.Application.CommandHandlers
         public async Task Handle(SaveSettingsCommand request, CancellationToken cancellationToken)
         {
             var exists = repository.AsQueryable().Any();    
+
             if (exists)
             {
-                var dataInDB = repository.AsQueryable().First();
-                dataInDB.DaysToCheckOnNoticeSchedule = request.DaysToCheck;
-                dataInDB.EmployeesPerDateInOnNoticeSchedule = request.EmployeesDay;
+                var dataInDB = repository
+                    .AsQueryable()
+                    .First();
+
+                dataInDB = dataInDB.Update(request.EmployeesDay, request.DaysToCheck);
                 await repository.Update(dataInDB);
             }
             else

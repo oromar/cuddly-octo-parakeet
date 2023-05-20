@@ -186,6 +186,9 @@
   <data name="No" xml:space="preserve">
     <value>Não</value>
   </data>
+  <data name="NoDateInterval" xml:space="preserve">
+    <value>Favor especifique um intervalo de datas válido.</value>
+  </data>
   <data name="NSchedule" xml:space="preserve">
     <value>º Sobreaviso</value>
   </data>

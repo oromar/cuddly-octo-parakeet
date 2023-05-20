@@ -10,8 +10,11 @@ namespace WorkSchedule.Desktop.ViewModels
         private readonly IMediator mediator;
         private readonly ISettingsQueries queryService;
 
-        public SettingsViewModel(IMediator mediator,
-            ISettingsQueries queryService)
+        public SettingsViewModel
+        (
+            IMediator mediator,
+            ISettingsQueries queryService
+        )
         {
             this.mediator = mediator;
             this.queryService = queryService;
