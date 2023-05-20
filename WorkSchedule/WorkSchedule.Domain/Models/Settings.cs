@@ -1,4 +1,5 @@
 ﻿
+using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Services.Interfaces;
 using WorkSchedule.Domain.Services.Validators;
 
@@ -20,6 +21,19 @@ namespace WorkSchedule.Domain.Models
             EmployeesPerDateInOnNoticeSchedule = employeesCount;
             DaysToCheckOnNoticeSchedule = daysToCheck;
             validator.Validate(this);
+        }
+
+        public bool IsValid()
+        {
+            try
+            {
+                validator.Validate(this);
+                return true;
+            }
+            catch (DomainException)
+            {
+                return false;
+            }
         }
     }
 }

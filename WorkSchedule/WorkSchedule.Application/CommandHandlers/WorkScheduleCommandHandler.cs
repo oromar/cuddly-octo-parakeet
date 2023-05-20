@@ -5,6 +5,7 @@ using WorkSchedule.Application.DataTransferObjects;
 using WorkSchedule.Domain;
 using WorkSchedule.Domain.Models;
 using WorkSchedule.Domain.Repositories;
+using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Application.CommandHandlers
 {
@@ -15,16 +16,22 @@ namespace WorkSchedule.Application.CommandHandlers
         private readonly IRepository<Absence> absenceRepository;
         private readonly Settings settings;
 
-        public WorkScheduleCommandHandler(IRepository<Employee> employeeRepository,
+        public WorkScheduleCommandHandler
+        (
+            IRepository<Employee> employeeRepository,
             IRepository<Absence> absenceRepository,
-            IRepository<Settings> settingsRepository)
+            IRepository<Settings> settingsRepository
+        )
         {
             this.employeeRepository = employeeRepository;
             this.absenceRepository = absenceRepository;
+
             settings = settingsRepository.AsQueryable().FirstOrDefault() ?? new Settings();
-            if (settings.DaysToCheckOnNoticeSchedule <= 0
-                || settings.EmployeesPerDateInOnNoticeSchedule <= 0)
+
+            if (!settings.IsValid())
+            {
                 throw new BusinessException(Strings.SettingsNotConfiguredMessage);
+            }
         }
 
         public async Task<OnNoticeWorkSchedule> Handle(GenerateOnNoticeScheduleCommand request, CancellationToken cancellationToken)
@@ -37,7 +44,8 @@ namespace WorkSchedule.Application.CommandHandlers
 
             var dates = GetScheduleDates(request);
 
-            var allEmployees = employeeRepository.AsQueryable()
+            var allEmployees = employeeRepository
+                .AsQueryable()
                 .ToList();
 
             var firstEmployees = allEmployees
@@ -112,7 +120,7 @@ namespace WorkSchedule.Application.CommandHandlers
             var dates = new List<DateTime>();
             for (var currentDate = request.Start.Date; currentDate <= request.End.Date; currentDate = currentDate.AddDays(1))
             {
-                if (!request.IncludeWeekends 
+                if (!request.IncludeWeekends
                     && weekendDays.Contains(currentDate.DayOfWeek))
                 {
                     continue;

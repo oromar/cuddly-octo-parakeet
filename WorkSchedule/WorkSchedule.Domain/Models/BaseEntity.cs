@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorkSchedule.Domain.Common;
 using WorkSchedule.Domain.Services.Interfaces;
 
 namespace WorkSchedule.Domain.Models
