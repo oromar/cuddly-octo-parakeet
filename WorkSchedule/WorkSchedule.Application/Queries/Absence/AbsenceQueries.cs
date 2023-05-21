@@ -11,8 +11,11 @@ namespace WorkSchedule.Application.Queries.Absence
         private readonly IRepository<Domain.Models.Absence> repository;
         private readonly IRepository<Domain.Models.Employee> employeeRepository;
 
-        public AbsenceQueries(IRepository<Domain.Models.Absence> repository,
-            IRepository<Domain.Models.Employee> employeeRepository)
+        public AbsenceQueries
+        (
+            IRepository<Domain.Models.Absence> repository,
+            IRepository<Domain.Models.Employee> employeeRepository
+        )
         {
             this.repository = repository;
             this.employeeRepository = employeeRepository;
@@ -20,11 +23,16 @@ namespace WorkSchedule.Application.Queries.Absence
 
         public PaginationDTO<AbsenceDTO> ListAbsences(int page, int pageSize)
         {
-            var employees = employeeRepository.AsQueryable()
+            var employees = employeeRepository
+                .AsQueryable()
                 .ToDictionary(a => a.Id, a => (a.EmployeeCode, a.Name));
 
-            var total = repository.AsQueryable().Count();
-            var items = repository.AsQueryable()
+            var total = repository
+                .AsQueryable()
+                .Count();
+
+            var items = repository
+                .AsQueryable()
                 .OrderBy(a => a.CreationTime)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -48,14 +56,22 @@ namespace WorkSchedule.Application.Queries.Absence
 
         public PaginationDTO<AbsenceDTO> SearchAbsences(string criteria, int page, int pageSize)
         {
-            var searchText = criteria.ToLower().RemoveDiacritics();
-            var employees = employeeRepository.AsQueryable()
+            var searchText = criteria
+                .ToLower()
+                .RemoveDiacritics();
+
+            var employees = employeeRepository
+                .AsQueryable()
                 .Where(a => a.SearchText.ToLower().Contains(searchText))
                 .ToDictionary(a => a.Id, a => (a.EmployeeCode, a.Name));
+
             var employeeIds = employees.Keys;
-            var dbQuery = repository.AsQueryable()
+            var dbQuery = repository
+                .AsQueryable()
                 .Where(a => employeeIds.Contains(a.EmployeeId));
+
             var total = dbQuery.Count();
+
             var items = dbQuery
                 .OrderBy(a => a.CreationTime)
                 .Skip((page - 1) * pageSize)
@@ -70,6 +86,7 @@ namespace WorkSchedule.Application.Queries.Absence
                     EmployeeName = employees[a.EmployeeId].Name,
                 })
                 .ToList();
+
             return new PaginationDTO<AbsenceDTO>
             {
                 Total = total,

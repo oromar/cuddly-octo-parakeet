@@ -16,8 +16,8 @@ namespace WorkSchedule.Application.Queries.Settings
         {
             if (repository.AsQueryable().Any())
             {
-
-                return repository.AsQueryable()
+                return repository
+                    .AsQueryable()
                     .Select(a => new OnNoticeScheduleSettings
                     {
                         EmployeeDayCount = a.EmployeesPerDateInOnNoticeSchedule,

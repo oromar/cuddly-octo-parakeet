@@ -22,8 +22,12 @@ namespace WorkSchedule.Application.Queries.Employee
         public async Task<PaginationDTO<EmployeeDTO>> ListEmployees(int page, int pageSize)
         {
 
-            var total = repository.AsQueryable().Count();
-            var items = repository.AsQueryable()
+            var total = repository
+                .AsQueryable()
+                .Count();
+
+            var items = repository
+                .AsQueryable()
                 .OrderBy(a => a.Name)
                 .Skip((pageSize * (page - 1)))
                 .Take(pageSize)
@@ -35,6 +39,7 @@ namespace WorkSchedule.Application.Queries.Employee
                     FirstSchedule = a.FirstSchedule,
                 })
                 .AsEnumerable();
+
             return new PaginationDTO<EmployeeDTO>
             {
                 Items = items,
@@ -44,13 +49,20 @@ namespace WorkSchedule.Application.Queries.Employee
 
         public async Task<PaginationDTO<EmployeeDTO>> SearchEmployees(string criteria, int page, int pageSize)
         {
-            var searchText = criteria?.ToLower().RemoveDiacritics();
-            var dbQuery = repository.AsQueryable();
+            var searchText = criteria?
+                .ToLower()
+                .RemoveDiacritics();
+
+            var dbQuery = repository
+                .AsQueryable();
+
             if (!string.IsNullOrWhiteSpace(searchText))
             {
                 dbQuery = dbQuery.Where(a => a.SearchText.ToLower().Contains(searchText));
             }
+
             var total = dbQuery.Count();
+
             var items = dbQuery
                 .OrderBy(a => a.Name)
                 .Skip((pageSize * (page - 1)))
@@ -63,6 +75,7 @@ namespace WorkSchedule.Application.Queries.Employee
                     FirstSchedule = a.FirstSchedule,
                 })
                 .AsEnumerable();
+
             return new PaginationDTO<EmployeeDTO>
             {
                 Items = items,
