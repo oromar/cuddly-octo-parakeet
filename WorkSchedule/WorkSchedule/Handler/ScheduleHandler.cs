@@ -14,30 +14,25 @@ namespace WorkSchedule.Handler;
 
 public class ScheduleHandler
 (
-    IEmployeeQueries employeeQueries, 
-    IAbsenceQueries absenceQueries, 
+    IEmployeeQueries employeeQueries,
+    IAbsenceQueries absenceQueries,
     ISettingsQueries settingsQueries
 ) : ICapSubscribe
 {
     private OnNoticeScheduleSettings? _settings;
+    private static readonly List<DayOfWeek> s_weekendDays = [DayOfWeek.Saturday, DayOfWeek.Sunday];
 
     [CapSubscribe(nameof(GenerateSchedule))]
     public async Task<OnNoticeWorkSchedule> Handle(GenerateSchedule request)
     {
         _settings = await settingsQueries.GetSettingsAsync();
-        BusinessException.When(
-            _settings == null || _settings.DaysToCheckCount == 0 || _settings.EmployeeDayCount == 0,
-            Strings.SettingsNotConfiguredMessage
-        );
+        bool noSettings = _settings == null || _settings.DaysToCheckCount == 0 || _settings.EmployeeDayCount == 0;
+        BusinessException.When(noSettings, Strings.SettingsNotConfiguredMessage);
 
-        var result = new OnNoticeWorkSchedule
-        {
-            Start = request.Start,
-            End = request.End,
-        };
+        OnNoticeWorkSchedule result = new (request.Start, request.End);
 
         var dates = GetScheduleDates(request);
-        BusinessException.When(!dates.Any(), Strings.NoDateInterval);
+        BusinessException.When(dates.Count == 0, Strings.NoDateInterval);
 
         var firstEmployees = await employeeQueries.ListFirstScheduleEmployeesAsync();
         var allEmployees = await employeeQueries.ListAllAsync();
@@ -46,7 +41,7 @@ public class ScheduleHandler
         DateOnNotice dateOnNotice;
         foreach (var date in dates)
         {
-            dateOnNotice = new DateOnNotice(date.Date, []);
+            dateOnNotice = new (date.Date, []);
             for (var i = 0; i < _settings!.EmployeeDayCount; i++)
             {
                 employee = await ChooseEmployeeAsync(i == 0 ? firstEmployees : allEmployees, date, dateOnNotice, result);
@@ -61,24 +56,25 @@ public class ScheduleHandler
         DateOnNotice dateOnNotice, OnNoticeWorkSchedule result)
     {
         var choosedEmployee = GetRandomEmployee(employees);
-
-        while ((await IsEmployeeBlocked(choosedEmployee, date.Date))
-               || IsEmployeeAlreadyScheduled(choosedEmployee, dateOnNotice)
-               || IsEmployeeOverload(result, choosedEmployee, date))
-        {
+        while (await CannotSchedule(date, dateOnNotice, result, choosedEmployee))
             choosedEmployee = GetRandomEmployee(employees);
-        }
+
         return choosedEmployee;
     }
 
-    private bool IsEmployeeOverload(OnNoticeWorkSchedule result, EmployeeItem employee, DateTime dateTime)
+    private async Task<bool> CannotSchedule(DateTime date, DateOnNotice dateOnNotice, OnNoticeWorkSchedule result, EmployeeItem choosedEmployee)
+    {
+        return IsAreadySchedule(choosedEmployee, dateOnNotice) || IsOverload(result, choosedEmployee, date) || await IsBlocked(choosedEmployee, date.Date);
+    }
+
+    private bool IsOverload(OnNoticeWorkSchedule result, EmployeeItem employee, DateTime dateTime)
     {
         return result.Items
             .Where(a => a.Employees.Any(b => b.EmployeeId == employee.Id.ToString()))
             .Any(a => dateTime.Date - a.Date <= TimeSpan.FromDays(_settings!.DaysToCheckCount));
     }
 
-    private async Task<bool> IsEmployeeBlocked(EmployeeItem employee, DateTime dateTime)
+    private async Task<bool> IsBlocked(EmployeeItem employee, DateTime dateTime)
     {
         return await absenceQueries.EmployeeBlockedAsync(employee.Id, dateTime);
     }
@@ -89,22 +85,19 @@ public class ScheduleHandler
     }
 
 
-    private static bool IsEmployeeAlreadyScheduled(EmployeeItem employee, DateOnNotice dateOnNotice)
+    private static bool IsAreadySchedule(EmployeeItem employee, DateOnNotice dateOnNotice)
     {
         return dateOnNotice.Employees.Any(a => a.EmployeeId == employee.Id.ToString());
     }
 
-    private static IEnumerable<DateTime> GetScheduleDates(GenerateSchedule request)
+    private static List<DateTime> GetScheduleDates(GenerateSchedule request)
     {
-        var weekendDays = new List<DayOfWeek> { DayOfWeek.Saturday, DayOfWeek.Sunday };
         var dates = new List<DateTime>();
         for (var currentDate = request.Start.Date; currentDate <= request.End.Date; currentDate = currentDate.AddDays(1))
         {
-            if (!request.IncludeWeekends
-                && weekendDays.Contains(currentDate.DayOfWeek))
-            {
+            if (!request.IncludeWeekends && s_weekendDays.Contains(currentDate.DayOfWeek))
                 continue;
-            }
+
             dates.Add(currentDate);
         }
         return dates;

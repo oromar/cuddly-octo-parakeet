@@ -3,7 +3,7 @@ using System.Text;
 
 namespace WorkSchedule.Contracts.DataTransferObjects;
 
-public class OnNoticeWorkSchedule
+public class OnNoticeWorkSchedule(DateTime start, DateTime end)
 {
     private static readonly Dictionary<DayOfWeek, string> dayOfWeekName = new()
     {
@@ -15,14 +15,9 @@ public class OnNoticeWorkSchedule
         { DayOfWeek.Friday, Strings.SEX },
         { DayOfWeek.Saturday, Strings.SAB },
     };
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
-    public List<DateOnNotice> Items { get; set; }
-
-    public OnNoticeWorkSchedule()
-    {
-        Items = [];
-    }
+    public DateTime Start { get; set; } = start;
+    public DateTime End { get; set; } = end;
+    public List<DateOnNotice> Items { get; set; } = [];
 
     public string CSVHeader
     {
