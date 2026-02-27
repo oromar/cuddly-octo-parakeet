@@ -12,7 +12,12 @@ using WorkSchedule.DataTransferObjects;
 
 namespace WorkSchedule.Handler;
 
-public class ScheduleHandler(IEmployeeQueries employeeQueries, IAbsenceQueries absenceQueries, ISettingsQueries settingsQueries) : ICapSubscribe
+public class ScheduleHandler
+(
+    IEmployeeQueries employeeQueries, 
+    IAbsenceQueries absenceQueries, 
+    ISettingsQueries settingsQueries
+) : ICapSubscribe
 {
     private OnNoticeScheduleSettings? _settings;
 
@@ -32,8 +37,7 @@ public class ScheduleHandler(IEmployeeQueries employeeQueries, IAbsenceQueries a
         };
 
         var dates = GetScheduleDates(request);
-
-        if (!dates.Any()) throw new BusinessException(Strings.NoDateInterval);
+        BusinessException.When(!dates.Any(), Strings.NoDateInterval);
 
         var firstEmployees = await employeeQueries.ListFirstScheduleEmployeesAsync();
         var allEmployees = await employeeQueries.ListAllAsync();
