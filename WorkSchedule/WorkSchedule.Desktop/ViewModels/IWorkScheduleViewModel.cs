@@ -1,9 +1,6 @@
-﻿using WorkSchedule.Application.DataTransferObjects;
+﻿namespace WorkSchedule.Desktop.ViewModels;
 
-namespace WorkSchedule.Desktop.ViewModels
+public interface IWorkScheduleViewModel
 {
-    public interface IWorkScheduleViewModel
-    {
-        OnNoticeWorkSchedule GenerateOnNoticeSchedule(DateTime start, DateTime end, bool includeWeekends);
-    }
+    Task GenerateOnNoticeScheduleAsync(DateTime start, DateTime end, bool includeWeekends);
 }

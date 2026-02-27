@@ -1,4 +1,4 @@
-﻿using WorkSchedule.Domain;
+﻿using Shared;
 
 namespace WorkSchedule.Desktop.Common
 {

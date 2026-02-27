@@ -1,13 +1,14 @@
-﻿using WorkSchedule.Application.DataTransferObjects;
+﻿
+using Employee.Contracts.DataTransferObjects;
+using Shared.DataTransferObjects;
 
-namespace WorkSchedule.Desktop.ViewModels
+namespace WorkSchedule.Desktop.ViewModels;
+
+public interface IEmployeeViewModel
 {
-    public interface IEmployeeViewModel
-    {
-        void CreateEmployee(string name, string code, bool notFirstSchedule);
-        PaginationDTO<EmployeeDTO> ListEmployees(int page, int pageSize);
-        PaginationDTO<EmployeeDTO> SearchEmployee(string criteria, int page, int pageSize);
-        void DeleteEmployee(string code);
-        void UpdateEmployee(string name, string code, bool notFirstSchedule);
-    }
+    Task CreateEmployeeAsync(string name, string code, bool notFirstSchedule);
+    Task<PaginationDTO<EmployeeItem>> ListEmployeesAsync(int page, int pageSize);
+    Task<PaginationDTO<EmployeeItem>> SearchEmployeeAsync(string criteria, int page, int pageSize);
+    Task DeleteEmployee(string code);
+    Task UpdateEmployee(string name, string code, bool notFirstSchedule);
 }

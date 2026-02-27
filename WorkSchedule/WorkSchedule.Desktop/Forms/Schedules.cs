@@ -22,24 +22,11 @@ namespace WorkSchedule.Desktop.Forms
             checkIncludeWeekend.Checked = false;
         }
 
-        private void btnGenerateOnNotice_Click(object sender, EventArgs e)
+        private async void btnGenerateOnNotice_Click(object sender, EventArgs e)
         {
             try
             {
-                var result = viewModel.GenerateOnNoticeSchedule(dateTimePickerStart.Value, dateTimePickerEnd.Value, checkIncludeWeekend.Checked);
-                var builder = new StringBuilder();
-                builder.AppendLine(result.CSVHeader);
-                builder.AppendLine(result.CSVBody);
-                var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
-                File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
-                AlertBuilder.ScheduleGeneratedSuccessAlert();
-
-                var psInfo = new ProcessStartInfo
-                {
-                    FileName = filePath,
-                    UseShellExecute = true
-                };
-                Process.Start(psInfo);
+                await viewModel.GenerateOnNoticeScheduleAsync(dateTimePickerStart.Value, dateTimePickerEnd.Value, checkIncludeWeekend.Checked);
             }
             catch (Exception ex)
             {

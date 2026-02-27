@@ -1,8 +1,10 @@
-﻿using WorkSchedule.Application.DataTransferObjects;
+﻿
+using Employee.Contracts.DataTransferObjects;
+using Employee.Validators;
+using Shared;
+using Shared.DataTransferObjects;
 using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
-using WorkSchedule.Domain;
-using WorkSchedule.Domain.Services.Validators;
 
 namespace WorkSchedule.Desktop.Forms
 {
@@ -38,7 +40,7 @@ namespace WorkSchedule.Desktop.Forms
             checkFirstSchedule.Checked = false;
         }
 
-        private void PopulateDataGridView(IEnumerable<EmployeeDTO> list)
+        private void PopulateDataGridView(IEnumerable<EmployeeItem> list)
         {
             dataGridEmployees.Rows.Clear();
             dataGridEmployees.Columns.Clear();
@@ -58,25 +60,25 @@ namespace WorkSchedule.Desktop.Forms
             dataGridEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        private void FillDataGrid()
+        private async void FillDataGrid()
         {
 
             //PopulateDummyData(1000);
-            PaginationDTO<EmployeeDTO> data;
+            PaginationDTO<EmployeeItem> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))
             {
-                data = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
+                data = await viewModel.SearchEmployeeAsync(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
             }
             else
             {
-                data = viewModel.ListEmployees(currentPage, PAGE_SIZE);
+                data = await viewModel.ListEmployeesAsync(currentPage, PAGE_SIZE);
             }
             totalItems = data.Total;
             PopulateDataGridView(data.Items);
             UpdatePaginationLabel(data);
         }
 
-        private void UpdatePaginationLabel(PaginationDTO<EmployeeDTO> data)
+        private void UpdatePaginationLabel(PaginationDTO<EmployeeItem> data)
         {
             var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
             var lastItem = firstItem + data.Items.Count() - 1;
@@ -383,7 +385,7 @@ namespace WorkSchedule.Desktop.Forms
                 }
                 employeeCodes.Add(currentCode);
 
-                viewModel.CreateEmployee(currentName, currentCode, new Random().Next(1, 3) == 2);
+                viewModel.CreateEmployeeAsync(currentName, currentCode, new Random().Next(1, 3) == 2);
             }
         }
 
@@ -403,7 +405,7 @@ namespace WorkSchedule.Desktop.Forms
                 }
                 else
                 {
-                    viewModel.CreateEmployee(name, code, firstSchedule);
+                    viewModel.CreateEmployeeAsync(name, code, firstSchedule);
                     AlertBuilder.SaveSuccessAlert();
                 }
                 ClearForm();
@@ -415,10 +417,10 @@ namespace WorkSchedule.Desktop.Forms
             }
         }
 
-        private void btnSearchEmployee_Click(object sender, EventArgs e)
+        private async void btnSearchEmployee_Click(object sender, EventArgs e)
         {
             currentPage = 1;
-            var data = viewModel.SearchEmployee(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
+            var data = await viewModel.SearchEmployeeAsync(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
             totalItems = data.Total;
             PopulateDataGridView(data.Items);
             UpdatePaginationLabel(data);

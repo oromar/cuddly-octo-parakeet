@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNetCore.CAP" Version="10.0.2-preview-287480508" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Absence.Contracts\Absence.Contracts.csproj" />
+	  <ProjectReference Include="..\Employee.Contracts\Employee.Contracts.csproj" />
+	  <ProjectReference Include="..\Settings.Contracts\Settings.Contracts.csproj" />
+	  <ProjectReference Include="..\Shared\Shared.csproj" />
+	  <ProjectReference Include="..\WorkSchedule.Contracts\WorkSchedule.Contracts.csproj" />
+	</ItemGroup>
+</Project>

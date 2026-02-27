@@ -1,13 +1,13 @@
-﻿using WorkSchedule.Application.DataTransferObjects;
+﻿using Absence.Contracts.DataTransferObjects;
+using Shared.DataTransferObjects;
 
-namespace WorkSchedule.Desktop.ViewModels
+namespace WorkSchedule.Desktop.ViewModels;
+
+public interface IAbsenceViewModel
 {
-    public interface IAbsenceViewModel
-    {
-        void CreateAbsence(string employeeCode, DateTime start, DateTime end, string cause);
-        IEnumerable<string> GetCauses();
-        PaginationDTO<AbsenceDTO> ListAbsences(int page, int pageSize);
-        PaginationDTO<AbsenceDTO> SearchAbsences(string criteria, int page, int pageSize);
-        void DeleteAbsence(string employeeCode, DateTime start, DateTime end, string cause);
-    }
+    Task CreateAbsenceAsync(string employeeCode, DateTime start, DateTime end, string cause);
+    Task<IEnumerable<string>> GetCausesAsync();
+    Task<PaginationDTO<AbsenceItem>> ListAbsencesAsync(int page, int pageSize);
+    Task<PaginationDTO<AbsenceItem>> SearchAbsencesAsync(string criteria, int page, int pageSize);
+    Task DeleteAbsenceAsync(string employeeCode, DateTime start, DateTime end, string cause);
 }

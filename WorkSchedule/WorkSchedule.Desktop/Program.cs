@@ -1,46 +1,50 @@
+using Absence.Configuration;
+using Employee.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Reflection;
-using WorkSchedule.Application.Commands.Absence;
+using Microsoft.Extensions.Hosting;
+using Savorboard.CAP.InMemoryMessageQueue;
+using Settings.Configuration;
+using WorkSchedule.Configuration;
 using WorkSchedule.Desktop.ViewModels;
-using WorkSchedule.Infra.Configuration;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WorkSchedule.Desktop
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            var host = Host.CreateDefaultBuilder()
+             .ConfigureServices((context, services) =>
+             {
+                 services.AddEmployee();
+                 services.AddAbsence();
+                 services.AddSettings();
+                 services.AddWorkSchedule();
 
+                 services.AddCap(options =>
+                 {
+                     options.UseInMemoryStorage();
+                     options.UseInMemoryMessageQueue();
+                 });
 
-            var services = new ServiceCollection();
+                 services.AddScoped<MainMenu>();
+                 services.AddScoped<IEmployeeViewModel, EmployeeViewModel>();
+                 services.AddScoped<IAbsenceViewModel, AbsenceViewModel>();
+                 services.AddScoped<IWorkScheduleViewModel, WorkScheduleViewModel>();
+                 services.AddScoped<ISettingsViewModel, SettingsViewModel>();
+             })
+             .Build();
 
-            ConfigureServices(services);
+            Task.Run(host.Run);
 
             ApplicationConfiguration.Initialize();
 
-            using (var sp = services.BuildServiceProvider())
+            using (var scope = host.Services.CreateScope())
             {
-                var mainMenu = sp.GetRequiredService<MainMenu>();
+                var mainMenu = scope.ServiceProvider.GetRequiredService<MainMenu>();
                 System.Windows.Forms.Application.Run(mainMenu);
             }
-        }
-
-        private static void ConfigureServices(IServiceCollection services)
-        {
-            services.AddServices();
-            services.AddScoped<MainMenu>();
-            services.AddScoped<IEmployeeViewModel, EmployeeViewModel>();
-            services.AddScoped<IAbsenceViewModel, AbsenceViewModel>();
-            services.AddScoped<IWorkScheduleViewModel, WorkScheduleViewModel>();
-            services.AddScoped<ISettingsViewModel, SettingsViewModel>();
         }
     }
 }

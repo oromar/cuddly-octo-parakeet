@@ -1,48 +1,41 @@
-﻿using MediatR;
-using WorkSchedule.Application.Commands.Employee;
-using WorkSchedule.Application.DataTransferObjects;
-using WorkSchedule.Application.Queries.Employee;
+﻿using DotNetCore.CAP;
+using Employee.Contracts.DataTransferObjects;
+using Employee.Contracts.Queries;
+using Shared.DataTransferObjects;
 
 namespace WorkSchedule.Desktop.ViewModels
 {
-    public class EmployeeViewModel : IEmployeeViewModel
+    public class EmployeeViewModel(ICapPublisher capBus, IEmployeeQueries queryService) : IEmployeeViewModel
     {
-        private readonly IMediator mediator;
-        private readonly IEmployeeQueries queryService;
-
-        public EmployeeViewModel
-        (
-            IMediator mediator, 
-            IEmployeeQueries queryService
-        )
+        public async Task CreateEmployeeAsync(string name, string code, bool notFirstSchedule)
         {
-            this.mediator = mediator;
-            this.queryService = queryService;
+            await capBus.PublishAsync(
+                nameof(CreateEmployee),
+                new CreateEmployee(name, code, notFirstSchedule));
         }
 
-        public void CreateEmployee(string name, string code, bool firstSchedule)
+        public async Task DeleteEmployee(string code)
         {
-            Task.Run(() => mediator.Send(new CreateEmployeeCommand(name, code, firstSchedule))).Wait();
+            await capBus.PublishAsync(
+                nameof(DeleteEmployee),
+                new DeleteEmployee(code));
         }
 
-        public PaginationDTO<EmployeeDTO> ListEmployees(int page, int pageSize)
+        public async Task<PaginationDTO<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
         {
-            return Task.Run(() => queryService.ListEmployees(page, pageSize)).Result;
+            return await queryService.ListEmployeesAsync(page, pageSize);
         }
 
-        public PaginationDTO<EmployeeDTO> SearchEmployee(string criteria, int page, int pageSize)
+        public async Task<PaginationDTO<EmployeeItem>> SearchEmployeeAsync(string criteria, int page, int pageSize)
         {
-            return Task.Run(() => queryService.SearchEmployees(criteria, page, pageSize)).Result;
+            return await queryService.SearchEmployeesAsync(criteria, page, pageSize);
         }
 
-        public void DeleteEmployee(string code)
+        public async Task UpdateEmployee(string name, string code, bool notFirstSchedule)
         {
-            Task.Run(() => mediator.Send(new DeleteEmployeeCommand(code))).Wait();
-        }
-
-        public void UpdateEmployee(string name, string code, bool notFirstSchedule)
-        {
-            Task.Run(() => mediator.Send(new UpdateEmployeeCommand(code, name, notFirstSchedule))).Wait();
+            await capBus.PublishAsync(
+                nameof(UpdateEmployee),
+                new UpdateEmployee(code, name, notFirstSchedule));
         }
     }
 }

@@ -1,33 +1,21 @@
-﻿using MediatR;
-using WorkSchedule.Application.Commands.Settings;
-using WorkSchedule.Application.DataTransferObjects;
-using WorkSchedule.Application.Queries.Settings;
+﻿using DotNetCore.CAP;
+using Settings.Contracts.DataTransferObjects;
+using Settings.Contracts.Queries;
 
 namespace WorkSchedule.Desktop.ViewModels
 {
-    public class SettingsViewModel : ISettingsViewModel
+    public class SettingsViewModel(ICapPublisher capBus, ISettingsQueries settingsQueries) : ISettingsViewModel
     {
-        private readonly IMediator mediator;
-        private readonly ISettingsQueries queryService;
-
-        public SettingsViewModel
-        (
-            IMediator mediator,
-            ISettingsQueries queryService
-        )
+        public async Task SaveSettings(int daysToCheck, int employeesDay)
         {
-            this.mediator = mediator;
-            this.queryService = queryService;
+            await capBus.PublishAsync(
+                nameof(SaveSettings),
+                new SaveSettings(employeesDay, daysToCheck));
         }
 
-        public void SaveSettings(int daysToCheck, int employeesDay)
+        public async Task<OnNoticeScheduleSettings> GetSettingsAsync()
         {
-            Task.Run(() => mediator.Send(new SaveSettingsCommand(employeesDay, daysToCheck))).Wait();
-        }
-
-        public OnNoticeScheduleSettings GetSettings()
-        {
-            return queryService.GetSettings();
+            return await settingsQueries.GetSettingsAsync();
         }
     }
 }

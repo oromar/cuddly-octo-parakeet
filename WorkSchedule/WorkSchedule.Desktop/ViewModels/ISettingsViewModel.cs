@@ -1,10 +1,10 @@
-﻿using WorkSchedule.Application.DataTransferObjects;
+﻿
+using Settings.Contracts.DataTransferObjects;
 
-namespace WorkSchedule.Desktop.ViewModels
+namespace WorkSchedule.Desktop.ViewModels;
+
+public interface ISettingsViewModel
 {
-    public interface ISettingsViewModel
-    {
-        void SaveSettings(int daysToCheck, int employeesDay);
-        OnNoticeScheduleSettings GetSettings();
-    }
+    Task SaveSettings(int daysToCheck, int employeesDay);
+    Task<OnNoticeScheduleSettings> GetSettingsAsync();
 }

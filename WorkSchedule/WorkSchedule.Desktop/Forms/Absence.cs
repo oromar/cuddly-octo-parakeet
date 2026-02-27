@@ -1,9 +1,10 @@
-﻿using System.Data;
-using WorkSchedule.Application.DataTransferObjects;
+﻿using Absence.Contracts.DataTransferObjects;
+using Shared;
+using Shared.DataTransferObjects;
+using Shared.Enums;
+using System.Data;
 using WorkSchedule.Desktop.Common;
 using WorkSchedule.Desktop.ViewModels;
-using WorkSchedule.Domain;
-using WorkSchedule.Domain.Enums;
 
 namespace WorkSchedule.Desktop.Forms
 {
@@ -26,7 +27,7 @@ namespace WorkSchedule.Desktop.Forms
             this.employeeViewModel = employeeViewModel;
             this.absenceViewModel = absenceViewModel;
             comboBoxCause.Items.Clear();
-            comboBoxCause.Items.AddRange(absenceViewModel.GetCauses().Cast<object>().ToArray());
+            Task.Run(async () => comboBoxCause.Items.AddRange((await absenceViewModel.GetCausesAsync()).Cast<object>().ToArray()));
             FillDataGrid();
         }
 
@@ -36,30 +37,30 @@ namespace WorkSchedule.Desktop.Forms
             ClearSaveForm();
         }
 
-        private void FillDataGrid()
+        private async void FillDataGrid()
         {
-            PaginationDTO<AbsenceDTO> data;
+            PaginationDTO<AbsenceItem> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployee.Text))
             {
-                data = absenceViewModel.SearchAbsences(textBoxEmployee.Text, currentPage, PAGE_SIZE);
+                data = await absenceViewModel.SearchAbsencesAsync(textBoxEmployee.Text, currentPage, PAGE_SIZE);
             }
             else
             {
-                data = absenceViewModel.ListAbsences(currentPage, PAGE_SIZE);
+                data = await absenceViewModel.ListAbsencesAsync(currentPage, PAGE_SIZE);
             }
             totalItems = data.Total;
             PopulateDataGrid(data.Items);
             UpdatePaginationLabel(data);
         }
 
-        private void UpdatePaginationLabel(PaginationDTO<AbsenceDTO> data)
+        private void UpdatePaginationLabel(PaginationDTO<AbsenceItem> data)
         {
             var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
             var lastItem = firstItem + data.Items.Count() - 1;
             labelPagination.Text = $"{firstItem} - {lastItem} Total: {totalItems}.";
         }
 
-        private void PopulateDataGrid(IEnumerable<AbsenceDTO> list)
+        private void PopulateDataGrid(IEnumerable<AbsenceItem> list)
         {
             dataGridAbsences.Rows.Clear();
             dataGridAbsences.Columns.Clear();
@@ -84,9 +85,9 @@ namespace WorkSchedule.Desktop.Forms
 
         }
 
-        private void btnSearchEmployee_Click(object sender, EventArgs e)
+        private async void btnSearchEmployee_Click(object sender, EventArgs e)
         {
-            var result = employeeViewModel.SearchEmployee(textBoxEmployeeCode.Text, 1, 1);
+            var result = await employeeViewModel.SearchEmployeeAsync(textBoxEmployeeCode.Text, 1, 1);
             if (result != null && result.Items.Any())
             {
                 textBoxEmployee.Text = $"{result.Items.First().Code} - {result.Items.First().Name}";
@@ -125,7 +126,7 @@ namespace WorkSchedule.Desktop.Forms
             try
             {
                 var employeeCode = textBoxEmployee.Text.Split(" - ")[0];
-                absenceViewModel.CreateAbsence(employeeCode, dateTimePickerStartPeriod.Value,
+                absenceViewModel.CreateAbsenceAsync(employeeCode, dateTimePickerStartPeriod.Value,
                 dateTimePickerEndPeriod.Value, comboBoxCause.Text);
                 AlertBuilder.SaveSuccessAlert();
             }
@@ -137,7 +138,7 @@ namespace WorkSchedule.Desktop.Forms
             FillDataGrid();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private async void btnDelete_Click(object sender, EventArgs e)
         {
             var rows = dataGridAbsences.SelectedRows;
             if (rows.Count == 0)
@@ -178,7 +179,7 @@ namespace WorkSchedule.Desktop.Forms
 
                 for (int i = 0; i < codes.Count; i++)
                 {
-                    absenceViewModel.DeleteAbsence(codes[i], DateTime.Parse(starts[i]), DateTime.Parse(ends[i]), causes[i]);
+                    await absenceViewModel.DeleteAbsenceAsync(codes[i], DateTime.Parse(starts[i]), DateTime.Parse(ends[i]), causes[i]);
                 }
 
                 AlertBuilder.DeleteSuccessAlert();
@@ -192,10 +193,10 @@ namespace WorkSchedule.Desktop.Forms
             FillDataGrid();
         }
 
-        private void btnSearchAbsences_Click(object sender, EventArgs e)
+        private async void btnSearchAbsences_Click(object sender, EventArgs e)
         {
             currentPage = 1;
-            var data = absenceViewModel.SearchAbsences(textBoxSearchAbsence.Text, currentPage, PAGE_SIZE);
+            var data = await absenceViewModel.SearchAbsencesAsync(textBoxSearchAbsence.Text, currentPage, PAGE_SIZE);
             totalItems = data.Total;
             PopulateDataGrid(data.Items);
         }

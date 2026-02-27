@@ -1,53 +1,45 @@
-﻿using MediatR;
-using WorkSchedule.Application.Commands.Absence;
-using WorkSchedule.Application.DataTransferObjects;
-using WorkSchedule.Application.Queries.Absence;
-using WorkSchedule.Domain.Enums;
+﻿using Absence.Contracts.DataTransferObjects;
+using Absence.Contracts.Queries;
+using DotNetCore.CAP;
+using Shared.Enums;
 
-namespace WorkSchedule.Desktop.ViewModels
+namespace WorkSchedule.Desktop.ViewModels;
+
+public class AbsenceViewModel(ICapPublisher capBus, IAbsenceQueries queryService) : IAbsenceViewModel
 {
-
-    public class AbsenceViewModel : IAbsenceViewModel
+    public async Task CreateAbsenceAsync(string employeeCode, DateTime start, DateTime end, string cause)
     {
-        private readonly IMediator mediator;
-        private readonly IAbsenceQueries queryService;
+        var causeEnum = EnumExtensions.GetValueFromDescription<Absence.Contracts.Enums.AbsenceCause>(cause);
+        await capBus.PublishAsync(
+            nameof(CreateAbsence),
+            new CreateAbsence(employeeCode, start, end, causeEnum));
+    }
 
-        public AbsenceViewModel
-        (
-            IMediator mediator,
-            IAbsenceQueries queryService
-        )
-        {
-            this.mediator = mediator;
-            this.queryService = queryService;
-        }
-        public void CreateAbsence(string employeeCode, DateTime start, DateTime end, string cause)
-        {
-            var causeEnum = EnumExtensions.GetValueFromDescription<AbsenceCause>(cause);
-            Task.Run(() => mediator.Send(new CreateAbsenceCommand(employeeCode, start.ToString("s"), end.ToString("s"), causeEnum))).Wait();
-        }
+    public async Task DeleteAbsenceAsync(string employeeCode, DateTime start, DateTime end, string cause)
+    {
+        var causeEnum = EnumExtensions.GetValueFromDescription<Absence.Contracts.Enums.AbsenceCause>(cause);
+        await capBus.PublishAsync(
+            nameof(DeleteAbsence),
+            new DeleteAbsence(employeeCode, start, end, causeEnum));
+    }
 
-        public void DeleteAbsence(string employeeCode, DateTime start, DateTime end, string cause)
+    public async Task<IEnumerable<string>> GetCausesAsync()
+    {
+        return await Task.Run(() =>
         {
-            var causeEnum = EnumExtensions.GetValueFromDescription<AbsenceCause>(cause);
-            Task.Run(() => mediator.Send(new DeleteAbsenceCommand(employeeCode, start.ToString("s"), end.ToString("s"), causeEnum))).Wait();
-        }
-
-        public IEnumerable<string> GetCauses()
-        {
-            return Enum.GetValues(typeof(AbsenceCause))
-                .Cast<AbsenceCause>()
+            return Enum.GetValues(typeof(Absence.Contracts.Enums.AbsenceCause))
+                .Cast<Absence.Contracts.Enums.AbsenceCause>()
                 .Select(a => a.GetDescription());
-        }
+        });
+    }
 
-        public PaginationDTO<AbsenceDTO> ListAbsences(int page, int pageSize)
-        {
-            return queryService.ListAbsences(page, pageSize);
-        }
+    public async Task<Shared.DataTransferObjects.PaginationDTO<AbsenceItem>> ListAbsencesAsync(int page, int pageSize)
+    {
+        return await queryService.ListAbsencesAsync(page, pageSize);
+    }
 
-        public PaginationDTO<AbsenceDTO> SearchAbsences(string criteria, int page, int pageSize)
-        {
-            return queryService.SearchAbsences(criteria, page, pageSize);
-        }
+    public async Task<Shared.DataTransferObjects.PaginationDTO<AbsenceItem>> SearchAbsencesAsync(string criteria, int page, int pageSize)
+    {
+        return await queryService.SearchAbsencesAsync(criteria, page, pageSize);
     }
 }

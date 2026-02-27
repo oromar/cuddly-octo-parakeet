@@ -1,21 +1,42 @@
-﻿using MediatR;
-using WorkSchedule.Application.Commands.Schedule;
-using WorkSchedule.Application.DataTransferObjects;
+﻿using DotNetCore.CAP;
+using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
+using WorkSchedule.Contracts.DataTransferObjects;
+using WorkSchedule.DataTransferObjects;
+using WorkSchedule.Desktop.Common;
 
 namespace WorkSchedule.Desktop.ViewModels
 {
-    public class WorkScheduleViewModel : IWorkScheduleViewModel
+    public class WorkScheduleViewModel(ICapPublisher capBus) : IWorkScheduleViewModel, ICapSubscribe
     {
-        private readonly IMediator mediator;
-
-        public WorkScheduleViewModel(IMediator mediator)
+        public async Task GenerateOnNoticeScheduleAsync(DateTime start, DateTime end, bool includeWeekends)
         {
-            this.mediator = mediator;
+            await capBus.PublishAsync(
+                nameof(GenerateSchedule),
+                new GenerateSchedule(start, end, includeWeekends),
+                nameof(HandleResponse));
         }
 
-        public OnNoticeWorkSchedule GenerateOnNoticeSchedule(DateTime start, DateTime end, bool includeWeekends)
+        [CapSubscribe(nameof(HandleResponse))]
+        private void HandleResponse(JsonElement jsonElement)
         {
-            return Task.Run(() => mediator.Send(new GenerateOnNoticeScheduleCommand(start, end, includeWeekends))).Result;
+            var result = jsonElement.Deserialize<OnNoticeWorkSchedule>();
+            if (result == null)
+                return;
+            var builder = new StringBuilder();
+            builder.AppendLine(result.CSVHeader);
+            builder.AppendLine(result.CSVBody);
+            var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
+            File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
+            AlertBuilder.ScheduleGeneratedSuccessAlert();
+
+            var psInfo = new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            };
+            Process.Start(psInfo);
         }
     }
 }

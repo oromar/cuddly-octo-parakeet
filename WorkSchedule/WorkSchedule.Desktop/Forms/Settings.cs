@@ -20,7 +20,12 @@ namespace WorkSchedule.Desktop.Forms
         {
             InitializeComponent();
             this.viewModel = viewModel;
-            var settings = viewModel.GetSettings();
+            RetrieveSettings(viewModel);
+        }
+
+        private async void RetrieveSettings(ISettingsViewModel viewModel)
+        {
+            var settings = await viewModel.GetSettingsAsync();
             numericUpDownDaysToCheckOverload.Value = settings.DaysToCheckCount;
             numericUpDownOnNoticeScheduleEmployeesPerDay.Value = settings.EmployeeDayCount;
         }

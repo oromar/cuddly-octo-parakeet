@@ -1,5 +1,3 @@
-using System.Drawing.Design;
-using System.Windows.Forms;
 using WorkSchedule.Desktop.Forms;
 using WorkSchedule.Desktop.ViewModels;
 
@@ -15,7 +13,8 @@ namespace WorkSchedule.Desktop
         private readonly IWorkScheduleViewModel workScheduleViewModel;
         private readonly ISettingsViewModel settingsViewModel;
 
-        public MainMenu(IEmployeeViewModel employeeViewModel,
+        public MainMenu(
+            IEmployeeViewModel employeeViewModel,
             IAbsenceViewModel absenceViewModel,
             IWorkScheduleViewModel workScheduleViewModel,
             ISettingsViewModel settingsViewModel)
@@ -26,7 +25,7 @@ namespace WorkSchedule.Desktop
             this.absenceViewModel = absenceViewModel;
             this.workScheduleViewModel = workScheduleViewModel;
             this.settingsViewModel = settingsViewModel;
-            employeeViewModel.ListEmployees(1, 1);
+            Task.Run(async () => await employeeViewModel.ListEmployeesAsync(1, 1));
         }
 
         private void ActiveButton(object sender)
@@ -78,7 +77,7 @@ namespace WorkSchedule.Desktop
 
         private void btnAbsents_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Absence(employeeViewModel, absenceViewModel), sender);
+            OpenChildForm(new Forms.Absence(employeeViewModel, absenceViewModel), sender);
         }
 
         private void btnSchedule_Click(object sender, EventArgs e)
@@ -88,7 +87,7 @@ namespace WorkSchedule.Desktop
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Settings(settingsViewModel), sender);
+            OpenChildForm(new Forms.Settings(settingsViewModel), sender);
         }
 
         private void btnClose_Click_1(object sender, EventArgs e)

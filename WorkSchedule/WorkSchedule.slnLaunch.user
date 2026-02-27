@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "WorkSchedule.Desktop\\WorkSchedule.Desktop.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Worker\\Worker.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
