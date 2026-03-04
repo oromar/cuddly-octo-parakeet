@@ -9,13 +9,11 @@ public class SettingsQueries(IRepository<Models.Settings> repository) : ISetting
 {
     public async Task<OnNoticeScheduleSettings> GetSettingsAsync()
     {
-        if (await repository.AsQueryable().AnyAsync())
-        {
-            return await repository
-                .AsQueryable()
-                .Select(a => new OnNoticeScheduleSettings(a.EmployeesPerDateInOnNoticeSchedule, a.DaysToCheckOnNoticeSchedule))
-                .FirstAsync();
-        }
-        return new OnNoticeScheduleSettings(0,0);
+        var settings = await repository
+            .AsQueryable()
+            .Select(a => new OnNoticeScheduleSettings(a.EmployeesPerDateInOnNoticeSchedule, a.DaysToCheckOnNoticeSchedule))
+            .FirstOrDefaultAsync();
+
+        return settings ?? new OnNoticeScheduleSettings(0, 0);
     }
 }

@@ -34,7 +34,7 @@ public class AbsenceHandler(IRepository<Models.Absence> repository, IEmployeeQue
         BusinessException.When(exists, Strings.AbsenceAlreadyExists);
 
         var newAbsence = new Models.Absence(data.Start, data.End, data.Cause, employeeInDB!.Id);
-        await repository.Add(newAbsence);
+        await repository.AddAsync(newAbsence);
         await repository.SaveChanges();
     }
 
@@ -56,7 +56,7 @@ public class AbsenceHandler(IRepository<Models.Absence> repository, IEmployeeQue
             .Where(a => a.Cause == data.Cause)
             .FirstOrDefaultAsync(a => a.EmployeeId == employeeInDb);
         BusinessException.When(absenceInDB == null, Strings.AbsenceNotFound);
-        await repository.Delete(absenceInDB!.Id);
+        await repository.DeleteAsync(absenceInDB!.Id);
         await repository.SaveChanges();
     }
 }

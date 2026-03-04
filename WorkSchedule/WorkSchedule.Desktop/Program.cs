@@ -40,11 +40,9 @@ namespace WorkSchedule.Desktop
 
             ApplicationConfiguration.Initialize();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var mainMenu = scope.ServiceProvider.GetRequiredService<MainMenu>();
-                System.Windows.Forms.Application.Run(mainMenu);
-            }
+            using var scope = host.Services.CreateScope();
+            var mainMenu = scope.ServiceProvider.GetRequiredService<MainMenu>();
+            Application.Run(mainMenu);
         }
     }
 }

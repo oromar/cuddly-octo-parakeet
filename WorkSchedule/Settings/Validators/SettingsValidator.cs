@@ -11,11 +11,8 @@ public class SettingsValidator : IValidator<Models.Settings>
 
     public void Validate(Models.Settings entity)
     {
-        if (entity == null)
-        {
-            throw new DomainException(Strings.SettingsNotConfiguredMessage);
-        }
-        employeePerDayValidator.Validate(entity.EmployeesPerDateInOnNoticeSchedule);
-        dayOverloadValidator.Validate(entity.DaysToCheckOnNoticeSchedule);
+        DomainException.When(entity == null, Strings.SettingsNotConfiguredMessage);
+        employeePerDayValidator.Validate(entity!.EmployeesPerDateInOnNoticeSchedule);
+        dayOverloadValidator.Validate(entity!.DaysToCheckOnNoticeSchedule);
     }
 }

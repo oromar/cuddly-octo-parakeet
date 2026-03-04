@@ -1,8 +1,7 @@
 ﻿using Settings.Contracts.DataTransferObjects;
-namespace Settings.Contracts.Queries
+namespace Settings.Contracts.Queries;
+
+public interface ISettingsQueries
 {
-    public interface ISettingsQueries
-    {
-        Task<OnNoticeScheduleSettings> GetSettingsAsync();
-    }
+    Task<OnNoticeScheduleSettings> GetSettingsAsync();
 }

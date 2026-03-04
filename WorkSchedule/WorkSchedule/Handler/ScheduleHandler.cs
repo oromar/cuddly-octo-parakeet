@@ -6,7 +6,6 @@ using Settings.Contracts.DataTransferObjects;
 using Settings.Contracts.Queries;
 using Shared;
 using Shared.Exceptions;
-using System.Threading.Tasks;
 using WorkSchedule.Contracts.DataTransferObjects;
 using WorkSchedule.DataTransferObjects;
 
@@ -26,16 +25,16 @@ public class ScheduleHandler
     public async Task<OnNoticeWorkSchedule> Handle(GenerateSchedule request)
     {
         _settings = await settingsQueries.GetSettingsAsync();
-        bool noSettings = _settings == null || _settings.DaysToCheckCount == 0 || _settings.EmployeeDayCount == 0;
-        BusinessException.When(noSettings, Strings.SettingsNotConfiguredMessage);
+        bool settingsNotConfigured = _settings == null || _settings.DaysToCheckCount == 0 || _settings.EmployeeDayCount == 0;
+        BusinessException.When(settingsNotConfigured, Strings.SettingsNotConfiguredMessage);
 
-        OnNoticeWorkSchedule result = new (request.Start, request.End);
+        OnNoticeWorkSchedule schedule = new (request.Start, request.End);
 
         var dates = GetScheduleDates(request);
         BusinessException.When(dates.Count == 0, Strings.NoDateInterval);
 
-        var firstEmployees = await employeeQueries.ListFirstScheduleEmployeesAsync();
         var allEmployees = await employeeQueries.ListAllAsync();
+        var firstEmployees = await employeeQueries.ListFirstScheduleEmployeesAsync();
 
         EmployeeItem employee;
         DateOnNotice dateOnNotice;
@@ -44,12 +43,12 @@ public class ScheduleHandler
             dateOnNotice = new (date.Date, []);
             for (var i = 0; i < _settings!.EmployeeDayCount; i++)
             {
-                employee = await ChooseEmployeeAsync(i == 0 ? firstEmployees : allEmployees, date, dateOnNotice, result);
+                employee = await ChooseEmployeeAsync(i == 0 ? firstEmployees : allEmployees, date, dateOnNotice, schedule);
                 dateOnNotice.Employees.Add(new(employee.Id.ToString(), employee.Code, employee.Name));
             }
-            result.Items.Add(dateOnNotice);
+            schedule.Items.Add(dateOnNotice);
         }
-        return result;
+        return schedule;
     }
 
     private async Task<EmployeeItem> ChooseEmployeeAsync(IEnumerable<EmployeeItem> employees, DateTime date,
@@ -62,14 +61,14 @@ public class ScheduleHandler
         return choosedEmployee;
     }
 
-    private async Task<bool> CannotSchedule(DateTime date, DateOnNotice dateOnNotice, OnNoticeWorkSchedule result, EmployeeItem choosedEmployee)
+    private async Task<bool> CannotSchedule(DateTime date, DateOnNotice dateOnNotice, OnNoticeWorkSchedule schedule, EmployeeItem choosedEmployee)
     {
-        return IsAreadySchedule(choosedEmployee, dateOnNotice) || IsOverload(result, choosedEmployee, date) || await IsBlocked(choosedEmployee, date.Date);
+        return IsAreadySchedule(choosedEmployee, dateOnNotice) || IsOverload(schedule, choosedEmployee, date) || await IsBlocked(choosedEmployee, date.Date);
     }
 
-    private bool IsOverload(OnNoticeWorkSchedule result, EmployeeItem employee, DateTime dateTime)
+    private bool IsOverload(OnNoticeWorkSchedule schedule, EmployeeItem employee, DateTime dateTime)
     {
-        return result.Items
+        return schedule.Items
             .Where(a => a.Employees.Any(b => b.EmployeeId == employee.Id.ToString()))
             .Any(a => dateTime.Date - a.Date <= TimeSpan.FromDays(_settings!.DaysToCheckCount));
     }

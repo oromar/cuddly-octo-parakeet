@@ -36,6 +36,8 @@ public class Employee: BaseEntity, ITextSearcheable
 
     public void CreateSearchText()
     {
-        SearchText = string.Join(" ", EmployeeCode.RemoveDiacritics(), Name.RemoveDiacritics());
+        SearchText = string.Join(" ", 
+            EmployeeCode.RemoveDiacritics(), 
+            Name.RemoveDiacritics());
     }
 }

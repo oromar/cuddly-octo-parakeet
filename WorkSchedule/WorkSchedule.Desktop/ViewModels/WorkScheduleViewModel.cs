@@ -6,37 +6,44 @@ using WorkSchedule.Contracts.DataTransferObjects;
 using WorkSchedule.DataTransferObjects;
 using WorkSchedule.Desktop.Common;
 
-namespace WorkSchedule.Desktop.ViewModels
+namespace WorkSchedule.Desktop.ViewModels;
+
+public class WorkScheduleViewModel(ICapPublisher capBus) : IWorkScheduleViewModel, ICapSubscribe
 {
-    public class WorkScheduleViewModel(ICapPublisher capBus) : IWorkScheduleViewModel, ICapSubscribe
+    private const string DATE_TIME_FORMAT = "yyyyMMddHHmmss";
+    private const string FILE_PATH_TEMPLATE = "C:\\data\\workSchedule_{0}_a_{1}.csv";
+    public async Task GenerateOnNoticeScheduleAsync(DateTime start, DateTime end, bool includeWeekends)
     {
-        public async Task GenerateOnNoticeScheduleAsync(DateTime start, DateTime end, bool includeWeekends)
-        {
-            await capBus.PublishAsync(
-                nameof(GenerateSchedule),
-                new GenerateSchedule(start, end, includeWeekends),
-                nameof(HandleResponse));
-        }
+        await capBus.PublishAsync(
+            nameof(GenerateSchedule),
+            new GenerateSchedule(start, end, includeWeekends),
+            nameof(HandleGeneratedSchedule));
+    }
 
-        [CapSubscribe(nameof(HandleResponse))]
-        private void HandleResponse(JsonElement jsonElement)
-        {
-            var result = jsonElement.Deserialize<OnNoticeWorkSchedule>();
-            if (result == null)
-                return;
-            var builder = new StringBuilder();
-            builder.AppendLine(result.CSVHeader);
-            builder.AppendLine(result.CSVBody);
-            var filePath = $"C:\\data\\workSchedule_{result.Start: yyyyMMddHHmmss}_a_{result.End:yyyyMMddHHmmss}.csv";
-            File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
-            AlertBuilder.ScheduleGeneratedSuccessAlert();
+    [CapSubscribe(nameof(HandleGeneratedSchedule))]
+    private void HandleGeneratedSchedule(JsonElement jsonElement)
+    {
+        var schedule = jsonElement.Deserialize<OnNoticeWorkSchedule>();
+        if (schedule == default)
+            return;
 
-            var psInfo = new ProcessStartInfo
-            {
-                FileName = filePath,
-                UseShellExecute = true
-            };
-            Process.Start(psInfo);
-        }
+        StringBuilder? builder = new StringBuilder()
+               .AppendLine(schedule.CSVHeader)
+               .AppendLine(schedule.CSVBody);
+
+        string? filePath = string.Format(FILE_PATH_TEMPLATE, 
+            schedule.Start.ToString(DATE_TIME_FORMAT), 
+            schedule.End.ToString(DATE_TIME_FORMAT));
+
+        File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);
+
+        AlertBuilder.ScheduleGeneratedSuccessAlert();
+
+        ProcessStartInfo? psInfo = new()
+        {
+            FileName = filePath,
+            UseShellExecute = true
+        };
+        Process.Start(psInfo);
     }
 }

@@ -1,28 +1,26 @@
-﻿namespace Shared.Models
+﻿namespace Shared.Models;
+public abstract class BaseEntity
 {
-    public abstract class BaseEntity
+    public string Id { get; set; }
+    public string CreationTime { get; set; }
+
+    protected BaseEntity()
     {
-        public string Id { get; set; }
-        public string CreationTime { get; set; }
+        Id = Guid.NewGuid().ToString();
+        CreationTime = DateTime.Now.ToString("s");
+    }
 
-        protected BaseEntity()
+    public override bool Equals(object? obj)
+    {
+        if (obj is BaseEntity entity)
         {
-            Id = Guid.NewGuid().ToString();
-            CreationTime = DateTime.Now.ToString("s");
+            return Id == entity.Id;
         }
+        return false;
+    }
 
-        public override bool Equals(object? obj)
-        {
-            if (obj is BaseEntity entity)
-            {
-                return Id == entity.Id;
-            }
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode() * 37;
-        }
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode() * 37;
     }
 }

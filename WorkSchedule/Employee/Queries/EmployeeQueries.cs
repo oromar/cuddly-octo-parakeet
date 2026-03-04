@@ -21,12 +21,12 @@ namespace Employee.Queries
         {
             var searchText = criteria.ToLower().RemoveDiacritics();
             return await repository.AsQueryable()
-                .Where(x => x.SearchText.Contains(searchText))
+                .Where(x => x.SearchText.ToLower().Contains(searchText))
                 .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.CreationTime))
                 .ToListAsync();
         }
 
-        public async Task<PaginationDTO<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
+        public async Task<Pagination<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
         {
             var total = await repository
                 .AsQueryable()
@@ -40,14 +40,10 @@ namespace Employee.Queries
                 .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.CreationTime.ToString()))
                 .AsEnumerable();
 
-            return new PaginationDTO<EmployeeItem>
-            {
-                Items = items,
-                Total = total,
-            };
+            return new Pagination<EmployeeItem>(total, items);
         }
 
-        public async Task<PaginationDTO<EmployeeItem>> SearchEmployeesAsync(string criteria, int page, int pageSize)
+        public async Task<Pagination<EmployeeItem>> SearchEmployeesAsync(string criteria, int page, int pageSize)
         {
             var searchText = criteria?.ToLower().RemoveDiacritics();
 
@@ -55,7 +51,7 @@ namespace Employee.Queries
 
             if (!string.IsNullOrWhiteSpace(searchText))
             {
-                dbQuery = dbQuery.Where(a => a.SearchText.Contains(searchText));
+                dbQuery = dbQuery.Where(a => a.SearchText.ToLower().Contains(searchText));
             }
 
             var total = await dbQuery.CountAsync();
@@ -67,11 +63,7 @@ namespace Employee.Queries
                 .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.CreationTime.ToString()))
                 .AsEnumerable();
 
-            return new PaginationDTO<EmployeeItem>
-            {
-                Items = items,
-                Total = total,
-            };
+            return new Pagination<EmployeeItem>(total, items);
         }
 
         public async Task<IEnumerable<EmployeeItem>> ListFirstScheduleEmployeesAsync()

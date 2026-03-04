@@ -17,7 +17,7 @@ public class EmployeeHandler(IRepository<Models.Employee> repository) : ICapSubs
 
         BusinessException.When(alreadyExists, Strings.EmployeeAlreadyExists);
         var employee = new Models.Employee(data.Name, data.Code, data.FirstSchedule);
-        await repository.Add(employee);
+        await repository.AddAsync(employee);
         await repository.SaveChanges();
     }
 
@@ -29,7 +29,7 @@ public class EmployeeHandler(IRepository<Models.Employee> repository) : ICapSubs
             .FirstOrDefault(a => a.EmployeeCode == data.EmployeeCode)
             ?? throw new BusinessException(Strings.EmployeeNotFound);
 
-        await repository.Delete(employeeInDB.Id);
+        await repository.DeleteAsync(employeeInDB.Id);
         await repository.SaveChanges();
     }
 
@@ -42,7 +42,7 @@ public class EmployeeHandler(IRepository<Models.Employee> repository) : ICapSubs
             ?? throw new BusinessException(Strings.EmployeeNotFound);
 
         employeeInDB.Update(data.Name, data.Code, data.NotFirstSchedule);
-        await repository.Update(employeeInDB);
+        await repository.UpdateAsync(employeeInDB);
         await repository.SaveChanges();
     }
 }

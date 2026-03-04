@@ -18,11 +18,11 @@ public class SettingsHandler(IRepository<Models.Settings> repository) : ICapSubs
                 .First();
 
             dataInDB = dataInDB.Update(request.EmployeesDay, request.DaysToCheck);
-            await repository.Update(dataInDB);
+            await repository.UpdateAsync(dataInDB);
         }
         else
         {
-            await repository.Add(new Models.Settings(request.EmployeesDay, request.DaysToCheck));
+            await repository.AddAsync(new Models.Settings(request.EmployeesDay, request.DaysToCheck));
         }
         await repository.SaveChanges();
     }

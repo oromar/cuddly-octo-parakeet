@@ -2,10 +2,9 @@
 using System.Text;
 
 namespace Shared.Common;
-
 public static class StringExtensions
 {
-    public static string RemoveDiacritics(this string source)
+    public static string? RemoveDiacritics(this string source)
     {
         if (null == source)
         {

@@ -2,16 +2,12 @@
 using Shared.Exceptions;
 using Shared.Services.Interfaces;
 
-namespace Settings.Validators
+namespace Settings.Validators;
+
+public class DayOverloadValidator : IValidator<int>
 {
-    public class DayOverloadValidator : IValidator<int>
+    public void Validate(int value)
     {
-        public void Validate(int value)
-        {
-            if (value <= 0)
-            {
-                throw new DomainException(Strings.InvalidEmployeeIntervalMessage);
-            }
-        }
+        DomainException.When(value <= 0, Strings.InvalidEmployeeIntervalMessage);
     }
 }

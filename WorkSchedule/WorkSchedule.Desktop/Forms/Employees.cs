@@ -64,7 +64,7 @@ namespace WorkSchedule.Desktop.Forms
         {
 
             //PopulateDummyData(1000);
-            PaginationDTO<EmployeeItem> data;
+            Pagination<EmployeeItem> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))
             {
                 data = await viewModel.SearchEmployeeAsync(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
@@ -78,7 +78,7 @@ namespace WorkSchedule.Desktop.Forms
             UpdatePaginationLabel(data);
         }
 
-        private void UpdatePaginationLabel(PaginationDTO<EmployeeItem> data)
+        private void UpdatePaginationLabel(Pagination<EmployeeItem> data)
         {
             var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
             var lastItem = firstItem + data.Items.Count() - 1;

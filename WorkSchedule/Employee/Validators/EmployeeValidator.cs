@@ -11,11 +11,8 @@ public class EmployeeValidator : IValidator<Models.Employee>
 
     public void Validate(Models.Employee entity)
     {
-        if (entity == null)
-        {
-            throw new DomainException(Strings.RequiredEmployee);
-        }
-        employeeNameValidator.Validate(entity.Name);
-        employeeCodeValidator.Validate(entity.EmployeeCode);
+        DomainException.When(entity == null, Strings.RequiredEmployee);
+        employeeNameValidator.Validate(entity!.Name);
+        employeeCodeValidator.Validate(entity!.EmployeeCode);
     }
 }

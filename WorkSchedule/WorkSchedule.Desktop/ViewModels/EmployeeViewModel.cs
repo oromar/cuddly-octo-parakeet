@@ -21,12 +21,12 @@ namespace WorkSchedule.Desktop.ViewModels
                 new DeleteEmployee(code));
         }
 
-        public async Task<PaginationDTO<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
+        public async Task<Pagination<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
         {
             return await queryService.ListEmployeesAsync(page, pageSize);
         }
 
-        public async Task<PaginationDTO<EmployeeItem>> SearchEmployeeAsync(string criteria, int page, int pageSize)
+        public async Task<Pagination<EmployeeItem>> SearchEmployeeAsync(string criteria, int page, int pageSize)
         {
             return await queryService.SearchEmployeesAsync(criteria, page, pageSize);
         }

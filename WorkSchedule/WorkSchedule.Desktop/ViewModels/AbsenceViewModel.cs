@@ -33,12 +33,12 @@ public class AbsenceViewModel(ICapPublisher capBus, IAbsenceQueries queryService
         });
     }
 
-    public async Task<Shared.DataTransferObjects.PaginationDTO<AbsenceItem>> ListAbsencesAsync(int page, int pageSize)
+    public async Task<Shared.DataTransferObjects.Pagination<AbsenceItem>> ListAbsencesAsync(int page, int pageSize)
     {
         return await queryService.ListAbsencesAsync(page, pageSize);
     }
 
-    public async Task<Shared.DataTransferObjects.PaginationDTO<AbsenceItem>> SearchAbsencesAsync(string criteria, int page, int pageSize)
+    public async Task<Shared.DataTransferObjects.Pagination<AbsenceItem>> SearchAbsencesAsync(string criteria, int page, int pageSize)
     {
         return await queryService.SearchAbsencesAsync(criteria, page, pageSize);
     }
