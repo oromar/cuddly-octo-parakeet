@@ -62,7 +62,6 @@ namespace WorkSchedule.Desktop.Forms
 
         private async void FillDataGrid()
         {
-
             //PopulateDummyData(1000);
             Pagination<EmployeeItem> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))

@@ -7,42 +7,41 @@ using Settings.Configuration;
 using WorkSchedule.Configuration;
 using WorkSchedule.Desktop.ViewModels;
 
-namespace WorkSchedule.Desktop
+namespace WorkSchedule.Desktop;
+
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    static void Main()
     {
-        [STAThread]
-        static void Main()
-        {
-            var host = Host.CreateDefaultBuilder()
-             .ConfigureServices((context, services) =>
+        var host = Host.CreateDefaultBuilder()
+         .ConfigureServices((context, services) =>
+         {
+             services.AddEmployee();
+             services.AddAbsence();
+             services.AddSettings();
+             services.AddWorkSchedule();
+
+             services.AddCap(options =>
              {
-                 services.AddEmployee();
-                 services.AddAbsence();
-                 services.AddSettings();
-                 services.AddWorkSchedule();
+                 options.UseInMemoryStorage();
+                 options.UseInMemoryMessageQueue();
+             });
 
-                 services.AddCap(options =>
-                 {
-                     options.UseInMemoryStorage();
-                     options.UseInMemoryMessageQueue();
-                 });
+             services.AddScoped<MainMenu>();
+             services.AddScoped<IEmployeeViewModel, EmployeeViewModel>();
+             services.AddScoped<IAbsenceViewModel, AbsenceViewModel>();
+             services.AddScoped<IWorkScheduleViewModel, WorkScheduleViewModel>();
+             services.AddScoped<ISettingsViewModel, SettingsViewModel>();
+         })
+         .Build();
 
-                 services.AddScoped<MainMenu>();
-                 services.AddScoped<IEmployeeViewModel, EmployeeViewModel>();
-                 services.AddScoped<IAbsenceViewModel, AbsenceViewModel>();
-                 services.AddScoped<IWorkScheduleViewModel, WorkScheduleViewModel>();
-                 services.AddScoped<ISettingsViewModel, SettingsViewModel>();
-             })
-             .Build();
+        Task.Run(host.Run);
 
-            Task.Run(host.Run);
+        ApplicationConfiguration.Initialize();
 
-            ApplicationConfiguration.Initialize();
-
-            using var scope = host.Services.CreateScope();
-            var mainMenu = scope.ServiceProvider.GetRequiredService<MainMenu>();
-            Application.Run(mainMenu);
-        }
+        using var scope = host.Services.CreateScope();
+        var mainMenu = scope.ServiceProvider.GetRequiredService<MainMenu>();
+        Application.Run(mainMenu);
     }
 }

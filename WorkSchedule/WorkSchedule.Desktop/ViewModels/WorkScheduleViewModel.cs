@@ -1,4 +1,5 @@
 ﻿using DotNetCore.CAP;
+using Shared.Exceptions;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
@@ -31,8 +32,8 @@ public class WorkScheduleViewModel(ICapPublisher capBus) : IWorkScheduleViewMode
                .AppendLine(schedule.CSVHeader)
                .AppendLine(schedule.CSVBody);
 
-        string? filePath = string.Format(FILE_PATH_TEMPLATE, 
-            schedule.Start.ToString(DATE_TIME_FORMAT), 
+        string? filePath = string.Format(FILE_PATH_TEMPLATE,
+            schedule.Start.ToString(DATE_TIME_FORMAT),
             schedule.End.ToString(DATE_TIME_FORMAT));
 
         File.WriteAllText(filePath, builder.ToString(), Encoding.UTF8);

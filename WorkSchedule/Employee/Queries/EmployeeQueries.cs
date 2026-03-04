@@ -13,7 +13,7 @@ namespace Employee.Queries
         {
             return await repository.AsQueryable()
                 .Where(x => x.EmployeeCode.Equals(code, StringComparison.InvariantCultureIgnoreCase))
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.CreationTime))
+                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
                 .FirstOrDefaultAsync();
         }
 
@@ -22,7 +22,7 @@ namespace Employee.Queries
             var searchText = criteria.ToLower().RemoveDiacritics();
             return await repository.AsQueryable()
                 .Where(x => x.SearchText.ToLower().Contains(searchText))
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.CreationTime))
+                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
                 .ToListAsync();
         }
 
@@ -37,7 +37,7 @@ namespace Employee.Queries
                 .OrderBy(a => a.Name)
                 .Skip(pageSize * (page - 1))
                 .Take(pageSize)
-                .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.CreationTime.ToString()))
+                .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.LastUpdate.ToString()))
                 .AsEnumerable();
 
             return new Pagination<EmployeeItem>(total, items);
@@ -60,7 +60,7 @@ namespace Employee.Queries
                 .OrderBy(a => a.Name)
                 .Skip(pageSize * (page - 1))
                 .Take(pageSize)
-                .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.CreationTime.ToString()))
+                .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.LastUpdate.ToString()))
                 .AsEnumerable();
 
             return new Pagination<EmployeeItem>(total, items);
@@ -70,7 +70,7 @@ namespace Employee.Queries
         {
             var dbQuery = repository.AsQueryable();
             return await dbQuery.Where(x => x.FirstSchedule)
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.CreationTime))
+                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
                 .ToListAsync();
         }
 
@@ -78,7 +78,7 @@ namespace Employee.Queries
         {
             var dbQuery = repository.AsQueryable();
             return await dbQuery
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.CreationTime))
+                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
                 .ToListAsync();
         }
     }

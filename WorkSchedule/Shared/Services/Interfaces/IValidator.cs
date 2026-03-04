@@ -1,17 +1,11 @@
-﻿namespace Shared.Services.Interfaces
+﻿namespace Shared.Services.Interfaces;
+
+public interface IValidator<in T>
 {
-    public interface IValidator<T>
-    {
-        public void Validate(T value);
-    }
+    public void Validate(T value);
+}
 
-    public interface IValidator<T, E>
-    {
-        public void Validate(T value1, E value2);
-    }
-
-    public interface IValidator<T, E, R>
-    {
-        public void Validate(T value1, E value2, R value3);
-    }
+public interface IValidator<in T, in E>
+{
+    public void Validate(T value1, E value2);
 }

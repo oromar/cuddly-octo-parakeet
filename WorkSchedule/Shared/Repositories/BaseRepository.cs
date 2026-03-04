@@ -48,6 +48,7 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
     public async Task<T> UpdateAsync(T entity)
     {
         CreateSearchText(entity);
+        entity.LastUpdate = DateTime.Now.ToString("s");
         await Task.Run(() => context.Update(entity));
         return entity;
     }

@@ -7,9 +7,8 @@ public static class StringExtensions
     public static string? RemoveDiacritics(this string source)
     {
         if (null == source)
-        {
             return null;
-        }
+        
         var chars = source
             .Normalize(NormalizationForm.FormD)
             .ToCharArray()

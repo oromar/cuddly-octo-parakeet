@@ -2,12 +2,12 @@
 public abstract class BaseEntity
 {
     public string Id { get; set; }
-    public string CreationTime { get; set; }
+    public string LastUpdate { get; set; }
 
     protected BaseEntity()
     {
         Id = Guid.NewGuid().ToString();
-        CreationTime = DateTime.Now.ToString("s");
+        LastUpdate = DateTime.Now.ToString("s");
     }
 
     public override bool Equals(object? obj)

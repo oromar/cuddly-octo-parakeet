@@ -25,7 +25,7 @@ public class SettingsDbContext(DbContextOptions<SettingsDbContext> options) : Db
         var createTablesSql = @$"
                 CREATE TABLE IF NOT EXISTS Settings(
                     Id TEXT PRIMARY KEY NOT NULL,
-                    CreationTime TEXT NOT NULL,
+                    LastUpdate TEXT NOT NULL,
                     EmployeesPerDateInOnNoticeSchedule INTEGER NOT NULL DEFAULT 0,
                     DaysToCheckOnNoticeSchedule INTEGER NOT NULL DEFAULT 0
                 );

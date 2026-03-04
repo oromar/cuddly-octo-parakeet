@@ -31,10 +31,10 @@ public class AbsenceQueries(IRepository<Models.Absence> repository, IEmployeeQue
 
         var items = await repository
             .AsQueryable()
-            .OrderBy(a => a.CreationTime)
+            .OrderBy(a => a.LastUpdate)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(a => new AbsenceItem(employees[a.EmployeeId].Code, employees[a.EmployeeId].Name,  a.Start, a.End, a.Cause, a.CreationTime))
+            .Select(a => new AbsenceItem(employees[a.EmployeeId].Code, employees[a.EmployeeId].Name,  a.Start, a.End, a.Cause, a.LastUpdate))
             .ToListAsync();
 
         return new Pagination<AbsenceItem>(total, items);
@@ -52,10 +52,10 @@ public class AbsenceQueries(IRepository<Models.Absence> repository, IEmployeeQue
         var total = await dbQuery.CountAsync();
 
         var items = await dbQuery
-            .OrderBy(a => a.CreationTime)
+            .OrderBy(a => a.LastUpdate)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(a => new AbsenceItem(employees[a.EmployeeId].Code, employees[a.EmployeeId].Name, a.Start, a.End, a.Cause, a.CreationTime))
+            .Select(a => new AbsenceItem(employees[a.EmployeeId].Code, employees[a.EmployeeId].Name, a.Start, a.End, a.Cause, a.LastUpdate))
             .ToListAsync();
 
         return new Pagination<AbsenceItem>(total, items);

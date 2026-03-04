@@ -24,7 +24,7 @@ public class EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : Db
         var createTablesSql = @$"
                 CREATE TABLE IF NOT EXISTS Employees(
                     Id TEXT PRIMARY KEY NOT NULL,
-                    CreationTime TEXT NOT NULL,
+                    LastUpdate TEXT NOT NULL,
                     EmployeeCode TEXT NOT NULL,
                     Name TEXT NOT NULL,
                     FirstSchedule TEXT NOT NULL DEFAULT 0,

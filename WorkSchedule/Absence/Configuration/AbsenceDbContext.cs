@@ -24,7 +24,7 @@ public class AbsenceDbContext(DbContextOptions<AbsenceDbContext> options) : DbCo
         var createTablesSql = @$"
                 CREATE TABLE IF NOT EXISTS Absences(
                     Id TEXT PRIMARY KEY NOT NULL,
-                    CreationTime TEXT NOT NULL,
+                    LastUpdate TEXT NOT NULL,
                     Start TEXT NOT NULL,
                     End   TEXT NOT NULL,
                     Cause INTEGER NOT NULL,

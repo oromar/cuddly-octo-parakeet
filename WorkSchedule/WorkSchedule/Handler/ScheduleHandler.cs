@@ -28,7 +28,7 @@ public class ScheduleHandler
         bool settingsNotConfigured = _settings == null || _settings.DaysToCheckCount == 0 || _settings.EmployeeDayCount == 0;
         BusinessException.When(settingsNotConfigured, Strings.SettingsNotConfiguredMessage);
 
-        OnNoticeWorkSchedule schedule = new (request.Start, request.End);
+        OnNoticeWorkSchedule schedule = new(request.Start, request.End);
 
         var dates = GetScheduleDates(request);
         BusinessException.When(dates.Count == 0, Strings.NoDateInterval);
@@ -40,7 +40,7 @@ public class ScheduleHandler
         DateOnNotice dateOnNotice;
         foreach (var date in dates)
         {
-            dateOnNotice = new (date.Date, []);
+            dateOnNotice = new(date.Date, []);
             for (var i = 0; i < _settings!.EmployeeDayCount; i++)
             {
                 employee = await ChooseEmployeeAsync(i == 0 ? firstEmployees : allEmployees, date, dateOnNotice, schedule);
@@ -82,7 +82,6 @@ public class ScheduleHandler
     {
         return employees.OrderBy(a => Guid.NewGuid()).First();
     }
-
 
     private static bool IsAreadySchedule(EmployeeItem employee, DateOnNotice dateOnNotice)
     {
