@@ -40,7 +40,7 @@ namespace WorkSchedule.Desktop.Forms
             checkFirstSchedule.Checked = false;
         }
 
-        private void PopulateDataGridView(IEnumerable<EmployeeItem> list)
+        private void PopulateDataGridView(IEnumerable<EmployeeData> list)
         {
             dataGridEmployees.Rows.Clear();
             dataGridEmployees.Columns.Clear();
@@ -63,7 +63,7 @@ namespace WorkSchedule.Desktop.Forms
         private async void FillDataGrid()
         {
             //PopulateDummyData(1000);
-            Pagination<EmployeeItem> data;
+            Pagination<EmployeeData> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployeeCriteria.Text))
             {
                 data = await viewModel.SearchEmployeeAsync(textBoxEmployeeCriteria.Text, currentPage, PAGE_SIZE);
@@ -77,7 +77,7 @@ namespace WorkSchedule.Desktop.Forms
             UpdatePaginationLabel(data);
         }
 
-        private void UpdatePaginationLabel(Pagination<EmployeeItem> data)
+        private void UpdatePaginationLabel(Pagination<EmployeeData> data)
         {
             var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
             var lastItem = firstItem + data.Items.Count() - 1;

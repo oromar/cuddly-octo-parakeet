@@ -1,16 +1,15 @@
 ﻿using Shared.Models;
 using System.Linq.Expressions;
 
-namespace Shared.Repositories
+namespace Shared.Repositories;
+
+public interface IRepository<T> where T : BaseEntity
 {
-    public interface IRepository<T> where T : BaseEntity
-    {
-        Task<T> AddAsync(T entity);
-        Task<T> UpdateAsync(T entity);
-        Task DeleteAsync(string id);
-        Task<T?> GetAsync(string id);
-        IEnumerable<T> AsEnumerable(Expression<Func<T, bool>> predicate);
-        IQueryable<T> AsQueryable();
-        Task SaveChanges();
-    }
+    Task<T> AddAsync(T entity);
+    Task<T> UpdateAsync(T entity);
+    Task DeleteAsync(string id);
+    Task<T?> GetAsync(string id);
+    IEnumerable<T> AsEnumerable(Expression<Func<T, bool>> predicate);
+    IQueryable<T> AsQueryable();
+    Task SaveChangesAsync();
 }

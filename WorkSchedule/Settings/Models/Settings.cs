@@ -7,25 +7,26 @@ namespace Settings.Models;
 public class Settings : BaseEntity
 {
     private static readonly SettingsValidator validator = new();
-    public int EmployeesPerDateInOnNoticeSchedule { get; set; }
-    public int DaysToCheckOnNoticeSchedule { get; set; }
+    public int EmployeesPerDateInOnSchedule { get; set; }
+    public int DaysToCheckOnSchedule { get; set; }
 
     public Settings()
     {
-
+        //EF
     }
 
     public Settings(int employeesCount, int daysToCheck)
     {
-        EmployeesPerDateInOnNoticeSchedule = employeesCount;
-        DaysToCheckOnNoticeSchedule = daysToCheck;
+        EmployeesPerDateInOnSchedule = employeesCount;
+        DaysToCheckOnSchedule = daysToCheck;
         validator.Validate(this);
     }
 
     public Settings Update(int  employeesCount, int daysToCheck)
     {
-        EmployeesPerDateInOnNoticeSchedule = employeesCount;
-        DaysToCheckOnNoticeSchedule = daysToCheck;
+        EmployeesPerDateInOnSchedule = employeesCount;
+        DaysToCheckOnSchedule = daysToCheck;
+        ChangeLastUpdate();
         validator.Validate(this);
         return this;
     }

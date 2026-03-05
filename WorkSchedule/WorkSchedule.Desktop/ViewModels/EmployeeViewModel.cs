@@ -10,23 +10,23 @@ namespace WorkSchedule.Desktop.ViewModels
         public async Task CreateEmployeeAsync(string name, string code, bool notFirstSchedule)
         {
             await capBus.PublishAsync(
-                nameof(CreateEmployee),
-                new CreateEmployee(name, code, notFirstSchedule));
+                nameof(CreateEmployeeCommand),
+                new CreateEmployeeCommand(name, code, notFirstSchedule));
         }
 
         public async Task DeleteEmployee(string code)
         {
             await capBus.PublishAsync(
-                nameof(DeleteEmployee),
-                new DeleteEmployee(code));
+                nameof(DeleteEmployeeCommand),
+                new DeleteEmployeeCommand(code));
         }
 
-        public async Task<Pagination<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
+        public async Task<Pagination<EmployeeData>> ListEmployeesAsync(int page, int pageSize)
         {
             return await queryService.ListEmployeesAsync(page, pageSize);
         }
 
-        public async Task<Pagination<EmployeeItem>> SearchEmployeeAsync(string criteria, int page, int pageSize)
+        public async Task<Pagination<EmployeeData>> SearchEmployeeAsync(string criteria, int page, int pageSize)
         {
             return await queryService.SearchEmployeesAsync(criteria, page, pageSize);
         }
@@ -34,8 +34,8 @@ namespace WorkSchedule.Desktop.ViewModels
         public async Task UpdateEmployee(string name, string code, bool notFirstSchedule)
         {
             await capBus.PublishAsync(
-                nameof(UpdateEmployee),
-                new UpdateEmployee(code, name, notFirstSchedule));
+                nameof(UpdateEmployeeCommand),
+                new UpdateEmployeeCommand(code, name, notFirstSchedule));
         }
     }
 }

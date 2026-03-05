@@ -2,9 +2,9 @@
 
 public class DomainException(string message) : Exception(message)
 {
-    public static void When(bool condition, string message = "")
+    public static void When(bool condition, string? message = null)
     {
         if (condition)
-            throw new DomainException(string.IsNullOrEmpty(message) ? Strings.ErrorTitle : message);
+            throw new DomainException(message ?? Strings.ErrorTitle);
     }
 }

@@ -11,8 +11,8 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
 
     public async Task<T> AddAsync(T entity)
     {
-        await context.AddAsync(entity);
         CreateSearchText(entity);
+        await context.AddAsync(entity);
         return entity;
     }
 
@@ -40,7 +40,7 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
         return await context.Set<T>().FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task SaveChanges()
+    public async Task SaveChangesAsync()
     {
         await context.SaveChangesAsync();
     }
@@ -48,7 +48,6 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
     public async Task<T> UpdateAsync(T entity)
     {
         CreateSearchText(entity);
-        entity.LastUpdate = DateTime.Now.ToString("s");
         await Task.Run(() => context.Update(entity));
         return entity;
     }

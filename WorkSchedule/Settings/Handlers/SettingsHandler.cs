@@ -1,4 +1,5 @@
 ﻿using DotNetCore.CAP;
+using Microsoft.EntityFrameworkCore;
 using Settings.Contracts.DataTransferObjects;
 using Shared.Repositories;
 
@@ -6,24 +7,14 @@ namespace Settings.Handlers;
 
 public class SettingsHandler(IRepository<Models.Settings> repository) : ICapSubscribe
 {
-    [CapSubscribe(nameof(SaveSettings))]
-    public async Task Handle(SaveSettings request)
+    [CapSubscribe(nameof(SaveSettingsCommand))]
+    public async Task Handle(SaveSettingsCommand request)
     {
-        var exists = repository.AsQueryable().Any();    
-
-        if (exists)
-        {
-            var dataInDB = repository
-                .AsQueryable()
-                .First();
-
-            dataInDB = dataInDB.Update(request.EmployeesDay, request.DaysToCheck);
-            await repository.UpdateAsync(dataInDB);
-        }
+        var dataInDB = await repository.AsQueryable().SingleOrDefaultAsync();
+        if (dataInDB != null)
+            await repository.UpdateAsync(dataInDB.Update(request.EmployeesDay, request.DaysToCheck));
         else
-        {
             await repository.AddAsync(new Models.Settings(request.EmployeesDay, request.DaysToCheck));
-        }
-        await repository.SaveChanges();
+        await repository.SaveChangesAsync();
     }
 }

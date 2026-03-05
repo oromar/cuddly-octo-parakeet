@@ -3,7 +3,7 @@ using System.Text;
 
 namespace WorkSchedule.Contracts.DataTransferObjects;
 
-public class OnNoticeWorkSchedule(DateTime start, DateTime end)
+public class ScheduleData(DateTime start, DateTime end)
 {
     private static readonly Dictionary<DayOfWeek, string> dayOfWeekName = new()
     {
@@ -19,39 +19,33 @@ public class OnNoticeWorkSchedule(DateTime start, DateTime end)
     public DateTime End { get; set; } = end;
     public List<DateOnNotice> Items { get; set; } = [];
 
-    public string CSVHeader
+    public string Header
     {
         get
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new ();
             builder.AppendLine($"{Strings.Period}: {Start: dd/MM/yyyy} - {End: dd/MM/yyyy}");
             var employeeCount = Items[0].Employees.Count;
             builder.Append(';');
             for (var i = 0; i < employeeCount; i++)
-            {
                 builder.Append($"{i + 1}{Strings.NSchedule};;");
-            }
             builder.AppendLine();
             builder.Append($"{Strings.DateColumnTitle};");
             for (var i = 0; i < employeeCount; i++)
-            {
                 builder.Append($"{Strings.EmployeeCodeColumnTitle};{Strings.EmployeeNameColumnTitle};");
-            }
             return builder.ToString();
         }
     }
-    public string CSVBody
+    public string Body
     {
         get
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new();
             foreach (var item in Items)
             {
                 builder.Append($"{item.Date.Date: dd/MM} - {dayOfWeekName[item.Date.DayOfWeek]};");
                 foreach (var employee in item.Employees)
-                {
                     builder.Append($"{employee.EmployeeCode};{employee.EmployeeName};");
-                }
                 builder.AppendLine();
             }
             return builder.ToString();

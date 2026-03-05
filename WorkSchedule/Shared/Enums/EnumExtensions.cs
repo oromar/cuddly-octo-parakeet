@@ -24,7 +24,7 @@ public static class EnumExtensions
         return source?.ToString() ?? string.Empty;
     }
 
-    public static T? GetValueFromDescription<T>(string description) where T : Enum
+    public static T? GetValueFromDescription<T>(this string description) where T : Enum
     {
         foreach (var field in typeof(T).GetFields())
         {

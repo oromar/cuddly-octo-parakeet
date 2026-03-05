@@ -4,40 +4,43 @@ using Shared.Models;
 
 namespace Employee.Models;
 
-public class Employee: BaseEntity, ITextSearcheable
+public class Employee : BaseEntity, ITextSearcheable
 {
     private static readonly EmployeeValidator validator = new();
 
-    public string Name { get; private set; }
-    public string EmployeeCode { get; private set; }
-    public bool FirstSchedule { get; private set; }
-    public string SearchText { get; set; }
+    public string Code { get; private set; } = string.Empty;
+    public string Name { get; private set; } = string.Empty;
+    public bool IsPriority { get; private set; } = false;
+    public string SearchText { get; set; } = string.Empty;
 
     public Employee()
     {
-        
+        //EF 
     }
 
-    public Employee(string name, string code, bool firstSchedule)
+    public Employee(string name, string code, bool isPriority)
     {
+        Code = code;
         Name = name.ToUpper();
-        EmployeeCode = code;
-        FirstSchedule = firstSchedule;
+        IsPriority = isPriority;
         validator.Validate(this);
     }
 
-    public void Update(string name, string code, bool firstSchedule)
+    public Employee Update(string name, string code, bool isPriority)
     {
+        Code = code;
         Name = name.ToUpper();
-        EmployeeCode = code;
-        FirstSchedule = firstSchedule;
+        IsPriority = isPriority;
+        ChangeLastUpdate();
         validator.Validate(this);
+        return this;
     }
 
     public void CreateSearchText()
     {
-        SearchText = string.Join(" ", 
-            EmployeeCode.RemoveDiacritics(), 
-            Name.RemoveDiacritics());
+        SearchText = string.Join("|",
+            Code.RemoveDiacritics(),
+            Name.RemoveDiacritics())
+            .ToLowerInvariant();
     }
 }

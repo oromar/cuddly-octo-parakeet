@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using WorkSchedule.Contracts.DataTransferObjects;
-using WorkSchedule.DataTransferObjects;
 using WorkSchedule.Desktop.Common;
 
 namespace WorkSchedule.Desktop.ViewModels;
@@ -16,21 +15,21 @@ public class WorkScheduleViewModel(ICapPublisher capBus) : IWorkScheduleViewMode
     public async Task GenerateOnNoticeScheduleAsync(DateTime start, DateTime end, bool includeWeekends)
     {
         await capBus.PublishAsync(
-            nameof(GenerateSchedule),
-            new GenerateSchedule(start, end, includeWeekends),
+            nameof(GenerateScheduleCommand),
+            new GenerateScheduleCommand(start, end, includeWeekends),
             nameof(HandleGeneratedSchedule));
     }
 
     [CapSubscribe(nameof(HandleGeneratedSchedule))]
     private void HandleGeneratedSchedule(JsonElement jsonElement)
     {
-        var schedule = jsonElement.Deserialize<OnNoticeWorkSchedule>();
+        var schedule = jsonElement.Deserialize<ScheduleData>();
         if (schedule == default)
             return;
 
         StringBuilder? builder = new StringBuilder()
-               .AppendLine(schedule.CSVHeader)
-               .AppendLine(schedule.CSVBody);
+               .AppendLine(schedule.Header)
+               .AppendLine(schedule.Body);
 
         string? filePath = string.Format(FILE_PATH_TEMPLATE,
             schedule.Start.ToString(DATE_TIME_FORMAT),

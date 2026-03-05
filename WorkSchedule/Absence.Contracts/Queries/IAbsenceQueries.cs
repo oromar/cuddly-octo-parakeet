@@ -5,8 +5,8 @@ namespace Absence.Contracts.Queries
 {
     public interface IAbsenceQueries
     {
-        Task<Pagination<AbsenceItem>> ListAbsencesAsync(int page, int pageSize);
-        Task<Pagination<AbsenceItem>> SearchAbsencesAsync(string criteria, int page, int pageSize);
-        Task<bool> EmployeeBlockedAsync(Guid employeeId, DateTime dateTime);
+        Task<Pagination<AbsenceData>> ListAbsencesAsync(int page, int pageSize);
+        Task<Pagination<AbsenceData>> SearchAbsencesAsync(string criteria, int page, int pageSize);
+        Task<bool> EmployeeBlockedAsync(string employeeId, DateTime dateTime);
     }
 }

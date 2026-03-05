@@ -7,13 +7,13 @@ namespace Settings.Queries;
 
 public class SettingsQueries(IRepository<Models.Settings> repository) : ISettingsQueries
 {
-    public async Task<OnNoticeScheduleSettings> GetSettingsAsync()
+    public async Task<SettingsData> GetSettingsAsync()
     {
         var settings = await repository
             .AsQueryable()
-            .Select(a => new OnNoticeScheduleSettings(a.EmployeesPerDateInOnNoticeSchedule, a.DaysToCheckOnNoticeSchedule))
+            .Select(a => new SettingsData(a.EmployeesPerDateInOnSchedule, a.DaysToCheckOnSchedule))
             .FirstOrDefaultAsync();
 
-        return settings ?? new OnNoticeScheduleSettings(0, 0);
+        return settings ?? new SettingsData(0, 0);
     }
 }

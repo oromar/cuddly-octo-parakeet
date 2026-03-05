@@ -1,8 +1,10 @@
 ﻿using Absence.Contracts.DataTransferObjects;
+using Absence.Contracts.Queries;
 using DotNetCore.CAP;
 using Employee.Contracts.Queries;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Common;
 using Shared.Exceptions;
 using Shared.Repositories;
 using Shared.Validators;
@@ -13,50 +15,49 @@ public class AbsenceHandler(IRepository<Models.Absence> repository, IEmployeeQue
 {
     private readonly PeriodValidator periodValidator = new();
 
-    [CapSubscribe(nameof(CreateAbsence))]
-    public async Task Handle(CreateAbsence data)
+    [CapSubscribe(nameof(CreateAbsenceCommand))]
+    public async Task Handle(CreateAbsenceCommand command)
     {
-        periodValidator.Validate(data.Start.ToString("s"), data.End.ToString("s"));
+        string start = command.Start.ToSchedule();
+        string end = command.End.ToSchedule();
+        periodValidator.Validate(start, end);
 
-        var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(data.EmployeeCode);
+        var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
         BusinessException.When(employeeInDB == null, Strings.EmployeeNotFound);
-
-        var start = data.Start.ToString("s");
-        var end = data.End.ToString("s");
-
+        
         var exists = await repository
             .AsQueryable()
             .Where(a => a.Start == start)
             .Where(a => a.End == end)
-            .Where(a => a.Cause == data.Cause)
+            .Where(a => a.Cause == command.Cause)
             .AnyAsync(a => a.EmployeeId == employeeInDB!.Id);
 
         BusinessException.When(exists, Strings.AbsenceAlreadyExists);
 
-        var newAbsence = new Models.Absence(data.Start, data.End, data.Cause, employeeInDB!.Id);
+        var newAbsence = new Models.Absence(command.Start, command.End, command.Cause, employeeInDB!.Id);
         await repository.AddAsync(newAbsence);
-        await repository.SaveChanges();
+        await repository.SaveChangesAsync();
     }
 
-    [CapSubscribe(nameof(DeleteAbsence))]
-    public async Task Handle(DeleteAbsence data)
+    [CapSubscribe(nameof(DeleteAbsenceCommand))]
+    public async Task Handle(DeleteAbsenceCommand command)
     {
-        periodValidator.Validate(data.Start.ToString("s"), data.End.ToString("s"));
+        string start = command.Start.ToSchedule();
+        string end = command.End.ToSchedule();
+        periodValidator.Validate(start, end);
 
-        var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(data.EmployeeCode);
+        var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
         BusinessException.When(employeeInDB == null, Strings.EmployeeNotFound);
 
-        var start = data.Start.ToString("s");
-        var end = data.End.ToString("s");
-        var employeeInDb = Guid.NewGuid();
         var absenceInDB = await repository
             .AsQueryable()
             .Where(a => a.Start == start)
             .Where(a => a.End == end)
-            .Where(a => a.Cause == data.Cause)
-            .FirstOrDefaultAsync(a => a.EmployeeId == employeeInDb);
+            .Where(a => a.Cause == command.Cause)
+            .FirstOrDefaultAsync(a => a.EmployeeId == employeeInDB!.Id);
         BusinessException.When(absenceInDB == null, Strings.AbsenceNotFound);
+
         await repository.DeleteAsync(absenceInDB!.Id);
-        await repository.SaveChanges();
+        await repository.SaveChangesAsync();
     }
 }

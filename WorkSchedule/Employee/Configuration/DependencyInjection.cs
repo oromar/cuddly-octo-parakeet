@@ -5,6 +5,7 @@ using Employee.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Repositories;
+
 namespace Employee.Configuration;
 
 public static class DependencyInjection

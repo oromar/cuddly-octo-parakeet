@@ -10,10 +10,10 @@ namespace WorkSchedule.Desktop.ViewModels
         {
             await capBus.PublishAsync(
                 nameof(SaveSettings),
-                new SaveSettings(employeesDay, daysToCheck));
+                new SaveSettingsCommand(employeesDay, daysToCheck));
         }
 
-        public async Task<OnNoticeScheduleSettings> GetSettingsAsync()
+        public async Task<SettingsData> GetSettingsAsync()
         {
             return await settingsQueries.GetSettingsAsync();
         }

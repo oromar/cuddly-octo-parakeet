@@ -5,81 +5,83 @@ using Shared.Common;
 using Shared.DataTransferObjects;
 using Shared.Repositories;
 
-namespace Employee.Queries
+namespace Employee.Queries;
+
+public class EmployeeQueries(IRepository<Models.Employee> repository) : IEmployeeQueries
 {
-    public class EmployeeQueries(IRepository<Models.Employee> repository) : IEmployeeQueries
+    public async Task<EmployeeData?> GetEmployeeByCodeAsync(string code)
     {
-        public async Task<EmployeeItem?> GetEmployeeByCodeAsync(string code)
-        {
-            return await repository.AsQueryable()
-                .Where(x => x.EmployeeCode.Equals(code, StringComparison.InvariantCultureIgnoreCase))
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
-                .FirstOrDefaultAsync();
-        }
+        return await repository.AsQueryable()
+            .Where(x => x.Code.Equals(code))
+            .Select(x => new EmployeeData(x.Id, x.Name, x.Code, x.IsPriority, x.LastUpdate))
+            .FirstOrDefaultAsync();
+    }
 
-        public async Task<IEnumerable<EmployeeItem>> ListEmployeesByCriteriaAsync(string criteria)
-        {
-            var searchText = criteria.ToLower().RemoveDiacritics();
-            return await repository.AsQueryable()
-                .Where(x => x.SearchText.ToLower().Contains(searchText))
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
-                .ToListAsync();
-        }
+    public async Task<IEnumerable<EmployeeData>> ListEmployeesByCriteriaAsync(string criteria)
+    {
+        var searchText = criteria.ToLower().RemoveDiacritics();
+        var dbQuery = repository.AsQueryable();
+        if (!string.IsNullOrWhiteSpace(searchText))
+            dbQuery = dbQuery.Where(x => x.SearchText.ToLower().Contains(searchText));
+        var employees = await dbQuery
+            .Select(x => new EmployeeData(x.Id, x.Name, x.Code, x.IsPriority, x.LastUpdate))
+            .ToListAsync();
+        return employees;
+    }
 
-        public async Task<Pagination<EmployeeItem>> ListEmployeesAsync(int page, int pageSize)
-        {
-            var total = await repository
-                .AsQueryable()
-                .CountAsync();
+    public async Task<Pagination<EmployeeData>> ListEmployeesAsync(int page, int pageSize)
+    {
+        var total = await repository.AsQueryable().CountAsync();
+        if (total == 0)
+            return new Pagination<EmployeeData>(0, []);
 
-            var items = repository
-                .AsQueryable()
-                .OrderBy(a => a.Name)
-                .Skip(pageSize * (page - 1))
-                .Take(pageSize)
-                .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.LastUpdate.ToString()))
-                .AsEnumerable();
+        var items = repository
+            .AsQueryable()
+            .OrderBy(a => a.Name)
+            .Skip(pageSize * (page - 1))
+            .Take(pageSize)
+            .Select(a => new EmployeeData(a.Id, a.Name, a.Code, a.IsPriority, a.LastUpdate.ToString()))
+            .AsEnumerable();
 
-            return new Pagination<EmployeeItem>(total, items);
-        }
+        return new Pagination<EmployeeData>(total, items);
+    }
 
-        public async Task<Pagination<EmployeeItem>> SearchEmployeesAsync(string criteria, int page, int pageSize)
-        {
-            var searchText = criteria?.ToLower().RemoveDiacritics();
+    public async Task<Pagination<EmployeeData>> SearchEmployeesAsync(string criteria, int page, int pageSize)
+    {
+        var searchText = criteria?.ToLower().RemoveDiacritics();
 
-            var dbQuery = repository.AsQueryable();
+        var dbQuery = repository.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(searchText))
-            {
-                dbQuery = dbQuery.Where(a => a.SearchText.ToLower().Contains(searchText));
-            }
+        if (!string.IsNullOrWhiteSpace(searchText))
+            dbQuery = dbQuery.Where(a => a.SearchText.ToLower().Contains(searchText));
 
-            var total = await dbQuery.CountAsync();
+        var total = await dbQuery.CountAsync();
+        if (total == 0)
+            return new Pagination<EmployeeData>(0, []);
 
-            var items = dbQuery
-                .OrderBy(a => a.Name)
-                .Skip(pageSize * (page - 1))
-                .Take(pageSize)
-                .Select(a => new EmployeeItem(Guid.Parse(a.Id), a.Name, a.EmployeeCode, a.FirstSchedule, a.LastUpdate.ToString()))
-                .AsEnumerable();
+        var items = dbQuery
+            .OrderBy(a => a.Name)
+            .Skip(pageSize * (page - 1))
+            .Take(pageSize)
+            .Select(a => new EmployeeData(a.Id, a.Name, a.Code, a.IsPriority, a.LastUpdate.ToString()))
+            .AsEnumerable();
 
-            return new Pagination<EmployeeItem>(total, items);
-        }
+        return new Pagination<EmployeeData>(total, items);
+    }
 
-        public async Task<IEnumerable<EmployeeItem>> ListFirstScheduleEmployeesAsync()
-        {
-            var dbQuery = repository.AsQueryable();
-            return await dbQuery.Where(x => x.FirstSchedule)
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
-                .ToListAsync();
-        }
+    public async Task<IEnumerable<EmployeeData>> ListFirstScheduleEmployeesAsync()
+    {
+        var dbQuery = repository.AsQueryable();
+        return await dbQuery.Where(x => x.IsPriority)
+            .Select(x => new EmployeeData(x.Id, x.Name, x.Code, x.IsPriority, x.LastUpdate))
+            .ToListAsync();
+    }
 
-        public async Task<IEnumerable<EmployeeItem>> ListAllAsync()
-        {
-            var dbQuery = repository.AsQueryable();
-            return await dbQuery
-                .Select(x => new EmployeeItem(Guid.Parse(x.Id), x.Name, x.EmployeeCode, x.FirstSchedule, x.LastUpdate))
-                .ToListAsync();
-        }
+    public async Task<IEnumerable<EmployeeData>> ListAllAsync()
+    {
+        var dbQuery = repository.AsQueryable();
+        return await dbQuery
+            .Select(x => new EmployeeData(x.Id, x.Name, x.Code, x.IsPriority, x.LastUpdate))
+            .ToListAsync();
     }
 }

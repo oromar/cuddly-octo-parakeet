@@ -1,4 +1,7 @@
-﻿namespace Shared.Models;
+﻿using Microsoft.EntityFrameworkCore.Update.Internal;
+using Shared.Common;
+
+namespace Shared.Models;
 public abstract class BaseEntity
 {
     public string Id { get; set; }
@@ -7,7 +10,12 @@ public abstract class BaseEntity
     protected BaseEntity()
     {
         Id = Guid.NewGuid().ToString();
-        LastUpdate = DateTime.Now.ToString("s");
+        LastUpdate = DateTime.Now.ToSchedule();
+    }
+
+    protected void ChangeLastUpdate()
+    {
+        LastUpdate = DateTime.Now.ToSchedule();
     }
 
     public override bool Equals(object? obj)

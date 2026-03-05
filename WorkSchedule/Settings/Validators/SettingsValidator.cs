@@ -9,10 +9,10 @@ public class SettingsValidator : IValidator<Models.Settings>
     private readonly EmployeePerDayValidator employeePerDayValidator = new();
     private readonly DayOverloadValidator dayOverloadValidator = new();
 
-    public void Validate(Models.Settings entity)
+    public void Validate(Models.Settings? entity)
     {
         DomainException.When(entity == null, Strings.SettingsNotConfiguredMessage);
-        employeePerDayValidator.Validate(entity!.EmployeesPerDateInOnNoticeSchedule);
-        dayOverloadValidator.Validate(entity!.DaysToCheckOnNoticeSchedule);
+        employeePerDayValidator.Validate(entity!.EmployeesPerDateInOnSchedule);
+        dayOverloadValidator.Validate(entity!.DaysToCheckOnSchedule);
     }
 }

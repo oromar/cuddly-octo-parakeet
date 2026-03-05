@@ -21,7 +21,7 @@ public class AbsenceDbContext(DbContextOptions<AbsenceDbContext> options) : DbCo
 
     private static void CreateTables()
     {
-        var createTablesSql = @$"
+        const string CREATE_TABLES_SQL = @$"
                 CREATE TABLE IF NOT EXISTS Absences(
                     Id TEXT PRIMARY KEY NOT NULL,
                     LastUpdate TEXT NOT NULL,
@@ -35,7 +35,7 @@ public class AbsenceDbContext(DbContextOptions<AbsenceDbContext> options) : DbCo
         using var dbConnection = new SqliteConnection(DATA_SOURCE);
         dbConnection.Open();
         using var dbCommand = dbConnection.CreateCommand();
-        dbCommand.CommandText = createTablesSql;
+        dbCommand.CommandText = CREATE_TABLES_SQL;
         dbCommand.ExecuteNonQuery();
     }
 

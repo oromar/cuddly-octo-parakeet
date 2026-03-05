@@ -12,7 +12,7 @@ public class EmployeeValidator : IValidator<Models.Employee>
     public void Validate(Models.Employee entity)
     {
         DomainException.When(entity == null, Strings.RequiredEmployee);
+        employeeCodeValidator.Validate(entity!.Code);
         employeeNameValidator.Validate(entity!.Name);
-        employeeCodeValidator.Validate(entity!.EmployeeCode);
     }
 }

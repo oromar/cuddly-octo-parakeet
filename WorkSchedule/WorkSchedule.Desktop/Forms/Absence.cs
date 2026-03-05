@@ -39,7 +39,7 @@ namespace WorkSchedule.Desktop.Forms
 
         private async void FillDataGrid()
         {
-            Pagination<AbsenceItem> data;
+            Pagination<AbsenceData> data;
             if (!string.IsNullOrWhiteSpace(textBoxEmployee.Text))
             {
                 data = await absenceViewModel.SearchAbsencesAsync(textBoxEmployee.Text, currentPage, PAGE_SIZE);
@@ -53,14 +53,14 @@ namespace WorkSchedule.Desktop.Forms
             UpdatePaginationLabel(data);
         }
 
-        private void UpdatePaginationLabel(Pagination<AbsenceItem> data)
+        private void UpdatePaginationLabel(Pagination<AbsenceData> data)
         {
             var firstItem = ((currentPage - 1) * PAGE_SIZE) + 1;
             var lastItem = firstItem + data.Items.Count() - 1;
             labelPagination.Text = $"{firstItem} - {lastItem} Total: {totalItems}.";
         }
 
-        private void PopulateDataGrid(IEnumerable<AbsenceItem> list)
+        private void PopulateDataGrid(IEnumerable<AbsenceData> list)
         {
             dataGridAbsences.Rows.Clear();
             dataGridAbsences.Columns.Clear();

@@ -22,7 +22,7 @@ public class SettingsDbContext(DbContextOptions<SettingsDbContext> options) : Db
 
     private static void CreateTables()
     {
-        var createTablesSql = @$"
+        const string CREATE_TABLES_SQL = @$"
                 CREATE TABLE IF NOT EXISTS Settings(
                     Id TEXT PRIMARY KEY NOT NULL,
                     LastUpdate TEXT NOT NULL,
@@ -34,7 +34,7 @@ public class SettingsDbContext(DbContextOptions<SettingsDbContext> options) : Db
         using var dbConnection = new SqliteConnection(DATA_SOURCE);
         dbConnection.Open();
         using var dbCommand = dbConnection.CreateCommand();
-        dbCommand.CommandText = createTablesSql;
+        dbCommand.CommandText = CREATE_TABLES_SQL;
         dbCommand.ExecuteNonQuery();
     }
 

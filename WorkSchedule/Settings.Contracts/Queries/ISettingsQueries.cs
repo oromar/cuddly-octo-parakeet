@@ -3,5 +3,5 @@ namespace Settings.Contracts.Queries;
 
 public interface ISettingsQueries
 {
-    Task<OnNoticeScheduleSettings> GetSettingsAsync();
+    Task<SettingsData> GetSettingsAsync();
 }

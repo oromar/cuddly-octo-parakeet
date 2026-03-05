@@ -4,6 +4,8 @@ namespace Absence.Contracts.Enums;
 
 public enum AbsenceCause
 {
+    [Description("")]
+    NONE = 0,
     [Description("Férias")]
     VACATION = 1,
     [Description("Licença Médica")]

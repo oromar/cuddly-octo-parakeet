@@ -1,5 +1,6 @@
 ﻿using DotNetCore.CAP;
 using Employee.Contracts.DataTransferObjects;
+using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Exceptions;
 using Shared.Repositories;
@@ -8,41 +9,32 @@ namespace Employee.Handlers;
 
 public class EmployeeHandler(IRepository<Models.Employee> repository) : ICapSubscribe
 {
-    [CapSubscribe(nameof(CreateEmployee))]
-    public async Task Handle(CreateEmployee data)
+    [CapSubscribe(nameof(CreateEmployeeCommand))]
+    public async Task Handle(CreateEmployeeCommand command)
     {
-        var alreadyExists = repository
-            .AsQueryable()
-            .Any(a => a.EmployeeCode == data.Code);
-
+        var alreadyExists = await repository.AsQueryable().AnyAsync(a => a.Code == command.Code);
         BusinessException.When(alreadyExists, Strings.EmployeeAlreadyExists);
-        var employee = new Models.Employee(data.Name, data.Code, data.FirstSchedule);
+        var employee = new Models.Employee(command.Name, command.Code, command.FirstSchedule);
         await repository.AddAsync(employee);
-        await repository.SaveChanges();
+        await repository.SaveChangesAsync();
     }
 
-    [CapSubscribe(nameof(DeleteEmployee))]
-    public async Task Handle(DeleteEmployee data)
+    [CapSubscribe(nameof(DeleteEmployeeCommand))]
+    public async Task Handle(DeleteEmployeeCommand command)
     {
-        var employeeInDB = repository
-            .AsQueryable()
-            .FirstOrDefault(a => a.EmployeeCode == data.EmployeeCode)
-            ?? throw new BusinessException(Strings.EmployeeNotFound);
-
-        await repository.DeleteAsync(employeeInDB.Id);
-        await repository.SaveChanges();
+        var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.EmployeeCode);
+        BusinessException.When(employeeInDB == null, Strings.EmployeeNotFound);
+        await repository.DeleteAsync(employeeInDB!.Id);
+        await repository.SaveChangesAsync();
     }
 
-    [CapSubscribe(nameof(UpdateEmployee))]
-    public async Task Handle(UpdateEmployee data)
+    [CapSubscribe(nameof(UpdateEmployeeCommand))]
+    public async Task Handle(UpdateEmployeeCommand command)
     {
-        var employeeInDB = repository
-            .AsQueryable()
-            .FirstOrDefault(a => a.EmployeeCode == data.Code)
-            ?? throw new BusinessException(Strings.EmployeeNotFound);
-
-        employeeInDB.Update(data.Name, data.Code, data.NotFirstSchedule);
+        var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.Code);
+        BusinessException.When(employeeInDB == null, Strings.EmployeeNotFound);
+        employeeInDB = employeeInDB!.Update(command.Name, command.Code, command.NotFirstSchedule);
         await repository.UpdateAsync(employeeInDB);
-        await repository.SaveChanges();
+        await repository.SaveChangesAsync();
     }
 }

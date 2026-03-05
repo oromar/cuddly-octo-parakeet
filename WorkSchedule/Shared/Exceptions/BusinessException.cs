@@ -2,9 +2,9 @@
 
 public class BusinessException(string message) : Exception(message)
 {
-    public static void When(bool condition, string message = "")
+    public static void When(bool condition, string? message = null)
     {
         if (condition)
-            throw new BusinessException(string.IsNullOrEmpty(message) ? Strings.ErrorTitle : message);
+            throw new BusinessException(message ?? Strings.ErrorTitle);
     }
 }

@@ -15,19 +15,18 @@ public class EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : Db
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         CreateTables();
-
         modelBuilder.Entity<Models.Employee>().ToTable("Employees");
     }
 
     private static void CreateTables()
     {
-        var createTablesSql = @$"
+        const string CREATE_TABLES_SQL = @$"
                 CREATE TABLE IF NOT EXISTS Employees(
                     Id TEXT PRIMARY KEY NOT NULL,
                     LastUpdate TEXT NOT NULL,
-                    EmployeeCode TEXT NOT NULL,
+                    Code TEXT NOT NULL,
                     Name TEXT NOT NULL,
-                    FirstSchedule TEXT NOT NULL DEFAULT 0,
+                    IsPriority TEXT NOT NULL DEFAULT 0,
                     SearchText TEXT NULL
                 );
             ";
@@ -35,9 +34,7 @@ public class EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : Db
         using var dbConnection = new SqliteConnection(DATA_SOURCE);
         dbConnection.Open();
         using var dbCommand = dbConnection.CreateCommand();
-        dbCommand.CommandText = createTablesSql;
+        dbCommand.CommandText = CREATE_TABLES_SQL;
         dbCommand.ExecuteNonQuery();
     }
-
-
 }
