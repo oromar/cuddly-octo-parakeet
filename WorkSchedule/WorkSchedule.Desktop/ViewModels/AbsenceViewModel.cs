@@ -30,6 +30,7 @@ public class AbsenceViewModel(ICapPublisher capBus, IAbsenceQueries queryService
         {
             return Enum.GetValues(typeof(AbsenceCause))
                 .Cast<AbsenceCause>()
+                .Where(a => a != AbsenceCause.NONE)
                 .Select(a => a.GetDescription());
         });
     }

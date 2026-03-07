@@ -7,4 +7,11 @@ public class DomainException(string message) : Exception(message)
         if (condition)
             throw new DomainException(message ?? Strings.ErrorTitle);
     }
+
+    public static void WhenAny(Dictionary<Func<bool>, string> conditions)
+    {
+        foreach (var (condition, message) in conditions)
+            if (condition?.Invoke() == true)
+                throw new DomainException(message ?? Strings.ErrorTitle);
+    }
 }

@@ -9,8 +9,12 @@ public class EmployeeCodeValidator : IValidator<string>
     public const int CODE_LENGTH = 10;
     public void Validate(string value)
     {
-        DomainException.When(string.IsNullOrWhiteSpace(value), Strings.RequiredEmployeeCode);
-        DomainException.When(value.Any(char.IsLetter), Strings.OnlyNumbersEmployeeCode);
-        DomainException.When(value.Length != CODE_LENGTH, string.Format(Strings.LengthEmployeeCode, CODE_LENGTH));
+        Dictionary<Func<bool>, string> conditions = new()
+        {
+            { () => string.IsNullOrWhiteSpace(value), Strings.RequiredEmployeeCode },
+            { () => value.Any(char.IsLetter), Strings.OnlyNumbersEmployeeCode },
+            { () => value.Length != CODE_LENGTH, string.Format(Strings.LengthEmployeeCode, CODE_LENGTH) },
+        };
+        DomainException.WhenAny(conditions);
     }
 }

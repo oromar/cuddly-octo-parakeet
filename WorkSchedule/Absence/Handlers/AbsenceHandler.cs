@@ -1,5 +1,4 @@
 ﻿using Absence.Contracts.DataTransferObjects;
-using Absence.Contracts.Queries;
 using DotNetCore.CAP;
 using Employee.Contracts.Queries;
 using Microsoft.EntityFrameworkCore;

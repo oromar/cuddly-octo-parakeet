@@ -24,8 +24,13 @@ public class ScheduleHandler
     public async Task<ScheduleData> Handle(GenerateScheduleCommand request)
     {
         _settings = await settingsQueries.GetSettingsAsync();
-        bool settingsNotConfigured = _settings == null || _settings.DaysToCheckCount == 0 || _settings.EmployeeDayCount == 0;
-        BusinessException.When(settingsNotConfigured, Strings.SettingsNotConfiguredMessage);
+        Dictionary<Func<bool>, string> conditions = new()
+        {
+            { () => _settings == null,  Strings.SettingsNotConfiguredMessage},
+            { () => _settings.DaysToCheckCount == 0, Strings.SettingsNotConfiguredMessage },
+            { () => _settings.EmployeeDayCount == 0, Strings.SettingsNotConfiguredMessage },
+        };
+        BusinessException.WhenAny(conditions);
 
         ScheduleData schedule = new(request.Start, request.End);
 

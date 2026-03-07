@@ -9,7 +9,11 @@ public class EmployeeNameValidator : IValidator<string>
     public const int MIN_NAME_LENGTH = 6;
     public void Validate(string value)
     {
-        DomainException.When(string.IsNullOrWhiteSpace(value), Strings.RequiredEmployeeName);
-        DomainException.When(value.Length < MIN_NAME_LENGTH, string.Format(Strings.MinLengthEmployeeName, MIN_NAME_LENGTH));
+        Dictionary<Func<bool>, string> conditions = new()
+        {
+            { () => string.IsNullOrWhiteSpace(value), Strings.RequiredEmployeeName },
+            { () => value.Length < MIN_NAME_LENGTH, string.Format(Strings.MinLengthEmployeeName, MIN_NAME_LENGTH) },
+        };
+        DomainException.WhenAny(conditions);
     }
 }
