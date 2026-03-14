@@ -30,12 +30,12 @@ public class ScheduleHandler
             { () => _settings.DaysToCheckCount == 0, Strings.SettingsNotConfiguredMessage },
             { () => _settings.EmployeeDayCount == 0, Strings.SettingsNotConfiguredMessage },
         };
-        BusinessException.WhenAny(conditions);
+        BusinessException.ThrowIfAny(conditions);
 
         ScheduleData schedule = new(request.Start, request.End);
 
         var dates = GetScheduleDates(request);
-        BusinessException.When(dates.Count == 0, Strings.NoDateInterval);
+        BusinessException.ThrowIf(dates.Count == 0, Strings.NoDateInterval);
 
         var allEmployees = await employeeQueries.ListAllAsync();
         var firstEmployees = await employeeQueries.ListFirstScheduleEmployeesAsync();

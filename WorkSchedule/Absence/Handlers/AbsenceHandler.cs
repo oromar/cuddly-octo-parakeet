@@ -22,7 +22,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
         periodValidator.Validate(start, end);
 
         var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
-        BusinessException.When(employeeInDB == null, Strings.EmployeeNotFound);
+        BusinessException.ThrowIf(employeeInDB == null, Strings.EmployeeNotFound);
         
         var exists = await repository
             .AsQueryable()
@@ -31,7 +31,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
             .Where(a => a.Cause == command.Cause)
             .AnyAsync(a => a.EmployeeId == employeeInDB!.Id);
 
-        BusinessException.When(exists, Strings.AbsenceAlreadyExists);
+        BusinessException.ThrowIf(exists, Strings.AbsenceAlreadyExists);
 
         var newAbsence = new Entities.Absence(command.Start, command.End, command.Cause, employeeInDB!.Id);
         await repository.AddAsync(newAbsence);
@@ -46,7 +46,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
         periodValidator.Validate(start, end);
 
         var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
-        BusinessException.When(employeeInDB == null, Strings.EmployeeNotFound);
+        BusinessException.ThrowIf(employeeInDB == null, Strings.EmployeeNotFound);
 
         var absenceInDB = await repository
             .AsQueryable()
@@ -54,7 +54,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
             .Where(a => a.End == end)
             .Where(a => a.Cause == command.Cause)
             .FirstOrDefaultAsync(a => a.EmployeeId == employeeInDB!.Id);
-        BusinessException.When(absenceInDB == null, Strings.AbsenceNotFound);
+        BusinessException.ThrowIf(absenceInDB == null, Strings.AbsenceNotFound);
 
         await repository.DeleteAsync(absenceInDB!.Id);
         await repository.SaveChangesAsync();
