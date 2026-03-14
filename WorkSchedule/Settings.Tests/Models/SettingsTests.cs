@@ -34,7 +34,7 @@ public class SettingsTests
             Strings.InvalidEmployeeIntervalMessage
             ];
 
-        Settings.Models.Settings? settings = null;
+        Entities.Settings? settings = null;
         var exception = Assert.Throws<DomainException>(() => settings = new(employeesCount, daysToCheck));
         Assert.Null(settings);
         Assert.Contains(exception.Message, possibleMessages);

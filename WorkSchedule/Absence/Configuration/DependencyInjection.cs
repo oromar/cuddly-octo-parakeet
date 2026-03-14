@@ -18,7 +18,7 @@ public static class DependencyInjection
             });
 
         serviceCollection.AddTransient<AbsenceHandler>();
-        serviceCollection.AddScoped<IRepository<Models.Absence>, AbsenceRepository>();
+        serviceCollection.AddScoped<IRepository<Entities.Absence>, AbsenceRepository>();
         serviceCollection.AddScoped<IAbsenceQueries, AbsenceQueries>();
     }
 }

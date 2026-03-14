@@ -7,7 +7,7 @@ using Shared.Repositories;
 
 namespace Employee.Queries;
 
-public class EmployeeQueries(IRepository<Models.Employee> repository) : IEmployeeQueries
+public class EmployeeQueries(IRepository<Entities.Employee> repository) : IEmployeeQueries
 {
     public async Task<EmployeeData?> GetEmployeeByCodeAsync(string code)
     {

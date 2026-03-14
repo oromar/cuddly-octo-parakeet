@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Shared.Common;
 using Shared.DataTransferObjects;
 using Shared.Repositories;
-using System.Linq.Expressions;
 
 namespace Absence.Queries;
 
-
-public class AbsenceQueries(IRepository<Models.Absence> repository, IEmployeeQueries employeeQueries) : IAbsenceQueries
+public class AbsenceQueries(IRepository<Entities.Absence> repository, IEmployeeQueries employeeQueries) : IAbsenceQueries
 {
     public async Task<bool> EmployeeBlockedAsync(string employeeId, DateTime dateTime)
     {

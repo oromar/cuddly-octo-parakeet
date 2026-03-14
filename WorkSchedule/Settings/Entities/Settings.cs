@@ -1,8 +1,8 @@
 ﻿using Settings.Validators;
+using Shared.Entities;
 using Shared.Exceptions;
-using Shared.Models;
 
-namespace Settings.Models;
+namespace Settings.Entities;
 
 public class Settings : BaseEntity
 {

@@ -16,7 +16,7 @@ public class AbsenceDbContext(DbContextOptions<AbsenceDbContext> options) : DbCo
     {
         CreateTables();
 
-        modelBuilder.Entity<Models.Absence>().ToTable("Absences");
+        modelBuilder.Entity<Entities.Absence>().ToTable("Absences");
     }
 
     private static void CreateTables()

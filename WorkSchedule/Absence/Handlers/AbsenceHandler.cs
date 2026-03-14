@@ -10,7 +10,7 @@ using Shared.Validators;
 
 namespace Absence.Handlers;
 
-public class AbsenceHandler(IRepository<Models.Absence> repository, IEmployeeQueries employeeQueries) : ICapSubscribe
+public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQueries employeeQueries) : ICapSubscribe
 {
     private readonly PeriodValidator periodValidator = new();
 
@@ -33,7 +33,7 @@ public class AbsenceHandler(IRepository<Models.Absence> repository, IEmployeeQue
 
         BusinessException.When(exists, Strings.AbsenceAlreadyExists);
 
-        var newAbsence = new Models.Absence(command.Start, command.End, command.Cause, employeeInDB!.Id);
+        var newAbsence = new Entities.Absence(command.Start, command.End, command.Cause, employeeInDB!.Id);
         await repository.AddAsync(newAbsence);
         await repository.SaveChangesAsync();
     }

@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Entities;
 using System.Linq.Expressions;
 
 namespace Shared.Repositories;

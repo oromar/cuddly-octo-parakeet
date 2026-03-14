@@ -15,7 +15,7 @@ public class EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : Db
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         CreateTables();
-        modelBuilder.Entity<Models.Employee>().ToTable("Employees");
+        modelBuilder.Entity<Entities.Employee>().ToTable("Employees");
     }
 
     private static void CreateTables()

@@ -1,8 +1,8 @@
 ﻿using Employee.Validators;
 using Shared.Common;
-using Shared.Models;
+using Shared.Entities;
 
-namespace Employee.Models;
+namespace Employee.Entities;
 
 public class Employee : BaseEntity, ITextSearcheable
 {

@@ -7,7 +7,11 @@ public class GuidValidator : IValidator<string?>
 {
     public void Validate(string? value)
     {
-        DomainException.When(value == default, Strings.RequiredGuid);
-        DomainException.When(!Guid.TryParse(value, out Guid _) || value == Guid.Empty.ToString(), Strings.InvalidGuid);
+        Dictionary<Func<bool>, string> scenarios = new()
+        {
+            { () => value == default, Strings.RequiredGuid },
+            { () => !Guid.TryParse(value, out Guid _) || value == Guid.Empty.ToString(), Strings.InvalidGuid },
+        };
+        DomainException.WhenAny(scenarios);
     }
 }

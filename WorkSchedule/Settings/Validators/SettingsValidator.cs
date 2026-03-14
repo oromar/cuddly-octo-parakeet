@@ -4,12 +4,12 @@ using Shared.Services.Interfaces;
 
 namespace Settings.Validators;
 
-public class SettingsValidator : IValidator<Models.Settings>
+public class SettingsValidator : IValidator<Entities.Settings>
 {
     private readonly EmployeePerDayValidator employeePerDayValidator = new();
     private readonly DayOverloadValidator dayOverloadValidator = new();
 
-    public void Validate(Models.Settings? entity)
+    public void Validate(Entities.Settings? entity)
     {
         DomainException.When(entity == null, Strings.SettingsNotConfiguredMessage);
         employeePerDayValidator.Validate(entity!.EmployeesPerDateInOnSchedule);

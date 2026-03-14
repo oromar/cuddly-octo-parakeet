@@ -19,7 +19,7 @@ public static class DependencyInjection
             });
 
         serviceCollection.AddTransient<SettingsHandler>();
-        serviceCollection.AddScoped<IRepository<Models.Settings>, SettingsRepository>();
+        serviceCollection.AddScoped<IRepository<Entities.Settings>, SettingsRepository>();
         serviceCollection.AddScoped<ISettingsQueries, SettingsQueries>();
     }
 }

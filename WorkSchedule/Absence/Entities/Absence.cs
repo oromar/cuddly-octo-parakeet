@@ -1,9 +1,9 @@
 ﻿using Absence.Contracts.Enums;
 using Absence.Validators;
 using Shared.Common;
-using Shared.Models;
+using Shared.Entities;
 
-namespace Absence.Models;
+namespace Absence.Entities;
 
 public class Absence: BaseEntity
 {

@@ -19,7 +19,7 @@ public static class DependencyInjection
             });
 
         serviceCollection.AddTransient<EmployeeHandler>();
-        serviceCollection.AddScoped<IRepository<Models.Employee>, EmployeeRepository>();
+        serviceCollection.AddScoped<IRepository<Entities.Employee>, EmployeeRepository>();
         serviceCollection.AddScoped<IEmployeeQueries, EmployeeQueries>();
     }
 }

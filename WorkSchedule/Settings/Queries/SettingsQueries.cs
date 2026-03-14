@@ -5,7 +5,7 @@ using Shared.Repositories;
 
 namespace Settings.Queries;
 
-public class SettingsQueries(IRepository<Models.Settings> repository) : ISettingsQueries
+public class SettingsQueries(IRepository<Entities.Settings> repository) : ISettingsQueries
 {
     public async Task<SettingsData> GetSettingsAsync()
     {

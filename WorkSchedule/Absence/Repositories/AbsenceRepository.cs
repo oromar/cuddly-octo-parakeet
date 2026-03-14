@@ -3,6 +3,4 @@ using Shared.Repositories;
 
 namespace Absence.Repositories;
 
-public class AbsenceRepository(AbsenceDbContext context) : BaseRepository<Models.Absence>(context)
-{
-}
+public class AbsenceRepository(AbsenceDbContext context) : BaseRepository<Entities.Absence>(context) { }

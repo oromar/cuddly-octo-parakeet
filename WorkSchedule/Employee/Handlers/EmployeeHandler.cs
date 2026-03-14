@@ -7,14 +7,14 @@ using Shared.Repositories;
 
 namespace Employee.Handlers;
 
-public class EmployeeHandler(IRepository<Models.Employee> repository) : ICapSubscribe
+public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSubscribe
 {
     [CapSubscribe(nameof(CreateEmployeeCommand))]
     public async Task Handle(CreateEmployeeCommand command)
     {
         var alreadyExists = await repository.AsQueryable().AnyAsync(a => a.Code == command.Code);
         BusinessException.When(alreadyExists, Strings.EmployeeAlreadyExists);
-        var employee = new Models.Employee(command.Name, command.Code, command.FirstSchedule);
+        var employee = new Entities.Employee(command.Name, command.Code, command.FirstSchedule);
         await repository.AddAsync(employee);
         await repository.SaveChangesAsync();
     }

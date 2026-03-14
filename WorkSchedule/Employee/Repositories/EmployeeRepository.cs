@@ -3,6 +3,4 @@ using Shared.Repositories;
 
 namespace Employee.Repositories;
 
-public class EmployeeRepository(EmployeeDbContext context) : BaseRepository<Models.Employee>(context)
-{
-}
+public class EmployeeRepository(EmployeeDbContext context) : BaseRepository<Entities.Employee>(context) { }

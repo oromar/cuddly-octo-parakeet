@@ -9,7 +9,7 @@ namespace WorkSchedule.Desktop.ViewModels
         public async Task SaveSettings(int daysToCheck, int employeesDay)
         {
             await capBus.PublishAsync(
-                nameof(SaveSettings),
+                nameof(SaveSettingsCommand),
                 new SaveSettingsCommand(employeesDay, daysToCheck));
         }
 

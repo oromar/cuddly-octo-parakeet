@@ -3,6 +3,4 @@ using Shared.Repositories;
 
 namespace Settings.Repositories;
 
-public class SettingsRepository(SettingsDbContext context) : BaseRepository<Models.Settings>(context)
-{
-}
+public class SettingsRepository(SettingsDbContext context) : BaseRepository<Entities.Settings>(context) { }

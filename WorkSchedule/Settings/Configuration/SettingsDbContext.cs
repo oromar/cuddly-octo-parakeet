@@ -17,7 +17,7 @@ public class SettingsDbContext(DbContextOptions<SettingsDbContext> options) : Db
     {
         CreateTables();
 
-        modelBuilder.Entity<Models.Settings>().ToTable("Settings");
+        modelBuilder.Entity<Entities.Settings>().ToTable("Settings");
     }
 
     private static void CreateTables()
@@ -26,8 +26,8 @@ public class SettingsDbContext(DbContextOptions<SettingsDbContext> options) : Db
                 CREATE TABLE IF NOT EXISTS Settings(
                     Id TEXT PRIMARY KEY NOT NULL,
                     LastUpdate TEXT NOT NULL,
-                    EmployeesPerDateInOnNoticeSchedule INTEGER NOT NULL DEFAULT 0,
-                    DaysToCheckOnNoticeSchedule INTEGER NOT NULL DEFAULT 0
+                    EmployeesPerDateInOnSchedule INTEGER NOT NULL DEFAULT 0,
+                    DaysToCheckOnSchedule INTEGER NOT NULL DEFAULT 0
                 );
             ";
 

@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Update.Internal;
-using Shared.Common;
+﻿using Shared.Common;
 
-namespace Shared.Models;
+namespace Shared.Entities;
 public abstract class BaseEntity
 {
     public string Id { get; set; }
