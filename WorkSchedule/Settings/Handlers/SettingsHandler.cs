@@ -8,13 +8,13 @@ namespace Settings.Handlers;
 public class SettingsHandler(IRepository<Entities.Settings> repository) : ICapSubscribe
 {
     [CapSubscribe(nameof(SaveSettingsCommand))]
-    public async Task Handle(SaveSettingsCommand request)
+    public async Task Handle(SaveSettingsCommand command)
     {
         var dataInDB = await repository.AsQueryable().SingleOrDefaultAsync();
         if (dataInDB != null)
-            await repository.UpdateAsync(dataInDB.Update(request.EmployeesDay, request.DaysToCheck));
+            await repository.UpdateAsync(dataInDB.Update(command));
         else
-            await repository.AddAsync(new Entities.Settings(request.EmployeesDay, request.DaysToCheck));
+            await repository.AddAsync(new Entities.Settings(command));
         await repository.SaveChangesAsync();
     }
 }

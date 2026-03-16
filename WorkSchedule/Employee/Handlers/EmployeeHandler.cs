@@ -14,7 +14,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     {
         var alreadyExists = await repository.AsQueryable().AnyAsync(a => a.Code == command.Code);
         BusinessException.ThrowIf(alreadyExists, Strings.EmployeeAlreadyExists);
-        var employee = new Entities.Employee(command.Name, command.Code, command.FirstSchedule);
+        var employee = new Entities.Employee(command);
         await repository.AddAsync(employee);
         await repository.SaveChangesAsync();
     }
@@ -33,7 +33,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     {
         var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.Code);
         BusinessException.ThrowIf(employeeInDB == null, Strings.EmployeeNotFound);
-        employeeInDB = employeeInDB!.Update(command.Name, command.Code, command.NotFirstSchedule);
+        employeeInDB = employeeInDB!.Update(command);
         await repository.UpdateAsync(employeeInDB);
         await repository.SaveChangesAsync();
     }

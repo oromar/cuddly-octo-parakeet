@@ -1,4 +1,5 @@
-﻿using Absence.Contracts.Enums;
+﻿using Absence.Contracts.DataTransferObjects;
+using Absence.Contracts.Enums;
 using Absence.Validators;
 using Shared.Common;
 using Shared.Entities;
@@ -18,11 +19,11 @@ public class Absence: BaseEntity
         //EF
     }
 
-    public Absence(DateTime start, DateTime end, AbsenceCause cause, string employeeId)
+    public Absence(CreateAbsenceCommand command, string employeeId)
     {
-        Start = start.ToSchedule();
-        End = end.ToSchedule();
-        Cause = cause;
+        Start = command.Start.ToSchedule();
+        End = command.End.ToSchedule();
+        Cause = command.Cause;
         EmployeeId = employeeId;
         validator.Validate(this);
     }

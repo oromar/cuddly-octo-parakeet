@@ -6,6 +6,7 @@ using Settings.Contracts.DataTransferObjects;
 using Settings.Contracts.Queries;
 using Shared;
 using Shared.Exceptions;
+using Shared.Validators;
 using WorkSchedule.Contracts.DataTransferObjects;
 
 namespace WorkSchedule.Handler;
@@ -18,10 +19,11 @@ public class ScheduleHandler
 ) : ICapSubscribe
 {
     private SettingsData? _settings;
+    private readonly PeriodValidator _periodValidator = new();
     private static readonly List<DayOfWeek> s_weekendDays = [DayOfWeek.Saturday, DayOfWeek.Sunday];
 
     [CapSubscribe(nameof(GenerateScheduleCommand))]
-    public async Task<ScheduleData> Handle(GenerateScheduleCommand request)
+    public async Task<ScheduleData> Handle(GenerateScheduleCommand command)
     {
         _settings = await settingsQueries.GetSettingsAsync();
         Dictionary<Func<bool>, string> conditions = new()
@@ -32,9 +34,10 @@ public class ScheduleHandler
         };
         BusinessException.ThrowIfAny(conditions);
 
-        ScheduleData schedule = new(request.Start, request.End);
+        ScheduleData schedule = new(command.Start, command.End);
+        _periodValidator.Validate(command.Start, command.End);
 
-        var dates = GetScheduleDates(request);
+        var dates = GetScheduleDates(command);
         BusinessException.ThrowIf(dates.Count == 0, Strings.NoDateInterval);
 
         var allEmployees = await employeeQueries.ListAllAsync();
@@ -55,12 +58,12 @@ public class ScheduleHandler
         return schedule;
     }
 
-    private static List<DateTime> GetScheduleDates(GenerateScheduleCommand request)
+    private static List<DateTime> GetScheduleDates(GenerateScheduleCommand command)
     {
         var dates = new List<DateTime>();
-        for (var currentDate = request.Start.Date; currentDate <= request.End.Date; currentDate = currentDate.AddDays(1))
+        for (var currentDate = command.Start.Date; currentDate <= command.End.Date; currentDate = currentDate.AddDays(1))
         {
-            if (!request.IncludeWeekends && s_weekendDays.Contains(currentDate.DayOfWeek))
+            if (!command.IncludeWeekends && s_weekendDays.Contains(currentDate.DayOfWeek))
                 continue;
 
             dates.Add(currentDate);

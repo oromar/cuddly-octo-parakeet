@@ -1,4 +1,5 @@
-﻿using Employee.Validators;
+﻿using Employee.Contracts.DataTransferObjects;
+using Employee.Validators;
 using Shared.Common;
 using Shared.Entities;
 
@@ -18,19 +19,19 @@ public class Employee : BaseEntity, ITextSearcheable
         //EF 
     }
 
-    public Employee(string name, string code, bool isPriority)
+    public Employee(CreateEmployeeCommand command)
     {
-        Code = code;
-        Name = name.ToUpper();
-        IsPriority = isPriority;
+        Code = command.Code;
+        Name = command.Name.ToUpper();
+        IsPriority = command.IsPriority;
         validator.Validate(this);
     }
 
-    public Employee Update(string name, string code, bool isPriority)
+    public Employee Update(UpdateEmployeeCommand command)
     {
-        Code = code;
-        Name = name.ToUpper();
-        IsPriority = isPriority;
+        Code = command.Code;
+        Name = command.Name.ToUpper();
+        IsPriority = !command.NotFirstSchedule;
         ChangeLastUpdate();
         validator.Validate(this);
         return this;

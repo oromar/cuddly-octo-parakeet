@@ -33,7 +33,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
 
         BusinessException.ThrowIf(exists, Strings.AbsenceAlreadyExists);
 
-        var newAbsence = new Entities.Absence(command.Start, command.End, command.Cause, employeeInDB!.Id);
+        var newAbsence = new Entities.Absence(command, employeeInDB!.Id);
         await repository.AddAsync(newAbsence);
         await repository.SaveChangesAsync();
     }

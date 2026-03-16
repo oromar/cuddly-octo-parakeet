@@ -1,2 +1,2 @@
 ﻿namespace Employee.Contracts.DataTransferObjects;
-public record CreateEmployeeCommand(string Name, string Code, bool FirstSchedule);
+public record CreateEmployeeCommand(string Name, string Code, bool IsPriority);

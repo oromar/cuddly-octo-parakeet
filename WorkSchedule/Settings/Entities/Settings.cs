@@ -1,4 +1,5 @@
-﻿using Settings.Validators;
+﻿using Settings.Contracts.DataTransferObjects;
+using Settings.Validators;
 using Shared.Entities;
 using Shared.Exceptions;
 
@@ -15,17 +16,17 @@ public class Settings : BaseEntity
         //EF
     }
 
-    public Settings(int employeesCount, int daysToCheck)
+    public Settings(SaveSettingsCommand command)
     {
-        EmployeesPerDateInOnSchedule = employeesCount;
-        DaysToCheckOnSchedule = daysToCheck;
+        EmployeesPerDateInOnSchedule = command.EmployeesDay;
+        DaysToCheckOnSchedule = command.DaysToCheck;
         validator.Validate(this);
     }
 
-    public Settings Update(int  employeesCount, int daysToCheck)
+    public Settings Update(SaveSettingsCommand command)
     {
-        EmployeesPerDateInOnSchedule = employeesCount;
-        DaysToCheckOnSchedule = daysToCheck;
+        EmployeesPerDateInOnSchedule = command.EmployeesDay;
+        DaysToCheckOnSchedule = command.DaysToCheck;
         ChangeLastUpdate();
         validator.Validate(this);
         return this;
