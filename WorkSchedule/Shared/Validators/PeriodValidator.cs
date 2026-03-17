@@ -9,9 +9,9 @@ public class PeriodValidator : IValidator<string, string>, IValidator<DateTime, 
 {
     public void Validate(string? start, string? end)
     {
-        DomainException.ThrowIf(!DateTime.TryParse(start, CultureInfo.InvariantCulture, out DateTime startDate) || startDate == default, Strings.RequiredStartDate);
-        DomainException.ThrowIf(!DateTime.TryParse(end, CultureInfo.InvariantCulture, out DateTime endDate) || endDate == default, Strings.RequiredEndDate);
-        DomainException.ThrowIf(startDate > endDate, Strings.StartDateCannotBeAfterEndDate);
+        ExceptionHelper.ThrowIf<DomainException>(!DateTime.TryParse(start, CultureInfo.InvariantCulture, out DateTime startDate) || startDate == default, Strings.RequiredStartDate);
+        ExceptionHelper.ThrowIf<DomainException>(!DateTime.TryParse(end, CultureInfo.InvariantCulture, out DateTime endDate) || endDate == default, Strings.RequiredEndDate);
+        ExceptionHelper.ThrowIf<DomainException>(startDate > endDate, Strings.StartDateCannotBeAfterEndDate);
     }
 
     public void Validate(DateTime startDate, DateTime endDate)

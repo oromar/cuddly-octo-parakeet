@@ -14,6 +14,6 @@ public class EmployeeNameValidator : IValidator<string>
             { () => string.IsNullOrWhiteSpace(value), Strings.RequiredEmployeeName },
             { () => value.Length < MIN_NAME_LENGTH, string.Format(Strings.MinLengthEmployeeName, MIN_NAME_LENGTH) },
         };
-        DomainException.ThrowIfAny(scenarios);
+        ExceptionHelper.ThrowIfAny<DomainException>(scenarios);
     }
 }

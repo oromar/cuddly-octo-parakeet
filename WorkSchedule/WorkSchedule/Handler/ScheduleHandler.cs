@@ -32,13 +32,13 @@ public class ScheduleHandler
             { () => _settings.DaysToCheckCount == 0, Strings.SettingsNotConfiguredMessage },
             { () => _settings.EmployeeDayCount == 0, Strings.SettingsNotConfiguredMessage },
         };
-        BusinessException.ThrowIfAny(conditions);
+        ExceptionHelper.ThrowIfAny<BusinessException>(conditions);
 
         ScheduleData schedule = new(command.Start, command.End);
         _periodValidator.Validate(command.Start, command.End);
 
         var dates = GetScheduleDates(command);
-        BusinessException.ThrowIf(dates.Count == 0, Strings.NoDateInterval);
+        ExceptionHelper.ThrowIf<BusinessException>(dates.Count == 0, Strings.NoDateInterval);
 
         var allEmployees = await employeeQueries.ListAllAsync();
         var firstEmployees = await employeeQueries.ListFirstScheduleEmployeesAsync();

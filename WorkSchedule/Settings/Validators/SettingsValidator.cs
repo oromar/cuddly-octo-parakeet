@@ -11,7 +11,7 @@ public class SettingsValidator : IValidator<Entities.Settings>
 
     public void Validate(Entities.Settings? entity)
     {
-        DomainException.ThrowIf(entity == null, Strings.SettingsNotConfiguredMessage);
+        ExceptionHelper.ThrowIf<DomainException>(entity == null, Strings.SettingsNotConfiguredMessage);
         employeePerDayValidator.Validate(entity!.EmployeesPerDateInOnSchedule);
         dayOverloadValidator.Validate(entity!.DaysToCheckOnSchedule);
     }
