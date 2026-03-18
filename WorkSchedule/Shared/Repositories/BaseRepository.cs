@@ -31,15 +31,6 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
             .AsQueryable();
     }
 
-    public async Task DeleteAsync(string id)
-    {
-        var entity = await GetAsync(id);
-        if (entity != null)
-        {
-            context.Remove(entity);
-        }
-    }
-
     public async Task<T?> GetAsync(string id)
     {
         return await context.Set<T>()
