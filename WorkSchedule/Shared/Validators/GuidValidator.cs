@@ -12,6 +12,6 @@ public class GuidValidator : IValidator<string?>
             { () => value == default, Strings.RequiredGuid },
             { () => !Guid.TryParse(value, out Guid _) || value == Guid.Empty.ToString(), Strings.InvalidGuid },
         };
-        ExceptionHelper.ThrowIfAny<DomainException>(scenarios);
+        Exceptions.Exceptions.ThrowIfAny<DomainException>(scenarios);
     }
 }

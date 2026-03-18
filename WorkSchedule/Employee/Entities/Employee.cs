@@ -19,7 +19,7 @@ public class Employee : BaseEntity, ITextSearcheable
         //EF 
     }
 
-    public Employee(CreateEmployeeCommand command)
+    public Employee(CreateEmployeeCommand command) : base()
     {
         Code = command.Code;
         Name = command.Name.ToUpper();
@@ -29,10 +29,10 @@ public class Employee : BaseEntity, ITextSearcheable
 
     public Employee Update(UpdateEmployeeCommand command)
     {
+        Update();
         Code = command.Code;
         Name = command.Name.ToUpper();
         IsPriority = !command.NotFirstSchedule;
-        ChangeLastUpdate();
         validator.Validate(this);
         return this;
     }

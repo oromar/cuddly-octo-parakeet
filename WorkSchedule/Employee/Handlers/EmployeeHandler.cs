@@ -13,7 +13,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     public async Task Handle(CreateEmployeeCommand command)
     {
         var alreadyExists = await repository.AsQueryable().AnyAsync(a => a.Code == command.Code);
-        ExceptionHelper.ThrowIf<BusinessException>(alreadyExists, Strings.EmployeeAlreadyExists);
+        Exceptions.ThrowIf<BusinessException>(alreadyExists, Strings.EmployeeAlreadyExists);
         var employee = new Entities.Employee(command);
         await repository.AddAsync(employee);
         await repository.SaveChangesAsync();
@@ -23,8 +23,9 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     public async Task Handle(DeleteEmployeeCommand command)
     {
         var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.EmployeeCode);
-        ExceptionHelper.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
-        await repository.DeleteAsync(employeeInDB!.Id);
+        Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
+        employeeInDB!.Delete();
+        await repository.UpdateAsync(employeeInDB);
         await repository.SaveChangesAsync();
     }
 
@@ -32,7 +33,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     public async Task Handle(UpdateEmployeeCommand command)
     {
         var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.Code);
-        ExceptionHelper.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
+        Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
         employeeInDB = employeeInDB!.Update(command);
         await repository.UpdateAsync(employeeInDB);
         await repository.SaveChangesAsync();

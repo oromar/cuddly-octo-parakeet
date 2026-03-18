@@ -11,7 +11,7 @@ public class EmployeeValidator : IValidator<Entities.Employee>
 
     public void Validate(Entities.Employee entity)
     {
-        ExceptionHelper.ThrowIf<DomainException>(entity == null, Strings.RequiredEmployee);
+        Exceptions.ThrowIf<DomainException>(entity == null, Strings.RequiredEmployee);
         employeeCodeValidator.Validate(entity!.Code);
         employeeNameValidator.Validate(entity!.Name);
     }

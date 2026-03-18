@@ -18,12 +18,17 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
 
     public IEnumerable<T> AsEnumerable(Expression<Func<T, bool>> predicate)
     {
-        return context.Set<T>().Where(predicate).AsEnumerable();
+        return context.Set<T>()
+            .Where(x => !x.Deleted)
+            .Where(predicate)
+            .AsEnumerable();
     }
 
     public IQueryable<T> AsQueryable()
     {
-        return context.Set<T>().AsQueryable();
+        return context.Set<T>()
+            .Where(x => !x.Deleted)
+            .AsQueryable();
     }
 
     public async Task DeleteAsync(string id)
@@ -37,7 +42,9 @@ public class BaseRepository<T>(DbContext context) : IRepository<T> where T : Bas
 
     public async Task<T?> GetAsync(string id)
     {
-        return await context.Set<T>().FirstOrDefaultAsync(a => a.Id == id);
+        return await context.Set<T>()
+            .Where(x => !x.Deleted)
+            .FirstOrDefaultAsync(a => a.Id == id);
     }
 
     public async Task SaveChangesAsync()

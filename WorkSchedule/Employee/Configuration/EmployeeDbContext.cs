@@ -26,6 +26,7 @@ public class EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : Db
                     LastUpdate TEXT NOT NULL,
                     Code TEXT NOT NULL,
                     Name TEXT NOT NULL,
+                    Deleted TEXT NOT NULL DEFAULT 0,
                     IsPriority TEXT NOT NULL DEFAULT 0,
                     SearchText TEXT NULL
                 );

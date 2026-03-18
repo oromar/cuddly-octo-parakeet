@@ -16,7 +16,7 @@ public class Settings : BaseEntity
         //EF
     }
 
-    public Settings(SaveSettingsCommand command)
+    public Settings(SaveSettingsCommand command) : base()
     {
         EmployeesPerDateInOnSchedule = command.EmployeesDay;
         DaysToCheckOnSchedule = command.DaysToCheck;
@@ -25,9 +25,9 @@ public class Settings : BaseEntity
 
     public Settings Update(SaveSettingsCommand command)
     {
+        Update();
         EmployeesPerDateInOnSchedule = command.EmployeesDay;
         DaysToCheckOnSchedule = command.DaysToCheck;
-        ChangeLastUpdate();
         validator.Validate(this);
         return this;
     }

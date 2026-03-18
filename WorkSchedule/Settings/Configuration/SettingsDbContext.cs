@@ -27,7 +27,8 @@ public class SettingsDbContext(DbContextOptions<SettingsDbContext> options) : Db
                     Id TEXT PRIMARY KEY NOT NULL,
                     LastUpdate TEXT NOT NULL,
                     EmployeesPerDateInOnSchedule INTEGER NOT NULL DEFAULT 0,
-                    DaysToCheckOnSchedule INTEGER NOT NULL DEFAULT 0
+                    DaysToCheckOnSchedule INTEGER NOT NULL DEFAULT 0,
+                    Deleted TEXT NOT NULL DEFAULT 0
                 );
             ";
 

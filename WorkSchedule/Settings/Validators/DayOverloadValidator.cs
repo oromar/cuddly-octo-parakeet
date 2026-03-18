@@ -8,6 +8,6 @@ public class DayOverloadValidator : IValidator<int>
 {
     public void Validate(int value)
     {
-        ExceptionHelper.ThrowIf<DomainException>(value <= 0, Strings.InvalidEmployeeIntervalMessage);
+        Exceptions.ThrowIf<DomainException>(value <= 0, Strings.InvalidEmployeeIntervalMessage);
     }
 }

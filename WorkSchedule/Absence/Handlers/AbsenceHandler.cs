@@ -22,7 +22,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
         periodValidator.Validate(start, end);
 
         var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
-        ExceptionHelper.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
+        Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
         
         var exists = await repository
             .AsQueryable()
@@ -31,7 +31,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
             .Where(a => a.Cause == command.Cause)
             .AnyAsync(a => a.EmployeeId == employeeInDB!.Id);
 
-        ExceptionHelper.ThrowIf<BusinessException>(exists, Strings.AbsenceAlreadyExists);
+        Exceptions.ThrowIf<BusinessException>(exists, Strings.AbsenceAlreadyExists);
 
         var newAbsence = new Entities.Absence(command, employeeInDB!.Id);
         await repository.AddAsync(newAbsence);
@@ -46,7 +46,7 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
         periodValidator.Validate(start, end);
 
         var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
-        ExceptionHelper.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
+        Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
 
         var absenceInDB = await repository
             .AsQueryable()
@@ -54,9 +54,10 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
             .Where(a => a.End == end)
             .Where(a => a.Cause == command.Cause)
             .FirstOrDefaultAsync(a => a.EmployeeId == employeeInDB!.Id);
-        ExceptionHelper.ThrowIf<BusinessException>(absenceInDB == null, Strings.AbsenceNotFound);
-
-        await repository.DeleteAsync(absenceInDB!.Id);
+        Exceptions.ThrowIf<BusinessException>(absenceInDB == null, Strings.AbsenceNotFound);
+        
+        absenceInDB!.Delete();
+        await repository.UpdateAsync(absenceInDB);  
         await repository.SaveChangesAsync();
     }
 }

@@ -8,6 +8,6 @@ public class EmployeePerDayValidator : IValidator<int>
 {
     public void Validate(int value)
     {
-        ExceptionHelper.ThrowIf<DomainException>(value <= 0, Strings.InvalidEmployeeCountMessage);
+        Exceptions.ThrowIf<DomainException>(value <= 0, Strings.InvalidEmployeeCountMessage);
     }
 }

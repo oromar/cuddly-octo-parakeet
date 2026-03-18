@@ -1,11 +1,11 @@
 ﻿namespace Shared.Exceptions;
 
-public static class ExceptionHelper
+public static class Exceptions
 {
     public static void ThrowIf<T>(bool condition, string? message = null) where T : Exception
     {
         if (condition)
-            throw (T)Activator.CreateInstance(typeof(T), message)!;
+            throw (T)Activator.CreateInstance(typeof(T), message ?? Strings.ErrorTitle)!;
     }
 
     public static void ThrowIfAny<T>(Dictionary<Func<bool>, string> scenarios) where T : Exception

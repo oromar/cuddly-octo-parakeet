@@ -15,6 +15,6 @@ public class EmployeeCodeValidator : IValidator<string>
             { () => value.Any(char.IsLetter), Strings.OnlyNumbersEmployeeCode },
             { () => value.Length != CODE_LENGTH, string.Format(Strings.LengthEmployeeCode, CODE_LENGTH) },
         };
-        ExceptionHelper.ThrowIfAny<DomainException>(scenarios);
+        Exceptions.ThrowIfAny<DomainException>(scenarios);
     }
 }

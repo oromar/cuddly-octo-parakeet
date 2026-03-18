@@ -6,7 +6,7 @@ using Shared.Entities;
 
 namespace Absence.Entities;
 
-public class Absence: BaseEntity
+public class Absence : BaseEntity
 {
     private static readonly AbsenceValidator validator = new();
     public string Start { get; private set; } = string.Empty;
@@ -19,7 +19,7 @@ public class Absence: BaseEntity
         //EF
     }
 
-    public Absence(CreateAbsenceCommand command, string employeeId)
+    public Absence(CreateAbsenceCommand command, string employeeId) : base()
     {
         Start = command.Start.ToSchedule();
         End = command.End.ToSchedule();

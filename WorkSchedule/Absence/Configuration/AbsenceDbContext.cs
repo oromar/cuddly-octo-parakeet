@@ -15,7 +15,6 @@ public class AbsenceDbContext(DbContextOptions<AbsenceDbContext> options) : DbCo
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         CreateTables();
-
         modelBuilder.Entity<Entities.Absence>().ToTable("Absences");
     }
 
@@ -28,6 +27,7 @@ public class AbsenceDbContext(DbContextOptions<AbsenceDbContext> options) : DbCo
                     Start TEXT NOT NULL,
                     End   TEXT NOT NULL,
                     Cause INTEGER NOT NULL,
+                    Deleted TEXT NOT NULL DEFAULT 0,
                     EmployeeId TEXT NOT NULL
                 );
             ";
