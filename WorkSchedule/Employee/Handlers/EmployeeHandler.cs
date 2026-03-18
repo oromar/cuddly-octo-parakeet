@@ -1,6 +1,5 @@
 ﻿using DotNetCore.CAP;
 using Employee.Contracts.DataTransferObjects;
-using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Exceptions;
 using Shared.Repositories;
@@ -12,7 +11,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     [CapSubscribe(nameof(CreateEmployeeCommand))]
     public async Task Handle(CreateEmployeeCommand command)
     {
-        var alreadyExists = await repository.AsQueryable().AnyAsync(a => a.Code == command.Code);
+        var alreadyExists = repository.AsQueryable().Any(a => a.Code == command.Code);
         Exceptions.ThrowIf<BusinessException>(alreadyExists, Strings.EmployeeAlreadyExists);
         var employee = new Entities.Employee(command);
         await repository.AddAsync(employee);
@@ -22,7 +21,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     [CapSubscribe(nameof(DeleteEmployeeCommand))]
     public async Task Handle(DeleteEmployeeCommand command)
     {
-        var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.EmployeeCode);
+        var employeeInDB = repository.AsQueryable().FirstOrDefault(a => a.Code == command.EmployeeCode);
         Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
         employeeInDB!.Delete();
         await repository.UpdateAsync(employeeInDB);
@@ -32,7 +31,7 @@ public class EmployeeHandler(IRepository<Entities.Employee> repository) : ICapSu
     [CapSubscribe(nameof(UpdateEmployeeCommand))]
     public async Task Handle(UpdateEmployeeCommand command)
     {
-        var employeeInDB = await repository.AsQueryable().FirstOrDefaultAsync(a => a.Code == command.Code);
+        var employeeInDB = repository.AsQueryable().FirstOrDefault(a => a.Code == command.Code);
         Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
         employeeInDB = employeeInDB!.Update(command);
         await repository.UpdateAsync(employeeInDB);

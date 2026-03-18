@@ -26,13 +26,13 @@ public class ScheduleHandler
     public async Task<ScheduleData> Handle(GenerateScheduleCommand command)
     {
         _settings = await settingsQueries.GetSettingsAsync();
-        Dictionary<Func<bool>, string> conditions = new()
+        Dictionary<Func<bool>, string> scenarios = new()
         {
             { () => _settings == null,  Strings.SettingsNotConfiguredMessage},
             { () => _settings.DaysToCheckCount == 0, Strings.SettingsNotConfiguredMessage },
             { () => _settings.EmployeeDayCount == 0, Strings.SettingsNotConfiguredMessage },
         };
-        Exceptions.ThrowIfAny<BusinessException>(conditions);
+        Exceptions.ThrowIfAny<BusinessException>(scenarios);
 
         ScheduleData schedule = new(command.Start, command.End);
         _periodValidator.Validate(command.Start, command.End);

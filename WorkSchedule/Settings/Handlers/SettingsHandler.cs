@@ -1,5 +1,4 @@
 ﻿using DotNetCore.CAP;
-using Microsoft.EntityFrameworkCore;
 using Settings.Contracts.DataTransferObjects;
 using Shared.Repositories;
 
@@ -10,7 +9,7 @@ public class SettingsHandler(IRepository<Entities.Settings> repository) : ICapSu
     [CapSubscribe(nameof(SaveSettingsCommand))]
     public async Task Handle(SaveSettingsCommand command)
     {
-        var dataInDB = await repository.AsQueryable().SingleOrDefaultAsync();
+        var dataInDB = repository.AsQueryable().SingleOrDefault();
         if (dataInDB != null)
             await repository.UpdateAsync(dataInDB.Update(command));
         else

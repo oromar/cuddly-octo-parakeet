@@ -1,7 +1,6 @@
 ﻿using Absence.Contracts.DataTransferObjects;
 using DotNetCore.CAP;
 using Employee.Contracts.Queries;
-using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Common;
 using Shared.Exceptions;
@@ -24,12 +23,12 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
         var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
         Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
         
-        var exists = await repository
+        var exists = repository
             .AsQueryable()
             .Where(a => a.Start == start)
             .Where(a => a.End == end)
             .Where(a => a.Cause == command.Cause)
-            .AnyAsync(a => a.EmployeeId == employeeInDB!.Id);
+            .Any(a => a.EmployeeId == employeeInDB!.Id);
 
         Exceptions.ThrowIf<BusinessException>(exists, Strings.AbsenceAlreadyExists);
 
@@ -48,12 +47,12 @@ public class AbsenceHandler(IRepository<Entities.Absence> repository, IEmployeeQ
         var employeeInDB = await employeeQueries.GetEmployeeByCodeAsync(command.EmployeeCode);
         Exceptions.ThrowIf<BusinessException>(employeeInDB == null, Strings.EmployeeNotFound);
 
-        var absenceInDB = await repository
+        var absenceInDB = repository
             .AsQueryable()
             .Where(a => a.Start == start)
             .Where(a => a.End == end)
             .Where(a => a.Cause == command.Cause)
-            .FirstOrDefaultAsync(a => a.EmployeeId == employeeInDB!.Id);
+            .FirstOrDefault(a => a.EmployeeId == employeeInDB!.Id);
         Exceptions.ThrowIf<BusinessException>(absenceInDB == null, Strings.AbsenceNotFound);
         
         absenceInDB!.Delete();
